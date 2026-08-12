@@ -98,10 +98,7 @@ Baseline and optimized runs use the **same device and workload**, so the result 
 
 ## Demo video
 
-Edge Lab walkthrough on device — pick whichever player you prefer:
-
-- **[YouTube Short](https://youtube.com/shorts/oTjXKXVU9uo)** — public Devpost-friendly copy  
-- **[OneDrive](https://1drv.ms/v/c/a6e600124ed58265/IQBUCYZsUx9NRqeHDfu7wqReAX8g8ULShqJiiKOHG-2q_Kc)** — same demo, alternate host
+**[Demo video (YouTube Short)](https://youtube.com/shorts/qKibqM_RY0E)** — Edge Lab walkthrough on device.
 
 Please be patient while a live benchmark runs (~**20–55 seconds** on-device depending on model and temperature). Stage bars update during the run.
 

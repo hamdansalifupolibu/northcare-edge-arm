@@ -1,7 +1,8 @@
 # NorthCare Edge — media pack (judges)
 
-**Video (OneDrive, anyone with the link can view):**  
-https://1drv.ms/v/c/a6e600124ed58265/IQBUCYZsUx9NRqeHDfu7wqReAX8g8ULShqJiiKOHG-2q_Kc  
+**Video (YouTube Short):**  
+https://youtube.com/shorts/qKibqM_RY0E  
+
 
 **Note for viewers:** When a live benchmark is running, please be patient — Whisper + Qwen on-device can take ~20–55 seconds depending on model and device temperature. The UI shows stage progress; results appear when the run completes.
 
