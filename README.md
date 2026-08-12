@@ -36,9 +36,9 @@ This repository is the competition release: **freeze → measure → reject fail
 ### Optimization target
 
 ```text
-Whisper ggml-base.en.bin (~148 MB)
+Whisper ggml-base.en.bin  (147,964,211 bytes ≈ 148 MB)
         ↓  accepted after quality gate
-Whisper ggml-tiny.en.bin (~77 MB)
+Whisper ggml-tiny.en.bin  (77,704,715 bytes ≈ 77.7 MB)
 
 Why on Arm mobile:
 • lower memory footprint
@@ -51,39 +51,46 @@ Why on Arm mobile:
 
 ## Measured results (Samsung Galaxy S20 Ultra)
 
+All timings from Edge Lab wall-clock stages on the same device and synthetic fixture.  
+**Whisper transcription** = one `transcribe()` call that includes native M4A decode + Whisper infer (not separable in JS today).
+
 | Metric | Baseline | NorthCare Edge | Result |
 |---|---:|---:|---:|
-| Whisper decode + inference | 42.4 s | **19.6 s** | **53.8% faster** |
-| End-to-end AI pipeline | 54.0 s | **26.5 s** | **50.9% faster** |
-| Whisper model size | ~148 MB (`base.en`) | **~77 MB** (`tiny.en`) | **47.5% smaller** |
+| Whisper transcription (decode + inference) | 42,367 ms (42.4 s) | **19,564 ms (19.6 s)** | **53.8% faster** |
+| End-to-end AI pipeline | 53,962 ms (54.0 s) | **26,508 ms (26.5 s)** | **50.9% faster** |
+| Whisper model size | 147,964,211 B (~148 MB) | **77,704,715 B (~77.7 MB)** | **47.5% smaller** |
 | Synthetic fixture quality | 100/100 | **100/100** | **No observed regression** |
 
-**Quality fixture:** 100/100 means the run matched the fixed synthetic benchmark phrases and required extraction keys (`symptomSummary`, `urgencyLevel`). This is a **regression fixture**, not a clinical accuracy study or medical validation.
+Size reduction uses exact byte sizes: `(147964211 − 77704715) / 147964211 = 47.5%`.  
+Latency deltas use exact ms from raw JSON (not rounded intermediates).
 
-Evidence runs: `edge_msp5nrdb_2sfe` (baseline) · `edge_msp6cf7n_d5qs` (accepted) · `edge_mspazssb_br9p` (tiny.en quality verify).  
-Raw JSON: [`benchmarks/raw/`](benchmarks/raw/) · Full trail: [`docs/arm/BASELINE_TO_DONE_TRAIL.md`](docs/arm/BASELINE_TO_DONE_TRAIL.md)
+**Quality fixture:** 100/100 means the run matched the fixed synthetic benchmark phrases (`2 years`, `diarrhea`, `yesterday`, `feeding`) and required extraction keys (`symptomSummary`, `urgencyLevel`). Method: `fixture_combined_v1` in [`docs/arm/QUALITY_GATE.md`](docs/arm/QUALITY_GATE.md). This is a **regression fixture**, not a clinical accuracy study.
+
+Evidence runs: `edge_msp5nrdb_2sfe` (baseline) · `edge_msp6cf7n_d5qs` (accepted) · `edge_mspazssb_br9p` (tiny.en quality verify, phrases 4/4 + keys 2/2).  
+Raw JSON: [`benchmarks/raw/`](benchmarks/raw/) · Trail: [`docs/arm/BASELINE_TO_DONE_TRAIL.md`](docs/arm/BASELINE_TO_DONE_TRAIL.md)
 
 ### Why Whisper was the target (baseline profile)
 
-Same device, same synthetic fixture. Decode is bundled inside Whisper transcribe in the current JS timing split.
+Same device, same synthetic fixture (`edge_msp5nrdb_2sfe`). Shares are **of end-to-end total (53,962 ms)** so rows sum to 100%.
 
-| Stage | Baseline | Share of measured stages |
+| Stage | Baseline | Share of end-to-end |
 |---|---:|---:|
-| Whisper load | 4.5 s | 8.8% |
-| **Whisper inference (decode+infer)** | **42.4 s** | **~82.8%** |
-| Qwen load | 2.5 s | 4.8% |
-| Qwen inference | 1.8 s | 3.5% |
-| **End-to-end total** | **54.0 s** | |
+| Whisper load | 4,492 ms (4.5 s) | 8.3% |
+| **Whisper transcription (decode + inference)** | **42,367 ms (42.4 s)** | **78.5%** |
+| Qwen load | 2,480 ms (2.5 s) | 4.6% |
+| Qwen inference | 1,802 ms (1.8 s) | 3.3% |
+| Other / harness overhead | 2,821 ms (2.8 s) | 5.2% |
+| **End-to-end total** | **53,962 ms (54.0 s)** | **100%** |
 
-Profiling chose the optimization — Tiny was not a random model swap.
+Profiling chose the optimization — Tiny was not a random model swap. Whisper transcription alone was **78.5%** of end-to-end wall time (and **82.8%** of the four timed AI stages excluding overhead).
 
 ---
 
 ## Why this matters on Arm
 
-Mobile AI is constrained by compute, memory, thermal behaviour, and battery. NorthCare Edge treats **model size** and **inference latency** as first-class deployment constraints — not only output quality.
+Mobile AI is constrained by compute, memory, thermal behaviour, and battery. NorthCare Edge treats **model size** and **transcription latency** as first-class deployment constraints — not only output quality.
 
-On the Galaxy S20 Ultra (`arm64-v8a`, CPU backend), the accepted change cut the speech model from ~148 MB to ~77 MB and cut Whisper decode+inference from **42.4 s → 19.6 s**, while the synthetic fixture score stayed **100/100**.
+On the Galaxy S20 Ultra (`arm64-v8a`, CPU backend), the accepted change cut the speech artifact from **147,964,211 → 77,704,715 bytes** and cut Whisper transcription from **42.4 s → 19.6 s**, while the synthetic fixture score stayed **100/100**.
 
 Baseline and optimized runs use the **same device and workload**, so the result is a real deployment change — not a theoretical model comparison on a desktop GPU.
 
@@ -106,7 +113,7 @@ In the app: **More → Edge Lab** (development / diagnostics build).
 | Published win on device | Before → After |
 |:---:|:---:|
 | ![Results — live optimized run](benchmarks/reports/edge-lab/01-results-live-optimized.jpg) | ![Compare — published evidence](benchmarks/reports/edge-lab/04-compare-published-before-after.jpg) |
-| −53.8% speech · live bars · fixture 100/100 | base.en → tiny.en shipped · quality held |
+| −53.8% Whisper transcription · live bars · fixture 100/100 | base.en → tiny.en shipped · quality held |
 
 | Honest experiments | Engineering story |
 |:---:|:---:|
@@ -121,16 +128,17 @@ Guide: [`docs/arm/MEDIA_PACK.md`](docs/arm/MEDIA_PACK.md)
 ## How we optimized
 
 ```text
-Freeze baseline → Measure S20 Ultra → Find bottleneck (Whisper ~83%)
+Freeze baseline → Measure S20 Ultra
+→ Find bottleneck (Whisper transcription = 78.5% of end-to-end)
 → One-variable experiments → Quality gate → Ship tiny.en
 ```
 
 | Experiment | Change | Verdict |
 |---|---|---|
-| EXP-01 | Whisper threads 4→6 | **REJECTED** (~72% slower) |
-| EXP-02 | Empty prompt | **REJECTED** (<5% gate) |
-| EXP-03 | `speedUp: true` | **REJECTED** (<5% gate) |
-| EXP-06 | `ggml-tiny.en.bin` | **ACCEPTED + SHIPPED** (−53.8% Whisper) |
+| EXP-01 | Whisper threads 4→6 | **REJECTED** (~72% slower transcription) |
+| EXP-02 | Empty prompt | **REJECTED** (<5% gate on transcription) |
+| EXP-03 | `speedUp: true` | **REJECTED** (<5% gate on transcription) |
+| EXP-06 | `ggml-tiny.en.bin` | **ACCEPTED + SHIPPED** (−53.8% transcription) |
 
 More threads was **not** assumed better on this Arm phone — EXP-01 proved oversubscription can hurt. Details: [`docs/arm/EXPERIMENT_LOG.md`](docs/arm/EXPERIMENT_LOG.md) · [`docs/arm/PROMOTION_EXP06.md`](docs/arm/PROMOTION_EXP06.md) · [`docs/arm/QUALITY_GATE.md`](docs/arm/QUALITY_GATE.md)
 
@@ -138,7 +146,7 @@ More threads was **not** assumed better on this Arm phone — EXP-01 proved over
 
 | Model | Status | Reason |
 |---|---|---|
-| **Qwen 2.5 0.5B Instruct Q4_K_M** | **Retained (baseline)** | Not the dominant bottleneck (~3.5% of measured stage time) |
+| **Qwen 2.5 0.5B Instruct Q4_K_M** | **Retained (baseline)** | Only **3.3%** of end-to-end baseline time (1,802 / 53,962 ms) |
 | Optimization decision | No unnecessary change | Changing Qwen would not address the Whisper-bound Voice-to-Care path |
 
 Qwen remains fully on-device. Optimization does not mean changing every model.
