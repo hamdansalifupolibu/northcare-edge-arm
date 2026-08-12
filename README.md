@@ -167,6 +167,12 @@ Edge Lab times AI stages without clinical SQLite apply. Production Voice-to-Care
 
 These screens show that the optimization sits inside a real offline care workflow — not a toy bench.
 
+Browse the full still packs on GitHub (open any image full-size):
+
+- **[Product screenshots](https://github.com/hamdansalifupolibu/northcare-edge-arm/tree/main/benchmarks/reports/product)** — Voice-to-Care, offline QR, Ask NorthCare, worker home  
+- **[Edge Lab screenshots](https://github.com/hamdansalifupolibu/northcare-edge-arm/tree/main/benchmarks/reports/edge-lab)** — Results · Compare · Experiments · Story  
+- Index: [`screenshots/README.md`](screenshots/README.md)
+
 | Voice-to-Care (worker confirms) | Offline referral QR passport |
 |:---:|:---:|
 | ![Voice-to-Care confirm](benchmarks/reports/product/11-voice-to-care-confirm.jpg) | ![Offline QR](benchmarks/reports/product/12-offline-referral-qr.jpg) |
