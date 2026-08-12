@@ -110,6 +110,8 @@ temporary/
 NorthCare Edge screenshots/
 # UNICEF hackathon-only application writeup (not Arm public face)
 application.md
+# Personal team update notes (not for public Arm repo)
+Update_for_my_team_on_what_I_implemented.md
 .cache/huggingface/
 .tmp/offline-ai/
 
