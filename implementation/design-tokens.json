@@ -1,0 +1,104 @@
+{
+  "manifest_version": 2,
+  "status": "stage_3_aligned",
+  "updated_at": "2026-08-02",
+  "authoritative_runtime": "apps/mobile/src/theme/",
+  "stitch_source": "03_DESIGN_TOKENS.json (Stitch screen) + STITCH_DESIGN_OVERVIEW",
+  "notes": [
+    "TypeScript theme modules are the authoritative runtime source for the mobile app.",
+    "This JSON manifest must stay aligned with apps/mobile/src/theme/* — verify via theme.tokens.test.ts.",
+    "Canonical logo remains PNG until SVG visual approval.",
+    "Plus Jakarta Sans loaded via @expo-google-fonts/plus-jakarta-sans; Android sans-serif fallback documented."
+  ],
+  "color": {
+    "primary": "#0F766E",
+    "primaryDark": "#115E59",
+    "primaryDarker": "#064E49",
+    "accent": "#F59E0B",
+    "accentLight": "#FEF3C7",
+    "background": "#F7FAF9",
+    "surface": "#FFFFFF",
+    "textPrimary": "#17211F",
+    "textSecondary": "#52615E",
+    "textInverse": "#FFFFFF",
+    "border": "#DDE7E4",
+    "mutedSurface": "#EEF5F3",
+    "danger": "#B42318",
+    "dangerBackground": "#FEE4E2",
+    "warning": "#B54708",
+    "warningBackground": "#FEF0C7",
+    "success": "#067647",
+    "successBackground": "#D1FADF",
+    "info": "#1570EF",
+    "disabled": "#98A9A5",
+    "disabledBackground": "#E8EFED"
+  },
+  "semantic": {
+    "background.primary": "#F7FAF9",
+    "background.secondary": "#EEF5F3",
+    "surface.primary": "#FFFFFF",
+    "surface.muted": "#EEF5F3",
+    "text.primary": "#17211F",
+    "text.secondary": "#52615E",
+    "text.inverse": "#FFFFFF",
+    "border.default": "#DDE7E4",
+    "action.primary": "#0F766E",
+    "action.primaryPressed": "#115E59",
+    "status.urgent": "#B42318",
+    "status.warning": "#B54708",
+    "status.stable": "#067647",
+    "status.info": "#1570EF"
+  },
+  "typography": {
+    "family": "Plus Jakarta Sans",
+    "fallback": "sans-serif",
+    "sizes": {
+      "displayLarge": 32,
+      "headingLarge": 26,
+      "headingMedium": 22,
+      "headingSmall": 20,
+      "title": 18,
+      "bodyLarge": 16,
+      "body": 14,
+      "caption": 13,
+      "label": 12
+    }
+  },
+  "spacing": {
+    "none": 0,
+    "xxs": 2,
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "base": 16,
+    "lg": 24,
+    "xl": 32,
+    "2xl": 40,
+    "3xl": 48,
+    "4xl": 64,
+    "5xl": 80
+  },
+  "layout": {
+    "screenHorizontalPadding": 16,
+    "cardPadding": 20,
+    "minTouchTarget": 48,
+    "sectionSpacing": 24,
+    "bottomNavigationClearance": 72
+  },
+  "radius": {
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "pill": 999,
+    "card": 16,
+    "input": 12,
+    "button": 12
+  },
+  "motion": {
+    "instant": 0,
+    "fast": 120,
+    "standard": 200,
+    "emphasised": 280,
+    "slow": 400
+  }
+}

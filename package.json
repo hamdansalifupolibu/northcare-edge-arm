@@ -1,0 +1,25 @@
+{
+  "name": "northcare-ai-project",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NorthCare AI monorepo tooling and documentation root",
+  "scripts": {
+    "stitch:connect": "node connect-stitch.mjs",
+    "stitch:mcp": "node scripts/stitch-mcp-stdio.mjs",
+    "stitch:download": "node download-stitch.mjs",
+    "mobile:start": "npm --prefix apps/mobile start",
+    "mobile:start:clear": "npm --prefix apps/mobile run start:clear",
+    "mobile:android": "npm --prefix apps/mobile run android",
+    "mobile:typecheck": "npm --prefix apps/mobile run typecheck",
+    "mobile:lint": "npm --prefix apps/mobile run lint",
+    "mobile:test": "npm --prefix apps/mobile test",
+    "mobile:doctor": "npm --prefix apps/mobile run doctor"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@google/stitch-sdk": "^0.3.5",
+    "dotenv": "^17.4.2"
+  }
+}

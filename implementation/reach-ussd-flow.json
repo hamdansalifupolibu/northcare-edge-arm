@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-04",
+  "track": "northcare-reach",
+  "r3Implementation": {
+    "status": "implemented",
+    "staticPath": "services/api/static/reach-simulator/",
+    "route": "/reach-simulator",
+    "gate": "NORTHCARE_REACH_DEMO_ENABLED"
+  },
+  "alembicRevision": "0006",
+  "t1Implementation": {
+    "status": "implemented",
+    "route": "POST /v1/reach/ussd/africas-talking/{callbackSecret}",
+    "channel": "ussdAfricasTalkingSandbox",
+    "gate": ["NORTHCARE_REACH_AT_USSD_ENABLED", "NORTHCARE_REACH_DEMO_ENABLED"]
+  },
+  "simulatorLabel": [
+    "NorthCare Reach USSD simulation",
+    "Live telecom integration pending"
+  ],
+  "implementedLanguage": "en",
+  "mainMenu": {
+    "title": "NORTHCARE REACH",
+    "options": [
+      { "key": "0", "label": "Emergency help now", "flow": "emergency" },
+      { "key": "1", "label": "Pregnancy and newborn care", "flow": "pregnancyNewborn" },
+      { "key": "2", "label": "Child health", "flow": "childHealth" },
+      { "key": "3", "label": "Nutrition", "flow": "nutrition" },
+      { "key": "4", "label": "Request a CHPS worker", "flow": "requestChps" },
+      { "key": "5", "label": "Check a request or follow-up", "flow": "checkStatus" },
+      { "key": "6", "label": "Language", "flow": "language" },
+      { "key": "7", "label": "Ask NorthCare", "flow": "askNorthCare" }
+    ]
+  },
+  "navigationConventions": {
+    "emergencyShortcut": "0",
+    "back": "9"
+  },
+  "flows": {
+    "emergency": {
+      "title": "EMERGENCY HELP",
+      "mandatoryBanner": "If someone is in immediate danger, call 112 now.",
+      "options": [
+        {
+          "key": "1",
+          "label": "End and call 112",
+          "createsRequest": false,
+          "behaviour": "instructEndSessionAndDial112"
+        },
+        {
+          "key": "2",
+          "label": "Send location for urgent human review",
+          "createsRequest": true,
+          "category": "emergency",
+          "requestType": "emergencyAssistance",
+          "collects": [
+            "personNeedingHelpCategory",
+            "communityOrLandmark",
+            "contactNumber",
+            "consentToShareContactAndLocation"
+          ]
+        },
+        {
+          "key": "3",
+          "label": "Request an urgent CHPS callback",
+          "createsRequest": true,
+          "category": "emergency",
+          "requestType": "urgentContact",
+          "collects": [
+            "communityOrLandmark",
+            "contactNumber",
+            "consentToContact"
+          ]
+        },
+        { "key": "9", "label": "Back", "createsRequest": false }
+      ],
+      "confirmationCopy": [
+        "Emergency coordination simulation",
+        "Request received",
+        "If someone is in immediate danger, call 112 now."
+      ],
+      "forbiddenWording": [
+        "Ambulance dispatched",
+        "Ambulance called",
+        "Emergency medically confirmed",
+        "Severe case detected",
+        "Major emergency",
+        "Moderate emergency"
+      ]
+    },
+    "pregnancyNewborn": {
+      "title": "PREGNANCY & NEWBORN CARE",
+      "informationOptions": ["1", "2", "3", "4", "5"],
+      "informationPolicy": "unapprovedDemonstrationPlaceholder",
+      "options": [
+        { "key": "1", "label": "Care during pregnancy", "createsRequest": false },
+        { "key": "2", "label": "Labour and warning signs", "createsRequest": false },
+        { "key": "3", "label": "Care after delivery", "createsRequest": false },
+        { "key": "4", "label": "Newborn care", "createsRequest": false },
+        { "key": "5", "label": "Breastfeeding", "createsRequest": false },
+        {
+          "key": "6",
+          "label": "Request a CHPS worker",
+          "createsRequest": true,
+          "category": "pregnancyNewborn",
+          "requestType": "routine"
+        },
+        { "key": "0", "label": "Emergency help", "goto": "emergency" },
+        { "key": "9", "label": "Back" }
+      ],
+      "prohibitions": [
+        "noDiagnosis",
+        "noMedication",
+        "noDosage",
+        "noFreeFormChatbot"
+      ]
+    },
+    "childHealth": {
+      "title": "CHILD HEALTH",
+      "informationPolicy": "labelledDemonstrationPlaceholder",
+      "options": [
+        { "key": "1", "label": "Fever", "createsRequest": false },
+        { "key": "2", "label": "Diarrhoea or vomiting", "createsRequest": false },
+        { "key": "3", "label": "Cough or breathing concern", "createsRequest": false },
+        { "key": "4", "label": "Poor feeding or weakness", "createsRequest": false },
+        { "key": "5", "label": "Immunisation and routine care", "createsRequest": false },
+        {
+          "key": "6",
+          "label": "Request a CHPS worker",
+          "createsRequest": true,
+          "category": "childHealth",
+          "requestType": "routine"
+        },
+        { "key": "0", "label": "Emergency help", "goto": "emergency" },
+        { "key": "9", "label": "Back" }
+      ],
+      "prohibitions": [
+        "noSymptomClassification",
+        "noMedicine",
+        "noDosage",
+        "noRiskScore"
+      ]
+    },
+    "nutrition": {
+      "title": "NUTRITION SUPPORT",
+      "informationPolicy": "demonstrationContentOnly",
+      "options": [
+        { "key": "1", "label": "Pregnant woman", "createsRequest": false },
+        { "key": "2", "label": "Breastfeeding mother", "createsRequest": false },
+        { "key": "3", "label": "Baby under 6 months", "createsRequest": false },
+        { "key": "4", "label": "Child 6 to 24 months", "createsRequest": false },
+        { "key": "5", "label": "Child 2 to 5 years", "createsRequest": false },
+        {
+          "key": "6",
+          "label": "Request nutrition support",
+          "createsRequest": true,
+          "category": "nutrition",
+          "requestType": "routine"
+        },
+        { "key": "0", "label": "Emergency help", "goto": "emergency" },
+        { "key": "9", "label": "Back" }
+      ],
+      "prohibitions": [
+        "noMalnutritionClassification",
+        "noAnthropometricStatus",
+        "noTreatmentRecommendation"
+      ]
+    },
+    "requestChps": {
+      "title": "Request a CHPS worker",
+      "steps": [
+        {
+          "step": 1,
+          "prompt": "Select reason",
+          "options": [
+            { "key": "1", "label": "Pregnancy or newborn", "category": "pregnancyNewborn" },
+            { "key": "2", "label": "Child health", "category": "childHealth" },
+            { "key": "3", "label": "Nutrition", "category": "nutrition" },
+            { "key": "4", "label": "Referral or follow-up", "category": "referralFollowUp" },
+            { "key": "5", "label": "Other health concern", "category": "generalChps" },
+            { "key": "0", "label": "Emergency help", "goto": "emergency" },
+            { "key": "9", "label": "Back" }
+          ]
+        },
+        { "step": 2, "prompt": "Enter community, town or nearest landmark" },
+        { "step": 3, "prompt": "Enter or confirm a callback phone number" },
+        {
+          "step": 4,
+          "prompt": "Consent to share contact and location with an authorised health worker"
+        },
+        {
+          "step": 5,
+          "returns": [
+            "privacySafeReferenceCode",
+            "privateSixDigitStatusPinShownOnce",
+            "genericConfirmation",
+            "reminderToUse112ForImmediateDanger"
+          ]
+        }
+      ],
+      "defaultRequestType": "routine",
+      "automaticClientCreate": false
+    },
+    "checkStatus": {
+      "inputs": ["referenceCode", "sixDigitStatusPin"],
+      "allowedPublicStates": [
+        "Request received",
+        "Waiting for review",
+        "Health worker acknowledged",
+        "Contact attempt recorded",
+        "Escalated for further support",
+        "Request handled",
+        "Request cancelled"
+      ],
+      "mustNotExpose": [
+        "category",
+        "pregnancyStatus",
+        "childHealthConcern",
+        "nutritionConcern",
+        "emergencyDescription",
+        "contactNumber",
+        "community",
+        "workerName",
+        "facility",
+        "clinicalNotes",
+        "priority",
+        "referralInformation"
+      ],
+      "requirementsForImplementation": [
+        "storePinHashOnly",
+        "rateLimiting",
+        "abuseProtection"
+      ]
+    },
+    "language": {
+      "options": [
+        { "key": "1", "label": "English", "status": "implemented" },
+        { "key": "2", "label": "Dagbanli — planned", "status": "planned" },
+        { "key": "3", "label": "Hausa — planned", "status": "planned" },
+        { "key": "4", "label": "Dagaare — planned", "status": "planned" },
+        { "key": "5", "label": "Request language assistance", "status": "assistance" },
+        { "key": "9", "label": "Back" }
+      ],
+      "fabricateTranslations": false,
+      "aiTranslationForPublicHealth": false
+    },
+    "askNorthCare": {
+      "title": "ASK NORTHCARE",
+      "engine": "approvedFaqOnly",
+      "llm": false,
+      "language": "en",
+      "honesty": [
+        "informationSupportOnly",
+        "notClinicalAdvice",
+        "notADiagnosis",
+        "emergenciesDial112"
+      ],
+      "disclaimer": "Not a diagnosis. Emergencies: call 112. For care, talk to a health worker.",
+      "menuOptions": [
+        { "key": "1", "faqKey": "what_is_reach", "label": "What is NorthCare Reach?" },
+        { "key": "2", "faqKey": "request_chps", "label": "How do I request a CHPS visit?" },
+        { "key": "3", "faqKey": "status_pin", "label": "How does my status PIN work?" },
+        { "key": "4", "faqKey": "hours", "label": "CHPS or clinic hours" },
+        { "key": "5", "faqKey": "emergency_112", "label": "Emergency - call 112" },
+        {
+          "key": "6",
+          "label": "Request worker follow-up",
+          "createsRequest": true,
+          "category": "generalChps",
+          "requestType": "routine",
+          "note": "Uses existing create flow after location/phone/consent — never auto-created from a question alone"
+        },
+        { "key": "0", "label": "Emergency help", "goto": "emergency" },
+        { "key": "9", "label": "Back" }
+      ],
+      "freeText": {
+        "enabled": true,
+        "matcher": "approvedKeywordFaqOnly",
+        "onNoMatch": "offerWorkerFollowUpOrEmergencyOrBack",
+        "doesNot": [
+          "diagnose",
+          "prescribe",
+          "dosage",
+          "createClient",
+          "createReferral",
+          "callLlm",
+          "inventDagbanli"
+        ]
+      },
+      "sourcePack": "services/api/src/northcare_api/reach/ussd_at/ask_faq.py",
+      "prohibitions": [
+        "noDiagnosis",
+        "noMedication",
+        "noDosage",
+        "noGenerativeClinicalChat",
+        "noOnDeviceQwenDependency",
+        "noAutoClientOrReferralFromQuestion"
+      ]
+    }
+  },
+  "forbiddenClaims": [
+    "liveShortcodeExists",
+    "telecomGatewayConnected",
+    "smsActive",
+    "realNetworkBilling",
+    "realAmbulanceContacted",
+    "realChpsFacilityReceivedRequest",
+    "ussdAskNorthCareIsGenerativeClinicalAi"
+  ]
+}

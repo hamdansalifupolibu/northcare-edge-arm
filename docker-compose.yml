@@ -1,0 +1,47 @@
+# NorthCare AI — local development stack (Stage 14)
+# Services: API + PostgreSQL only. No Redis/Celery/Kafka.
+#
+# Usage (requires Docker Desktop or compatible engine):
+#   docker compose up --build
+#   docker compose exec api python scripts/seed_dev.py
+#
+# Default API: http://localhost:8000
+# Health: GET /health/live  GET /health/ready
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: northcare-postgres
+    environment:
+      POSTGRES_USER: northcare
+      POSTGRES_PASSWORD: northcare_dev_only
+      POSTGRES_DB: northcare
+    ports:
+      - "5432:5432"
+    volumes:
+      - northcare_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U northcare -d northcare"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: ./services/api
+      dockerfile: Dockerfile
+    container_name: northcare-api
+    environment:
+      NORTHCARE_ENV: development
+      DATABASE_URL: postgresql+asyncpg://northcare:northcare_dev_only@postgres:5432/northcare
+      DEV_AUTH_SECRET: dev-only-change-me-not-for-production
+      CURSOR_SIGNING_SECRET: dev-cursor-signing-secret-change-me
+      SYNC_PROTOCOL_VERSION: "1"
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  northcare_pg_data:

@@ -1,0 +1,12 @@
+NorthCare Edge
+Copyright (c) 2026 Hamdan Salifu Polibu
+
+This product includes third-party components. Their licences remain unchanged:
+
+- Whisper GGML models / whisper.cpp ecosystem — MIT (ggerganov / OpenAI Whisper lineage as distributed)
+- Qwen 2.5 Instruct GGUF weights — Apache-2.0 (Alibaba Qwen), see model card / manifest
+- whisper.rn / llama.rn — see their package licences
+- Ghana map SVG assets (if present) — CC BY-SA 4.0 derivative; see docs/licenses/
+
+Model weight files (*.gguf, large *.bin) are not redistributed in this repository.
+Download / provision them on-device per docs/arm/DEVICE_RUNBOOK.md.

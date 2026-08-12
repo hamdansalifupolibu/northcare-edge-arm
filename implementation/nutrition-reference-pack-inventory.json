@@ -1,0 +1,29 @@
+{
+  "inventory_id": "nutrition-reference-pack-inventory",
+  "stage": 12,
+  "last_updated": "2026-08-02",
+  "approved_for_pilot_count": 0,
+  "approved_for_development_count": 1,
+  "engine_version": 1,
+  "production_gate": "APPROVED_FOR_PILOT_ONLY",
+  "reference_packs": [
+    {
+      "reference_pack_id": "synthetic-dev-nutrition-reference-v1",
+      "version": 1,
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "development_only": true,
+      "clinical": false,
+      "clinical_review_status": "notReviewed",
+      "clinical_source_ref": null,
+      "engine_compatibility_version": 1,
+      "interpretation_codes": ["developmentCategoryA", "developmentCategoryB"],
+      "forbidden_clinical_labels": ["normal", "wasted", "stunted", "malnourished"],
+      "source_path": "apps/mobile/src/features/nutrition/content/references/syntheticDevNutritionReferencePack.ts"
+    }
+  ],
+  "notes": [
+    "Zero APPROVED_FOR_PILOT reference packs. Production reference evaluation unavailable.",
+    "Synthetic codes only — never clinical malnutrition classification.",
+    "No WHO growth standard implementation in Stage 12."
+  ]
+}

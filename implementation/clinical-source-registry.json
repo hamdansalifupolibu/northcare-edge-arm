@@ -1,0 +1,102 @@
+﻿{
+    "version":  3,
+    "updated":  "2026-08-02",
+    "stage":  13,
+    "sources":  [
+                    {
+                        "source_id":  "synthetic-dev-workflow",
+                        "title":  "Synthetic development workflow template",
+                        "authority":  null,
+                        "document_name":  null,
+                        "document_version":  null,
+                        "review_status":  "NOT_CLINICAL",
+                        "notes":  "Development/test wording only. Not Ghana Health Service clinical guidance. Do not invent source details.",
+                        "linked_template_ids":  [
+                                                    "synthetic-dev-workflow-v1"
+                                                ]
+                    },
+                    {
+                        "source_id":  "synthetic-dev-priority",
+                        "title":  "Synthetic development priority rule pack",
+                        "authority":  null,
+                        "document_name":  null,
+                        "document_version":  null,
+                        "review_status":  "NOT_CLINICAL",
+                        "notes":  "Development/test priority rules only. Not Ghana Health Service clinical guidance. Do not invent source details.",
+                        "linked_template_ids":  [
+                                                    "synthetic-dev-workflow-v1"
+                                                ],
+                        "linked_rule_pack_ids":  [
+                                                     "synthetic-dev-priority-v1"
+                                                 ]
+                    },
+                    {
+                        "source_id":  "synthetic-dev-nutrition-child",
+                        "title":  "Synthetic development child nutrition assessment template",
+                        "authority":  null,
+                        "document_name":  null,
+                        "document_version":  null,
+                        "review_status":  "NOT_CLINICAL",
+                        "notes":  "Development/test nutrition capture only. Not Ghana Health Service clinical guidance.",
+                        "linked_template_ids":  [
+                                                    "synthetic-dev-child-nutrition-v1"
+                                                ]
+                    },
+                    {
+                        "source_id":  "synthetic-dev-nutrition-maternal",
+                        "title":  "Synthetic development maternal nutrition assessment template",
+                        "authority":  null,
+                        "document_name":  null,
+                        "document_version":  null,
+                        "review_status":  "NOT_CLINICAL",
+                        "notes":  "Development/test maternal nutrition capture only. Not clinical guidance.",
+                        "linked_template_ids":  [
+                                                    "synthetic-dev-maternal-nutrition-v1"
+                                                ]
+                    },
+                    {
+                        "source_id":  "synthetic-dev-nutrition-reference",
+                        "title":  "Synthetic development nutrition reference pack",
+                        "authority":  null,
+                        "document_name":  null,
+                        "document_version":  null,
+                        "review_status":  "NOT_CLINICAL",
+                        "notes":  "developmentCategoryA/B codes only. No growth standards or clinical classification.",
+                        "linked_reference_pack_ids":  [
+                                                          "synthetic-dev-nutrition-reference-v1"
+                                                      ]
+                    },
+                    {
+                        "source_id":  "synthetic-dev-nutrition-guidance",
+                        "title":  "Synthetic development nutrition guidance pack",
+                        "authority":  null,
+                        "document_name":  null,
+                        "document_version":  null,
+                        "review_status":  "NOT_CLINICAL",
+                        "notes":  "Synthetic caregiver-facing cards for workflow testing only.",
+                        "linked_guidance_pack_ids":  [
+                                                         "synthetic-dev-nutrition-guidance-v1"
+                                                     ]
+                    },
+                    {
+                        "source_id":  "synthetic-dev-ask-northcare",
+                        "authority":  null,
+                        "title":  "Synthetic Development Ask NorthCare Pack Notes",
+                        "linked_knowledge_pack_ids":  [
+                                                          "synthetic-dev-ask-northcare-v1"
+                                                      ],
+                        "review_status":  "NOT_CLINICAL",
+                        "document_version":  "2026-dev",
+                        "notes":  "Synthetic development fixture only. Not WHO/UNICEF/GHS. Do not invent approval metadata.",
+                        "document_name":  null
+                    }
+                ],
+    "gaps":  [
+                 "No reviewed ANC/PNC/newborn/child clinical screening pack is registered for pilot.",
+                 "No APPROVED_FOR_PILOT danger-sign / priority rule pack exists. Production must fail closed.",
+                 "No APPROVED_FOR_PILOT nutrition assessment templates exist. Production nutrition start fails closed.",
+                 "No APPROVED_FOR_PILOT nutrition reference packs exist. Reference evaluation unavailable in production.",
+                 "No APPROVED_FOR_PILOT nutrition guidance packs exist. Guidance resolution unavailable in production.",
+                 "No reviewed clinical nutrition source documents registered for pilot promotion."
+             ]
+}

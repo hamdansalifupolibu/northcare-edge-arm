@@ -1,0 +1,28 @@
+{
+  "inventory_id": "nutrition-guidance-pack-inventory",
+  "stage": 12,
+  "last_updated": "2026-08-02",
+  "approved_for_pilot_count": 0,
+  "approved_for_development_count": 1,
+  "production_gate": "APPROVED_FOR_PILOT_ONLY",
+  "guidance_packs": [
+    {
+      "guidance_pack_id": "synthetic-dev-nutrition-guidance-v1",
+      "version": 1,
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "development_only": true,
+      "clinical": false,
+      "clinical_review_status": "notReviewed",
+      "clinical_source_ref": null,
+      "applicable_interpretation_codes": ["developmentCategoryA", "developmentCategoryB"],
+      "card_ids": ["development-guidance-card-d", "development-guidance-card-e"],
+      "translation_status": "enOnly",
+      "source_path": "apps/mobile/src/features/nutrition/content/guidance/syntheticDevNutritionGuidancePack.ts"
+    }
+  ],
+  "notes": [
+    "Zero APPROVED_FOR_PILOT guidance packs. Production guidance resolution fails closed.",
+    "Guidance does not auto-trigger Stage 9 risk or Stage 10 referral.",
+    "No Dagbanli guidance text in Stage 12."
+  ]
+}

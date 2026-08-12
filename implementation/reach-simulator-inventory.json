@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-03",
+  "track": "northcare-reach",
+  "stage": "R6",
+  "implementedThrough": "R3",
+  "demoPackagingStage": "R6",
+  "surface": "api-static-ussd-simulator",
+  "location": "services/api/static/reach-simulator/",
+  "route": "/reach-simulator",
+  "gate": "NORTHCARE_REACH_DEMO_ENABLED",
+  "expoScreen": false,
+  "files": ["index.html", "reach.css", "reach.js"],
+  "screens": [
+    { "id": "mainMenu", "label": "Main menu", "status": "implemented" },
+    { "id": "emergencyMenu", "label": "Emergency flow", "status": "implemented" },
+    { "id": "pregnancyMenu", "label": "Pregnancy/newborn flow", "status": "implemented" },
+    { "id": "childHealthMenu", "label": "Child-health flow", "status": "implemented" },
+    { "id": "nutritionMenu", "label": "Nutrition flow", "status": "implemented" },
+    { "id": "chpsReasonMenu", "label": "CHPS request flow", "status": "implemented" },
+    { "id": "statusReferenceInput", "label": "Status-check flow", "status": "implemented" },
+    { "id": "languageMenu", "label": "Language flow", "status": "implemented" },
+    { "id": "requestCreated", "label": "Request confirmation", "status": "implemented" },
+    { "id": "error", "label": "Error state", "status": "implemented" },
+    { "id": "requestSubmitting", "label": "Loading state", "status": "implemented" },
+    { "id": "demonstrationInformation", "label": "Demonstration information", "status": "implemented" }
+  ],
+  "apiDependencies": [
+    "POST /v1/reach/requests",
+    "POST /v1/reach/requests/status"
+  ],
+  "notIncluded": [
+    "Expo Router screens",
+    "Worker Community Requests Centre",
+    "Telecom gateway",
+    "SMS",
+    "Ambulance integration"
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-03",
+  "track": "northcare-reach",
+  "note": "Profession is separate from system role (worker/admin). Frozen by Reach R0; implemented in R1.",
+  "professions": [
+    {
+      "id": "communityHealthOfficer",
+      "label": "Community Health Officer",
+      "active": true,
+      "displayOrder": 1,
+      "allowsOptionalDescription": false
+    },
+    {
+      "id": "communityHealthNurse",
+      "label": "Community Health Nurse",
+      "active": true,
+      "displayOrder": 2,
+      "allowsOptionalDescription": false
+    },
+    {
+      "id": "registeredGeneralNurse",
+      "label": "Registered General Nurse",
+      "active": true,
+      "displayOrder": 3,
+      "allowsOptionalDescription": false
+    },
+    {
+      "id": "midwife",
+      "label": "Midwife",
+      "active": true,
+      "displayOrder": 4,
+      "allowsOptionalDescription": false
+    },
+    {
+      "id": "nutritionOfficer",
+      "label": "Nutrition Officer",
+      "active": true,
+      "displayOrder": 5,
+      "allowsOptionalDescription": false
+    },
+    {
+      "id": "physicianAssistant",
+      "label": "Physician Assistant",
+      "active": true,
+      "displayOrder": 6,
+      "allowsOptionalDescription": false
+    },
+    {
+      "id": "emergencyMedicalTechnician",
+      "label": "Emergency Medical Technician",
+      "active": true,
+      "displayOrder": 7,
+      "allowsOptionalDescription": false
+    },
+    {
+      "id": "otherApprovedHealthProfessional",
+      "label": "Other approved health professional",
+      "active": true,
+      "displayOrder": 8,
+      "allowsOptionalDescription": true
+    }
+  ],
+  "systemRolesNotProfessions": ["worker", "admin"],
+  "adminRegistrationAdditionsPlanned": [
+    "profession",
+    "communityRequestsEnabled",
+    "emergencyRequestsEnabled"
+  ],
+  "excludedFromMvp": [
+    "professionalLicenceVerification",
+    "specialityManagement",
+    "shiftScheduling",
+    "catchmentPolygons",
+    "workloadTargets",
+    "multipleFacilities",
+    "workerRanking",
+    "detailedLanguageProfiles",
+    "dutyRosters",
+    "adminRoleSelectionInOrdinaryRegistration",
+    "dualRoleSelectionInOrdinaryRegistration",
+    "emergencyDispatcherRole"
+  ]
+}

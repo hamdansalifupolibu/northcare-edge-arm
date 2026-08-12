@@ -1,0 +1,95 @@
+{
+  "protocolVersion": 1,
+  "errors": [
+    {
+      "code": "AUTH_REQUIRED",
+      "httpStatus": 401,
+      "retryable": false,
+      "description": "Missing or invalid access token."
+    },
+    {
+      "code": "AUTH_UNAVAILABLE",
+      "httpStatus": 503,
+      "retryable": true,
+      "description": "Production identity verifier unavailable; fail closed."
+    },
+    {
+      "code": "ACCOUNT_INACTIVE",
+      "httpStatus": 403,
+      "retryable": false,
+      "description": "Provisioned account inactive or revoked."
+    },
+    {
+      "code": "SCOPE_VIOLATION",
+      "httpStatus": 403,
+      "retryable": false,
+      "description": "Operation outside organisation/facility/role scope or ownership escalation attempt."
+    },
+    {
+      "code": "PROTOCOL_VERSION_UNSUPPORTED",
+      "httpStatus": 400,
+      "retryable": false,
+      "description": "Client protocolVersion not supported."
+    },
+    {
+      "code": "ENTITY_TYPE_UNSUPPORTED",
+      "httpStatus": 400,
+      "retryable": false,
+      "description": "entityType not in sync registry."
+    },
+    {
+      "code": "VALIDATION_FAILED",
+      "httpStatus": 400,
+      "retryable": false,
+      "description": "Payload failed schema validation."
+    },
+    {
+      "code": "IDEMPOTENCY_PAYLOAD_MISMATCH",
+      "httpStatus": 409,
+      "retryable": false,
+      "description": "Same operationId with different requestHash."
+    },
+    {
+      "code": "STALE_BASE_VERSION",
+      "httpStatus": 409,
+      "retryable": false,
+      "description": "baseServerVersion does not match current serverVersion; conflict persisted."
+    },
+    {
+      "code": "CONFLICT_UNRESOLVED",
+      "httpStatus": 409,
+      "retryable": false,
+      "description": "Entity has an unresolved conflict blocking further writes."
+    },
+    {
+      "code": "CURSOR_INVALID",
+      "httpStatus": 400,
+      "retryable": false,
+      "description": "Pull cursor invalid, expired, or scoped to a different identity."
+    },
+    {
+      "code": "DEVICE_NOT_REGISTERED",
+      "httpStatus": 400,
+      "retryable": false,
+      "description": "deviceId not registered for this account."
+    },
+    {
+      "code": "ATTACHMENT_BINARY_UNAVAILABLE",
+      "httpStatus": 501,
+      "retryable": false,
+      "description": "Binary attachment upload not available in this stage."
+    },
+    {
+      "code": "RATE_LIMITED",
+      "httpStatus": 429,
+      "retryable": true,
+      "description": "Too many sync requests; retry with backoff."
+    },
+    {
+      "code": "SERVER_ERROR",
+      "httpStatus": 500,
+      "retryable": true,
+      "description": "Unexpected server failure without leaking health payloads."
+    }
+  ]
+}

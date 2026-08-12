@@ -1,0 +1,366 @@
+/* NorthCare Reach USSD simulator — brand chrome uses approved tokens; USSD area stays simple. */
+
+:root {
+  --nc-primary: #0f766e;
+  --nc-primary-dark: #115e59;
+  --nc-primary-darker: #064e49;
+  --nc-accent: #f59e0b;
+  --nc-bg: #f7faf9;
+  --nc-surface: #ffffff;
+  --nc-text: #17211f;
+  --nc-text-secondary: #52615e;
+  --nc-border: #dde7e4;
+  --nc-muted: #eef5f3;
+  --nc-danger: #b42318;
+  --nc-focus: #1570ef;
+  --ussd-bg: #0b1210;
+  --ussd-fg: #d7f5e8;
+  --ussd-dim: #8fb8a8;
+  --radius: 12px;
+  --space: 1rem;
+  --font: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--nc-text);
+  background:
+    radial-gradient(ellipse at top left, rgba(15, 118, 110, 0.12), transparent 45%),
+    radial-gradient(ellipse at bottom right, rgba(245, 158, 11, 0.1), transparent 40%),
+    var(--nc-bg);
+  line-height: 1.45;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--nc-surface);
+  color: var(--nc-text);
+  padding: 0.75rem 1rem;
+  z-index: 100;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+  outline: 3px solid var(--nc-focus);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.page-header {
+  padding: 1.25rem clamp(1rem, 3vw, 2rem) 0.5rem;
+  text-align: center;
+}
+
+.brand-mark {
+  margin: 0;
+  font-size: clamp(1.75rem, 4vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--nc-primary-darker);
+}
+
+.brand-tagline {
+  margin: 0.25rem 0 0.75rem;
+  color: var(--nc-text-secondary);
+  font-size: 1rem;
+}
+
+.sim-banners {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.sim-banner {
+  margin: 0;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--nc-border);
+  border-radius: 999px;
+  background: var(--nc-muted);
+  color: var(--nc-primary-darker);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.page-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+  padding: 1rem clamp(1rem, 3vw, 2rem) 2.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.info-panel {
+  background: var(--nc-surface);
+  border: 1px solid var(--nc-border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.35rem;
+}
+
+.info-panel h1 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  color: var(--nc-primary-darker);
+}
+
+.info-panel h2 {
+  margin: 1rem 0 0.4rem;
+  font-size: 1rem;
+  color: var(--nc-primary-dark);
+}
+
+.info-panel p,
+.info-panel li {
+  color: var(--nc-text-secondary);
+  font-size: 0.95rem;
+}
+
+.info-panel ul {
+  margin: 0.25rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.info-note {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: var(--nc-muted);
+  border-left: 4px solid var(--nc-accent);
+  color: var(--nc-text) !important;
+  font-weight: 600;
+}
+
+.phone-shell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.phone-bezel {
+  width: min(100%, 360px);
+  background: linear-gradient(165deg, #1f2a28, #121918);
+  border-radius: 28px;
+  padding: 1rem 0.85rem 1.15rem;
+  box-shadow:
+    0 18px 40px rgba(6, 78, 73, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.phone-earpiece {
+  width: 72px;
+  height: 6px;
+  margin: 0.15rem auto 0.85rem;
+  border-radius: 999px;
+  background: #0a100e;
+}
+
+.ussd-screen {
+  background: var(--ussd-bg);
+  color: var(--ussd-fg);
+  border-radius: 12px;
+  padding: 0.85rem 0.75rem 0.9rem;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.ussd-display {
+  flex: 1 1 auto;
+  margin: 0;
+  padding: 0.5rem 0.35rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: clamp(0.95rem, 2.6vw, 1.05rem);
+  line-height: 1.4;
+  color: var(--ussd-fg);
+  min-height: 14rem;
+}
+
+.ussd-error {
+  margin: 0;
+  color: #ffb4a8;
+  font-size: 0.9rem;
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+.ussd-error[hidden] {
+  display: none;
+}
+
+.ussd-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  border-top: 1px solid rgba(143, 184, 168, 0.25);
+  padding-top: 0.65rem;
+}
+
+.ussd-label {
+  font-size: 0.85rem;
+  color: var(--ussd-dim);
+}
+
+.ussd-hint {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--ussd-dim);
+}
+
+#ussd-input {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.65rem 0.75rem;
+  border: 2px solid #35574c;
+  border-radius: 8px;
+  background: #06100d;
+  color: var(--ussd-fg);
+  font-size: 1.1rem;
+  font-family: "Consolas", "Courier New", monospace;
+}
+
+#ussd-input:focus {
+  outline: 3px solid var(--nc-focus);
+  outline-offset: 2px;
+  border-color: var(--nc-primary);
+}
+
+#ussd-input:disabled {
+  opacity: 0.55;
+}
+
+.ussd-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.ussd-actions .btn-primary {
+  grid-column: 1 / -1;
+}
+
+.btn {
+  min-height: 48px;
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--nc-focus);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--nc-primary);
+  color: #ffffff;
+  border-color: var(--nc-primary-dark);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--nc-primary-dark);
+}
+
+.btn-secondary {
+  background: #15221e;
+  color: var(--ussd-fg);
+  border-color: #35574c;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #1d2e29;
+}
+
+.footer-sim {
+  margin: 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--nc-text-secondary);
+  max-width: 360px;
+  font-weight: 600;
+}
+
+@media (max-width: 840px) {
+  .page-main {
+    grid-template-columns: 1fr;
+  }
+
+  .info-panel {
+    order: 2;
+  }
+
+  .phone-shell {
+    order: 1;
+  }
+}
+
+@media (max-width: 420px) {
+  .phone-bezel {
+    width: 100%;
+    border-radius: 20px;
+  }
+
+  .ussd-screen {
+    min-height: 380px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .sim-banner,
+  .info-panel,
+  #ussd-input,
+  .btn {
+    border-width: 2px;
+  }
+
+  .ussd-display {
+    color: #ffffff;
+  }
+}

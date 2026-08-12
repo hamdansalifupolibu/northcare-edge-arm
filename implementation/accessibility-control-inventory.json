@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "updated": "2026-08-02",
+  "stage": 18,
+  "controls": [
+    {
+      "control_id": "A11Y-LABEL-ROLE",
+      "category": "semantics",
+      "title": "Accessible names and roles on controls",
+      "description": "Buttons, inputs, list items expose accessibilityRole and labels.",
+      "screens_or_components": ["AppButton", "AppTextInput", "PasswordField", "ReminderListItem", "AccountListItem"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["apps/mobile/src/__tests__/stage18AccessibilityComponents.test.tsx"],
+      "manual_validation": "TalkBack sample partial"
+    },
+    {
+      "control_id": "A11Y-FORM-ERRORS",
+      "category": "forms",
+      "title": "Form error association",
+      "description": "Errors use alert live region and accessibilityHint; not colour alone.",
+      "screens_or_components": ["AppTextInput", "FormErrorText", "LoginScreen"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["apps/mobile/src/design-system/forms/AppTextInput.tsx"],
+      "manual_validation": "pending_full_TalkBack"
+    },
+    {
+      "control_id": "A11Y-TOUCH-48",
+      "category": "touch_targets",
+      "title": "Minimum 48dp touch targets",
+      "description": "Primary controls use layout.minTouchTarget.",
+      "screens_or_components": ["AppButton", "ReminderListItem", "IconButton"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["apps/mobile/src/theme/layout.ts"],
+      "manual_validation": "partial"
+    },
+    {
+      "control_id": "A11Y-FONT-SCALE",
+      "category": "text_scaling",
+      "title": "Font scaling enabled",
+      "description": "AppText defaults allowFontScaling true; no global disable.",
+      "screens_or_components": ["AppText"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["docs/accessibility/STAGE_18_TEXT_SCALING_VALIDATION.md"],
+      "manual_validation": "partial"
+    },
+    {
+      "control_id": "A11Y-REDUCED-MOTION",
+      "category": "motion",
+      "title": "Reduced motion respect",
+      "description": "EntranceMotion/splash consult OS reduce-motion preference.",
+      "screens_or_components": ["EntranceMotion", "useReducedMotion"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["docs/design/STAGE_17_MOTION_POLICY.md"],
+      "manual_validation": "partial"
+    },
+    {
+      "control_id": "A11Y-CONTRAST",
+      "category": "contrast",
+      "title": "Token contrast and non-colour status",
+      "description": "Status chips/risk badges include non-colour cues; token audit documented.",
+      "screens_or_components": ["StatusChip", "RiskBadge", "theme/colors"],
+      "implementation_status": "implemented",
+      "evidence_type": "documentation",
+      "evidence_paths": ["docs/accessibility/STAGE_18_CONTRAST_AUDIT.md"],
+      "manual_validation": "token_review_only"
+    },
+    {
+      "control_id": "A11Y-TALKBACK",
+      "category": "assistive_tech",
+      "title": "TalkBack walkthrough",
+      "description": "Sample TalkBack path attempted; full pass not claimed.",
+      "screens_or_components": ["login", "workspace", "screening", "reminders", "admin"],
+      "implementation_status": "partial",
+      "evidence_type": "manual",
+      "evidence_paths": ["docs/accessibility/STAGE_18_TALKBACK_VALIDATION.md"],
+      "manual_validation": "not_fully_tested"
+    }
+  ]
+}

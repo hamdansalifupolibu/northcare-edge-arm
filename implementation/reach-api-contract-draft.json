@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-03",
+  "track": "northcare-reach",
+  "status": "partially_implemented_r2",
+  "note": "R2 implements public create/status and worker community-request lifecycle endpoints behind NORTHCARE_REACH_DEMO_ENABLED. Admin profession endpoints were implemented in R1. USSD simulator routes remain R3.",
+  "enums": {
+    "categories": [
+      "pregnancyNewborn",
+      "childHealth",
+      "nutrition",
+      "generalChps",
+      "referralFollowUp",
+      "emergency"
+    ],
+    "requestTypes": [
+      "routine",
+      "urgentContact",
+      "emergencyAssistance"
+    ],
+    "statuses": [
+      "received",
+      "assigned",
+      "acknowledged",
+      "contactAttempted",
+      "escalated",
+      "handled",
+      "cancelled"
+    ],
+    "channels": ["ussdSimulator"],
+    "professions": [
+      "communityHealthOfficer",
+      "communityHealthNurse",
+      "registeredGeneralNurse",
+      "midwife",
+      "nutritionOfficer",
+      "physicianAssistant",
+      "emergencyMedicalTechnician",
+      "otherApprovedHealthProfessional"
+    ]
+  },
+  "publicSimulatorEndpoints": [
+    {
+      "method": "POST",
+      "path": "/v1/reach/requests",
+      "purpose": "Create synthetic community request from USSD simulator",
+      "auth": "none_public_simulator_dev_only",
+      "requestBody": {
+        "channel": "ussdSimulator",
+        "category": "enum.categories",
+        "requestType": "enum.requestTypes",
+        "contactNumber": "string",
+        "communityOrLandmark": "string",
+        "preferredLanguage": "string",
+        "consentToContact": "boolean",
+        "consentToShareLocation": "boolean"
+      },
+      "successResponse": {
+        "referenceCode": "string",
+        "statusPin": "string six digits shown once",
+        "publicMessage": "generic confirmation",
+        "simulationNotice": "Emergency coordination simulation when applicable"
+      },
+      "mustNotReturn": ["statusPinHash", "assignedWorkerId", "workerName", "clinicalNotes"]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/reach/requests/status",
+      "purpose": "Privacy-safe public status lookup",
+      "auth": "none_public_simulator_dev_only",
+      "requestBody": {
+        "referenceCode": "string",
+        "statusPin": "string six digits"
+      },
+      "successResponse": {
+        "publicStatusLabel": "generic label only"
+      },
+      "mustNotReturn": [
+        "category",
+        "requestType",
+        "contactNumber",
+        "communityOrLandmark",
+        "assignedWorkerId",
+        "facilityId",
+        "clinicalNotes",
+        "priority"
+      ],
+      "securityRequirements": [
+        "rateLimiting",
+        "bruteForceProtection",
+        "genericErrors",
+        "noPinLogging",
+        "noRawBodyLogging"
+      ]
+    }
+  ],
+  "workerEndpoints": [
+    {
+      "method": "GET",
+      "path": "/v1/worker/community-requests",
+      "purpose": "List facility/assigned community requests",
+      "auth": "worker"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/worker/community-requests/{requestId}",
+      "purpose": "Request detail",
+      "auth": "worker"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/worker/community-requests/{requestId}/acknowledge",
+      "purpose": "Acknowledge assigned or queue request",
+      "auth": "worker",
+      "emergencyRequires": "emergencyRequestsEnabled"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/worker/community-requests/{requestId}/contact-attempt",
+      "purpose": "Record contact attempt",
+      "auth": "worker"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/worker/community-requests/{requestId}/escalate",
+      "purpose": "Escalate request",
+      "auth": "worker",
+      "emergencyRequires": "emergencyRequestsEnabled"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/worker/community-requests/{requestId}/handle",
+      "purpose": "Mark request handled (not clinical care completed)",
+      "auth": "worker"
+    }
+  ],
+  "adminEndpoints": [
+    {
+      "method": "GET",
+      "path": "/v1/admin/professions",
+      "purpose": "List frozen profession registry",
+      "auth": "admin"
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/admin/accounts/{accountId}/professional-profile",
+      "purpose": "Set profession and community/emergency enablement",
+      "auth": "admin",
+      "requestBody": {
+        "profession": "enum.professions",
+        "professionOtherDescription": "optional string when otherApprovedHealthProfessional",
+        "communityRequestsEnabled": "boolean",
+        "emergencyRequestsEnabled": "boolean"
+      }
+    }
+  ],
+  "liveOpenApi": {
+    "modifyDuringR0": false,
+    "path": "implementation/openapi.json",
+    "r2ImplementedPaths": [
+      "/v1/reach/requests",
+      "/v1/reach/requests/status",
+      "/v1/worker/community-requests",
+      "/v1/worker/community-requests/{requestId}",
+      "/v1/worker/community-requests/{requestId}/acknowledge",
+      "/v1/worker/community-requests/{requestId}/contact-attempt",
+      "/v1/worker/community-requests/{requestId}/escalate",
+      "/v1/worker/community-requests/{requestId}/handle"
+    ]
+  }
+}

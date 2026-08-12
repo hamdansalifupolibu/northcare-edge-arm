@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Extracted from Stitch animated_svg; CSS animation removed for static RN use. Geometry preserved. -->
+<svg class="w-full h-full" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="brandGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" style="stop-color:#0f766e;stop-opacity:1"></stop>
+<stop offset="100%" style="stop-color:#064e49;stop-opacity:1"></stop>
+</linearGradient>
+
+</defs>
+<g >
+<!-- Silhouette of Northern Ghana / Shield Shape -->
+<path fill="none" stroke="url(#brandGradient)" stroke-width="2" d="M200,50 C120,50 80,100 80,180 C80,280 150,330 200,350 C250,330 320,280 320,180 C320,100 280,50 200,50 Z"></path>
+<path  d="M200,50 C120,50 80,100 80,180 C80,280 150,330 200,350 C250,330 320,280 320,180 C320,100 280,50 200,50 Z" fill="url(#brandGradient)"></path>
+<!-- Mother and Child Silhouette (Stylized) -->
+<g >
+<path d="M190,120 C160,120 140,150 140,180 C140,230 180,260 210,260 C230,260 250,240 250,210 C250,180 230,120 190,120 Z M210,210 C200,210 190,200 190,190 C190,180 200,170 210,170 C220,170 230,180 230,190 C230,200 220,210 210,210 Z" fill="white"></path>
+</g>
+<!-- Amber Path / Curve -->
+<path  d="M260,280 C290,250 310,210 310,170 C310,130 290,100 260,80 L270,100 C295,120 300,150 300,175 C300,200 295,230 270,260 Z" fill="#F59E0B"></path>
+</g>
+</svg>

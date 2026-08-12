@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "freezeId": "northcare-edge-baseline-2026-08-11",
+  "frozenAt": "2026-08-11",
+  "authority": "application-source-code",
+  "note": "Starting configuration only. Not an optimization result. Performance metrics intentionally absent.",
+  "pipeline": [
+    "m4a_record",
+    "native_android_decode",
+    "whisper_transcribe",
+    "qwen_extract",
+    "human_review",
+    "sqlite_apply"
+  ],
+  "speech": {
+    "runtimePackage": "whisper.rn",
+    "runtimePackageDeclared": "^0.2.1",
+    "runtimePackageResolved": "0.2.5",
+    "modelId": "whisper-base-en-ggml",
+    "filename": "ggml-base.en.bin",
+    "format": "GGML",
+    "actualByteSize": 147964211,
+    "sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+    "beamSize": 1,
+    "bestOf": 1,
+    "maxThreads": 4,
+    "temperature": 0,
+    "speedUp": false,
+    "prompt": "Community health worker recording patient case notes during home visit.",
+    "backend": "cpu",
+    "sourceFiles": [
+      "apps/mobile/src/features/voice/providers/transcription/whisperTranscriptionOptions.ts",
+      "apps/mobile/src/features/voice/content/whisper-model-manifest.json"
+    ]
+  },
+  "languageModel": {
+    "runtimePackage": "llama.rn",
+    "runtimePackageVersion": "0.12.8",
+    "modelId": "qwen2.5-0.5b-instruct-q4_k_m",
+    "filename": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+    "format": "GGUF",
+    "quantisation": "Q4_K_M",
+    "actualByteSize": 491400032,
+    "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+    "nCtx": 2048,
+    "nPredict": 512,
+    "nThreads": 4,
+    "nGpuLayers": 0,
+    "temperature": 0.1,
+    "accelerationMode": "cpu",
+    "enableOpenCLAndHexagon": false,
+    "sourceFiles": [
+      "apps/mobile/src/features/offline-ai/content/offline-ai-model-manifest.json",
+      "apps/mobile/src/features/offline-ai/runtime/threadCount.ts",
+      "apps/mobile/src/features/offline-ai/services/offlineAiLifecycle.ts",
+      "apps/mobile/app.config.ts"
+    ]
+  },
+  "nativeAudio": {
+    "patchFile": "apps/mobile/patches/whisper.rn+0.2.5.patch",
+    "applyMechanism": "patch-package",
+    "inputFormat": "m4a_aac",
+    "outputFormat": "pcm_float_16khz_mono"
+  },
+  "targetDevice": {
+    "marketingName": "Samsung Galaxy S20 Ultra",
+    "model": "SM-G988B",
+    "androidVersionCaptured": "13",
+    "packageName": "com.northcareai.app",
+    "abi": null,
+    "soc": null,
+    "cpuCoreCount": null,
+    "note": "Arm evidence fields (abi/soc/cores) remain null until on-device capture."
+  },
+  "metrics": null
+}

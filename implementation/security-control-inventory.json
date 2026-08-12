@@ -1,0 +1,119 @@
+{
+  "version": 1,
+  "updated": "2026-08-02",
+  "stage": 18,
+  "controls": [
+    {
+      "control_id": "SEC-AUTH-PROD-GATE",
+      "category": "authentication",
+      "title": "Development auth blocked in production",
+      "description": "DevelopmentAuthProvider and API development token routes disabled outside development/test.",
+      "affected_components": ["createRemoteAuthProvider", "DevelopmentAuthProvider", "development_auth", "Settings"],
+      "threat_ids": ["T02", "T09"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": [
+        "apps/mobile/src/__tests__/stage18ProductionConfig.test.ts",
+        "services/api/tests/security/test_development_auth_gate.py",
+        "services/api/tests/security/test_production_configuration.py"
+      ],
+      "automated_tests": ["stage18ProductionConfig", "test_development_auth_gate", "test_production_configuration"]
+    },
+    {
+      "control_id": "SEC-AUTHZ-MATRIX",
+      "category": "authorisation",
+      "title": "Server-side role and tenant checks",
+      "description": "API authorisation ignores client-supplied roles/org/facility.",
+      "affected_components": ["northcare_api.auth", "administration.routes", "sync routes"],
+      "threat_ids": ["T03", "T04"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["docs/security/API_AUTHORISATION_MATRIX.md", "services/api/tests/security/"],
+      "automated_tests": ["test_authz_api", "test_administration_security"]
+    },
+    {
+      "control_id": "SEC-STORE-SECURESTORE",
+      "category": "storage",
+      "title": "Secrets in SecureStore",
+      "description": "Tokens and PIN verifiers remain in SecureStore; not AsyncStorage/SQLite.",
+      "affected_components": ["secureStoreSessionRepository", "accessTokenStore", "pinVerifier"],
+      "threat_ids": ["T01"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["docs/security/STAGE_18_LOCAL_STORAGE_AUDIT.md"],
+      "automated_tests": ["secureSession", "pinVerifier"]
+    },
+    {
+      "control_id": "SEC-QR-PARSER",
+      "category": "input_validation",
+      "title": "QR passport fail-closed parser",
+      "description": "Malformed QR payloads rejected; scan does not auto-write clinical state.",
+      "affected_components": ["qrPassportParser", "tokenCrypto"],
+      "threat_ids": ["T05"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["docs/architecture/QR_REFERRAL_PASSPORT_SECURITY.md"],
+      "automated_tests": ["qrPassportParser", "referralSecurity"]
+    },
+    {
+      "control_id": "SEC-NOTIF-PRIVACY",
+      "category": "privacy",
+      "title": "Generic notification payloads",
+      "description": "Local notifications use generic title/body without clinical notes.",
+      "affected_components": ["reminderDomain.buildPrivateNotification", "ExpoLocalNotificationSchedulerImpl"],
+      "threat_ids": ["T06"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["docs/security/NOTIFICATION_PRIVACY.md"],
+      "automated_tests": ["reminderDomain", "reminderWorkflow"]
+    },
+    {
+      "control_id": "SEC-DEEPLINK-FAILCLOSED",
+      "category": "navigation",
+      "title": "Deep-link fail-closed",
+      "description": "Protected and unknown deep links redirect to auth/entry boundaries.",
+      "affected_components": ["deepLinks.resolveDeepLinkPath", "routeAccess"],
+      "threat_ids": ["T07"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["apps/mobile/src/navigation/deepLinks.ts"],
+      "automated_tests": ["routeAccess", "stage18ProductionConfig"]
+    },
+    {
+      "control_id": "SEC-LOG-REDACT",
+      "category": "logging",
+      "title": "Log redaction",
+      "description": "Mobile and API log redaction prevent secrets/clinical payloads in ordinary logs.",
+      "affected_components": ["logger.sanitizeMeta", "RedactingFilter"],
+      "threat_ids": ["T08"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["docs/security/STAGE_18_LOGGING_AND_AUDIT_REVIEW.md"],
+      "automated_tests": ["logger", "test_redacting_filter_masks_sensitive_terms"]
+    },
+    {
+      "control_id": "SEC-TRANSPORT-HTTPS",
+      "category": "transport",
+      "title": "Production HTTPS requirement",
+      "description": "Production API base URL must be HTTPS; cleartext limited to development.",
+      "affected_components": ["parsePublicEnv", "syncTransport", "administrationApiClient"],
+      "threat_ids": ["T02"],
+      "implementation_status": "implemented",
+      "evidence_type": "automated_test",
+      "evidence_paths": ["apps/mobile/src/config/env.ts"],
+      "automated_tests": ["env", "stage18ProductionConfig"]
+    },
+    {
+      "control_id": "SEC-RATE-LIMIT",
+      "category": "abuse",
+      "title": "Rate limiting",
+      "description": "No application rate limiter yet; boundary documented.",
+      "affected_components": ["services/api"],
+      "threat_ids": ["T02"],
+      "implementation_status": "documented_gap",
+      "evidence_type": "documentation",
+      "evidence_paths": ["docs/security/RATE_LIMITING_AND_ABUSE_BOUNDARY.md"],
+      "automated_tests": []
+    }
+  ]
+}

@@ -1,0 +1,989 @@
+{
+  "manifest_version": 1,
+  "project": "NorthCare AI",
+  "updated_at": "2026-08-02",
+  "stage": 18,
+  "design_system_path": "apps/mobile/src/design-system/",
+  "theme_path": "apps/mobile/src/theme/",
+  "components": [
+    {
+      "component_id": "app-text",
+      "name": "AppText",
+      "category": "text",
+      "source_path": "apps/mobile/src/design-system/text/AppText.tsx",
+      "purpose": "Semantic typography",
+      "variants": [
+        "displayLarge",
+        "headingLarge",
+        "headingMedium",
+        "headingSmall",
+        "title",
+        "bodyLarge",
+        "body",
+        "bodyStrong",
+        "caption",
+        "label",
+        "button",
+        "riskLabel",
+        "numericHighlight"
+      ],
+      "accessibility_support": "Font scaling enabled; semantic colours; optional testID",
+      "Stitch_patterns": "Typography scale / headings / body / captions",
+      "status": "FOUNDATION READY",
+      "tests": "theme.tokens.test.ts; designSystem.components.test.tsx",
+      "intended_future_screens": "all screens"
+    },
+    {
+      "component_id": "app-screen",
+      "name": "AppScreen",
+      "category": "layout",
+      "source_path": "apps/mobile/src/design-system/layout/AppScreen.tsx",
+      "purpose": "Non-scrolling safe-area screen shell",
+      "variants": [
+        "padded",
+        "keyboardAware",
+        "background"
+      ],
+      "accessibility_support": "Safe area; status bar",
+      "Stitch_patterns": "Screen shells",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "all screens"
+    },
+    {
+      "component_id": "scrollable-app-screen",
+      "name": "ScrollableAppScreen",
+      "category": "layout",
+      "source_path": "apps/mobile/src/design-system/layout/ScrollableAppScreen.tsx",
+      "purpose": "Scrolling safe-area screen shell",
+      "variants": [
+        "bottomClearance"
+      ],
+      "accessibility_support": "Keyboard + scroll handling",
+      "Stitch_patterns": "Scrollable screens",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx (preview)",
+      "intended_future_screens": "all screens"
+    },
+    {
+      "component_id": "screen-section",
+      "name": "ScreenSection",
+      "category": "layout",
+      "source_path": "apps/mobile/src/design-system/layout/ScreenSection.tsx",
+      "purpose": "Titled content section",
+      "variants": [
+        "title",
+        "description"
+      ],
+      "accessibility_support": "Header role on title",
+      "Stitch_patterns": "Section spacing",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "all screens"
+    },
+    {
+      "component_id": "divider",
+      "name": "Divider",
+      "category": "layout",
+      "source_path": "apps/mobile/src/design-system/layout/Divider.tsx",
+      "purpose": "Hairline separator",
+      "variants": [
+        "spacingSize"
+      ],
+      "accessibility_support": "Decorative",
+      "Stitch_patterns": "Dividers",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "all screens"
+    },
+    {
+      "component_id": "northcare-logo",
+      "name": "NorthCareLogo",
+      "category": "brand",
+      "source_path": "apps/mobile/src/design-system/brand/NorthCareLogo.tsx",
+      "purpose": "Canonical PNG logo wrapper",
+      "variants": [
+        "symbol",
+        "stacked"
+      ],
+      "accessibility_support": "Default accessibilityLabel NorthCare AI logo",
+      "Stitch_patterns": "Splash / header / onboarding logo",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "splash, onboarding, header"
+    },
+    {
+      "component_id": "hero-image",
+      "name": "HeroImage",
+      "category": "brand",
+      "source_path": "apps/mobile/src/design-system/brand/HeroImage.tsx",
+      "purpose": "Hero media wrapper",
+      "variants": [
+        "rounded",
+        "decorative"
+      ],
+      "accessibility_support": "Required label unless decorative",
+      "Stitch_patterns": "Onboarding heroes",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "onboarding"
+    },
+    {
+      "component_id": "app-button",
+      "name": "AppButton",
+      "category": "actions",
+      "source_path": "apps/mobile/src/design-system/buttons/AppButton.tsx",
+      "purpose": "Primary action button system",
+      "variants": [
+        "primary",
+        "secondary",
+        "tertiary",
+        "destructive"
+      ],
+      "accessibility_support": "48dp target; busy/disabled; loading blocks press",
+      "Stitch_patterns": "Primary / secondary CTAs",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "all interactive screens"
+    },
+    {
+      "component_id": "icon-button",
+      "name": "IconButton",
+      "category": "actions",
+      "source_path": "apps/mobile/src/design-system/buttons/IconButton.tsx",
+      "purpose": "Icon-only control",
+      "variants": [
+        "default"
+      ],
+      "accessibility_support": "Required accessibilityLabel; 48dp",
+      "Stitch_patterns": "Header icon actions",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "headers"
+    },
+    {
+      "component_id": "app-text-input",
+      "name": "AppTextInput",
+      "category": "forms",
+      "source_path": "apps/mobile/src/design-system/forms/AppTextInput.tsx",
+      "purpose": "Labelled text field foundation",
+      "variants": [
+        "error",
+        "helper",
+        "disabled"
+      ],
+      "accessibility_support": "Visible label; alert error text",
+      "Stitch_patterns": "Form fields",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "auth, clients, settings"
+    },
+    {
+      "component_id": "password-field",
+      "name": "PasswordField",
+      "category": "forms",
+      "source_path": "apps/mobile/src/design-system/forms/PasswordField.tsx",
+      "purpose": "Ordinary password entry with accessible show/hide; hidden by default; resets on screen blur",
+      "variants": [
+        "helper",
+        "error",
+        "visible",
+        "hidden"
+      ],
+      "accessibility_support": "Show/Hide control labels; does not log password; PIN excluded",
+      "Stitch_patterns": "Worker Login password field",
+      "status": "IMPLEMENTED",
+      "tests": "passwordField.test.tsx",
+      "intended_future_screens": "login, password-change, admin temporary password, reset-access"
+    },
+    {
+      "component_id": "entrance-motion",
+      "name": "EntranceMotion",
+      "category": "motion",
+      "source_path": "apps/mobile/src/design-system/motion/EntranceMotion.tsx",
+      "purpose": "Restrained fade/slide entrance using RN Animated",
+      "variants": [
+        "reduce-motion"
+      ],
+      "accessibility_support": "Skips animation when reduce-motion enabled",
+      "Stitch_patterns": "Calm entrances / workspace selection",
+      "status": "IMPLEMENTED",
+      "tests": "entranceMotion.test.tsx",
+      "intended_future_screens": "workspace selection, session workspace"
+    },
+    {
+      "component_id": "search-input",
+      "name": "SearchInput",
+      "category": "forms",
+      "source_path": "apps/mobile/src/design-system/forms/SearchInput.tsx",
+      "purpose": "Search field",
+      "variants": [
+        "default"
+      ],
+      "accessibility_support": "search role",
+      "Stitch_patterns": "Client directory search",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "client directory"
+    },
+    {
+      "component_id": "checkbox-field",
+      "name": "CheckboxField",
+      "category": "forms",
+      "source_path": "apps/mobile/src/design-system/forms/CheckboxField.tsx",
+      "purpose": "Checkbox selection row",
+      "variants": [
+        "checked",
+        "disabled"
+      ],
+      "accessibility_support": "checkbox role and state",
+      "Stitch_patterns": "Consent toggles",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "privacy consent"
+    },
+    {
+      "component_id": "app-card",
+      "name": "AppCard",
+      "category": "surfaces",
+      "source_path": "apps/mobile/src/design-system/cards/AppCard.tsx",
+      "purpose": "Static card surface",
+      "variants": [
+        "elevated",
+        "selected"
+      ],
+      "accessibility_support": "Optional header",
+      "Stitch_patterns": "Cards / tonal surfaces",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "dashboard, lists"
+    },
+    {
+      "component_id": "pressable-card",
+      "name": "PressableCard",
+      "category": "surfaces",
+      "source_path": "apps/mobile/src/design-system/cards/PressableCard.tsx",
+      "purpose": "Tappable card",
+      "variants": [
+        "selected",
+        "disabled"
+      ],
+      "accessibility_support": "button semantics",
+      "Stitch_patterns": "Action tiles / radio cards",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "dashboard, workspace selection"
+    },
+    {
+      "component_id": "app-header",
+      "name": "AppHeader",
+      "category": "headers",
+      "source_path": "apps/mobile/src/design-system/headers/AppHeader.tsx",
+      "purpose": "Screen header foundation",
+      "variants": [
+        "onBack",
+        "rightAction"
+      ],
+      "accessibility_support": "Header text; back callback",
+      "Stitch_patterns": "Top app bar",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "most screens"
+    },
+    {
+      "component_id": "status-chip",
+      "name": "StatusChip",
+      "category": "status",
+      "source_path": "apps/mobile/src/design-system/status/StatusChip.tsx",
+      "purpose": "Status pill with non-colour cue",
+      "variants": [
+        "neutral",
+        "information",
+        "success",
+        "warning",
+        "urgent",
+        "offline",
+        "pending",
+        "syncing",
+        "synced",
+        "failed",
+        "needsReview"
+      ],
+      "accessibility_support": "Glyph + label",
+      "Stitch_patterns": "Filter chips / status pills",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "directory, notifications, sync"
+    },
+    {
+      "component_id": "count-badge",
+      "name": "CountBadge",
+      "category": "status",
+      "source_path": "apps/mobile/src/design-system/status/CountBadge.tsx",
+      "purpose": "Numeric count badge",
+      "variants": [],
+      "accessibility_support": "Count accessibilityLabel",
+      "Stitch_patterns": "Notification / tab badges",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "tabs, lists"
+    },
+    {
+      "component_id": "risk-icon",
+      "name": "RiskIcon",
+      "category": "risk",
+      "source_path": "apps/mobile/src/design-system/risk/RiskIcon.tsx",
+      "purpose": "Visual-only risk SVG icon",
+      "variants": [
+        "red",
+        "amber",
+        "green"
+      ],
+      "accessibility_support": "Accessible title per level",
+      "Stitch_patterns": "Risk icons",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "screening result, directory"
+    },
+    {
+      "component_id": "risk-badge",
+      "name": "RiskBadge",
+      "category": "risk",
+      "source_path": "apps/mobile/src/design-system/risk/RiskBadge.tsx",
+      "purpose": "Visual-only risk badge",
+      "variants": [
+        "red",
+        "amber",
+        "green"
+      ],
+      "accessibility_support": "Icon + title",
+      "Stitch_patterns": "Risk labels",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "screening, profile"
+    },
+    {
+      "component_id": "risk-summary-card",
+      "name": "RiskSummaryCard",
+      "category": "risk",
+      "source_path": "apps/mobile/src/design-system/risk/RiskSummaryCard.tsx",
+      "purpose": "Visual-only risk summary card",
+      "variants": [
+        "red",
+        "amber",
+        "green"
+      ],
+      "accessibility_support": "Bar + icon + approved copy",
+      "Stitch_patterns": "Risk result card",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "screening result, dashboard"
+    },
+    {
+      "component_id": "connectivity-banner",
+      "name": "ConnectivityBanner",
+      "category": "offline",
+      "source_path": "apps/mobile/src/design-system/offline/ConnectivityBanner.tsx",
+      "purpose": "Presentation-only connectivity banner",
+      "variants": [
+        "online",
+        "offline",
+        "waitingForConnection"
+      ],
+      "accessibility_support": "Status label + glyph",
+      "Stitch_patterns": "Offline banner",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "dashboard, forms"
+    },
+    {
+      "component_id": "sync-status-indicator",
+      "name": "SyncStatusIndicator",
+      "category": "offline",
+      "source_path": "apps/mobile/src/design-system/offline/SyncStatusIndicator.tsx",
+      "purpose": "Presentation-only sync status",
+      "variants": [
+        "online",
+        "offline",
+        "savedLocally",
+        "waitingForConnection",
+        "syncing",
+        "synced",
+        "syncFailed",
+        "needsReview"
+      ],
+      "accessibility_support": "Approved wording labels",
+      "Stitch_patterns": "Sync indicator",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "header, sync centre"
+    },
+    {
+      "component_id": "offline-notice",
+      "name": "OfflineNotice",
+      "category": "offline",
+      "source_path": "apps/mobile/src/design-system/offline/OfflineNotice.tsx",
+      "purpose": "Offline notice card",
+      "variants": [],
+      "accessibility_support": "Text labels",
+      "Stitch_patterns": "Offline / system states",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "forms, sync"
+    },
+    {
+      "component_id": "local-save-confirmation",
+      "name": "LocalSaveConfirmation",
+      "category": "offline",
+      "source_path": "apps/mobile/src/design-system/offline/LocalSaveConfirmation.tsx",
+      "purpose": "Local save confirmation presentation",
+      "variants": [],
+      "accessibility_support": "Saved on this device",
+      "Stitch_patterns": "Local save confirmation",
+      "status": "FOUNDATION READY",
+      "tests": "none dedicated",
+      "intended_future_screens": "visit save"
+    },
+    {
+      "component_id": "loading-state",
+      "name": "LoadingState",
+      "category": "states",
+      "source_path": "apps/mobile/src/design-system/states/LoadingState.tsx",
+      "purpose": "Truthful loading block",
+      "variants": [],
+      "accessibility_support": "progressbar",
+      "Stitch_patterns": "Loading states",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "async screens"
+    },
+    {
+      "component_id": "app-state-view",
+      "name": "AppStateView",
+      "category": "states",
+      "source_path": "apps/mobile/src/design-system/states/AppStateView.tsx",
+      "purpose": "Empty / error / offline state foundation",
+      "variants": [
+        "empty",
+        "error",
+        "offline",
+        "permissionDenied",
+        "noResults",
+        "unavailable",
+        "success"
+      ],
+      "accessibility_support": "Heading + actions",
+      "Stitch_patterns": "System states and conflicts",
+      "status": "FOUNDATION READY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "lists, permissions"
+    },
+    {
+      "component_id": "design-system-preview-screen",
+      "name": "DesignSystemPreviewScreen",
+      "category": "development",
+      "source_path": "apps/mobile/src/design-system/preview/DesignSystemPreviewScreen.tsx",
+      "purpose": "Development-only component gallery",
+      "variants": [],
+      "accessibility_support": "Labelled Development Preview",
+      "Stitch_patterns": "n/a",
+      "status": "DEVELOPMENT ONLY",
+      "tests": "designSystem.components.test.tsx",
+      "intended_future_screens": "development only"
+    },
+    {
+      "component_id": "custom-splash",
+      "name": "CustomSplash",
+      "category": "entry",
+      "source_path": "apps/mobile/src/features/splash/CustomSplash.tsx",
+      "purpose": "Custom brand splash with reduced-motion support",
+      "variants": [
+        "shortened",
+        "full"
+      ],
+      "accessibility_support": "Reduced motion quick fade; progressbar role",
+      "Stitch_patterns": "Splash",
+      "status": "FOUNDATION READY",
+      "tests": "launchState.test.ts",
+      "intended_future_screens": "app launch"
+    },
+    {
+      "component_id": "onboarding-screen",
+      "name": "OnboardingScreen",
+      "category": "onboarding",
+      "source_path": "apps/mobile/src/features/onboarding/OnboardingScreen.tsx",
+      "purpose": "Shared onboarding layout with skip/next",
+      "variants": [
+        "step 1-3"
+      ],
+      "accessibility_support": "Skip hint; scalable text",
+      "Stitch_patterns": "Onboarding",
+      "status": "FOUNDATION READY",
+      "tests": "OnboardingPageIndicator.test.tsx",
+      "intended_future_screens": "ONB-01..03"
+    },
+    {
+      "component_id": "onboarding-page-indicator",
+      "name": "OnboardingPageIndicator",
+      "category": "onboarding",
+      "source_path": "apps/mobile/src/features/onboarding/OnboardingPageIndicator.tsx",
+      "purpose": "Page position dots + text announcement",
+      "variants": [],
+      "accessibility_support": "Page X of Y (not colour-only)",
+      "Stitch_patterns": "Onboarding pager",
+      "status": "FOUNDATION READY",
+      "tests": "OnboardingPageIndicator.test.tsx",
+      "intended_future_screens": "ONB-01..03"
+    },
+    {
+      "component_id": "frontline-worker-hero",
+      "name": "FrontlineWorkerHero",
+      "category": "onboarding",
+      "source_path": "apps/mobile/src/features/onboarding/FrontlineWorkerHero.tsx",
+      "purpose": "Temporary code-based onboarding hero for screen 2",
+      "variants": [],
+      "accessibility_support": "image role + label",
+      "Stitch_patterns": "Onboarding 2 (temporary)",
+      "status": "DEVELOPMENT ONLY",
+      "tests": "FrontlineWorkerHero.test.tsx",
+      "intended_future_screens": "ONB-02 until photo ready"
+    },
+    {
+      "component_id": "login-screen",
+      "name": "LoginScreen",
+      "category": "auth",
+      "source_path": "apps/mobile/src/features/auth/components/LoginScreen.tsx",
+      "purpose": "Shared worker/admin remote sign-in form",
+      "variants": [
+        "worker",
+        "administrator"
+      ],
+      "accessibility_support": "labelled fields; loading; generic errors",
+      "Stitch_patterns": "Worker login / Administrator login",
+      "status": "IMPLEMENTED",
+      "tests": "authSession.test.tsx; developmentAuth.test.ts",
+      "intended_future_screens": "AUTH-WRK-01; AUTH-ADM-01"
+    },
+    {
+      "component_id": "password-field",
+      "name": "PasswordField",
+      "category": "auth",
+      "source_path": "apps/mobile/src/features/auth/components/PasswordField.tsx",
+      "purpose": "Password input with show/hide control",
+      "variants": [
+        "visible",
+        "hidden"
+      ],
+      "accessibility_support": "toggle announces show/hide; never announces password value",
+      "Stitch_patterns": "Password fields",
+      "status": "IMPLEMENTED",
+      "tests": "none dedicated",
+      "intended_future_screens": "AUTH-WRK-01; AUTH-ADM-01; AUTH-PWD-01"
+    },
+    {
+      "component_id": "pin-entry",
+      "name": "PinEntry",
+      "category": "auth",
+      "source_path": "apps/mobile/src/features/auth/components/PinEntry.tsx",
+      "purpose": "Six-digit masked PIN entry",
+      "variants": [],
+      "accessibility_support": "progress count without digit values",
+      "Stitch_patterns": "PIN create/confirm/unlock",
+      "status": "IMPLEMENTED",
+      "tests": "pinVerifier.test.ts; authSession.test.tsx",
+      "intended_future_screens": "AUTH-PIN-01; AUTH-PIN-02; AUTH-UNL-01"
+    },
+    {
+      "component_id": "auth-session-provider",
+      "name": "AuthSessionProvider",
+      "category": "auth",
+      "source_path": "apps/mobile/src/features/auth/providers/AuthSessionProvider.tsx",
+      "purpose": "Central authentication and local unlock orchestration",
+      "variants": [],
+      "accessibility_support": "n/a (provider)",
+      "Stitch_patterns": "Auth flows",
+      "status": "IMPLEMENTED",
+      "tests": "authSession.test.tsx",
+      "intended_future_screens": "all auth and protected shells"
+    },
+    {
+      "component_id": "database-provider",
+      "name": "DatabaseProvider",
+      "category": "data",
+      "source_path": "apps/mobile/src/data/providers/DatabaseProvider.tsx",
+      "purpose": "SQLite readiness and repository container (no raw connection)",
+      "variants": [
+        "idle",
+        "opening",
+        "migrating",
+        "ready",
+        "failed"
+      ],
+      "accessibility_support": "n/a (provider)",
+      "Stitch_patterns": "n/a",
+      "status": "IMPLEMENTED",
+      "tests": "migrations.test.ts; repositoryContracts.test.ts",
+      "intended_future_screens": "all clinical features via repositories"
+    },
+    {
+      "component_id": "database-preview-screen",
+      "name": "DatabasePreviewScreen",
+      "category": "development",
+      "source_path": "apps/mobile/src/data/diagnostics/DatabasePreviewScreen.tsx",
+      "purpose": "Development SYNTHETIC database diagnostics",
+      "variants": [],
+      "accessibility_support": "confirmation alert before reset",
+      "Stitch_patterns": "n/a",
+      "status": "DEVELOPMENT ONLY",
+      "tests": "manual Android pending",
+      "intended_future_screens": "DEV-DB-01"
+    },
+    {
+      "component_id": "ClientListItem",
+      "path": "apps/mobile/src/features/clients/components/ClientListItem.tsx",
+      "status": "IMPLEMENTED",
+      "stage": 7
+    },
+    {
+      "component_id": "PrivacyAvatar",
+      "path": "apps/mobile/src/features/clients/components/PrivacyAvatar.tsx",
+      "status": "IMPLEMENTED",
+      "stage": 7
+    },
+    {
+      "component_id": "StepProgress",
+      "path": "apps/mobile/src/features/clients/components/StepProgress.tsx",
+      "status": "IMPLEMENTED",
+      "stage": 7
+    },
+    {
+      "component_id": "QuestionField",
+      "name": "QuestionField",
+      "category": "screening",
+      "source_path": "apps/mobile/src/features/screening/components/QuestionField.tsx",
+      "purpose": "Presentational screening question controls without repository access",
+      "variants": [
+        "yesNo",
+        "singleChoice",
+        "multipleChoice",
+        "text",
+        "integer",
+        "decimal",
+        "date",
+        "time",
+        "measurement",
+        "informationAcknowledgement"
+      ],
+      "accessibility_support": "Labels on inputs/buttons; unknown/notAssessed/declined options explicit",
+      "Stitch_patterns": "Forms largely missing \u00e2\u20ac\u201d built from IA + tokens",
+      "status": "IMPLEMENTED",
+      "tests": "templateEngine.test.ts; visitServices.test.ts",
+      "intended_future_screens": "VIS-SCREENING-SECTION",
+      "stage": 8
+    },
+    {
+      "component_id": "priority-result-header",
+      "name": "PriorityResultHeader",
+      "category": "risk",
+      "source_path": "apps/mobile/src/features/risk/components/PriorityResultHeader.tsx",
+      "purpose": "Priority header with banner and RiskSummaryCard",
+      "status": "IMPLEMENTED",
+      "tests": "riskUi.test.tsx"
+    },
+    {
+      "component_id": "priority-explanation-card",
+      "name": "PriorityExplanationCard",
+      "category": "risk",
+      "source_path": "apps/mobile/src/features/risk/components/PriorityExplanationCard.tsx",
+      "purpose": "Approved explanation summary/detail",
+      "status": "IMPLEMENTED",
+      "tests": "riskUi.test.tsx"
+    },
+    {
+      "component_id": "risk-factor-list",
+      "name": "RiskFactorList",
+      "category": "risk",
+      "source_path": "apps/mobile/src/features/risk/components/RiskFactorList.tsx",
+      "purpose": "Matched factor list",
+      "status": "IMPLEMENTED",
+      "tests": "riskUi.test.tsx"
+    },
+    {
+      "component_id": "missing-information-card",
+      "name": "MissingInformationCard",
+      "category": "risk",
+      "source_path": "apps/mobile/src/features/risk/components/MissingInformationCard.tsx",
+      "purpose": "Missing information display",
+      "status": "IMPLEMENTED",
+      "tests": "riskUi.test.tsx"
+    },
+    {
+      "component_id": "worker-acknowledgement",
+      "name": "WorkerAcknowledgement",
+      "category": "risk",
+      "source_path": "apps/mobile/src/features/risk/components/WorkerAcknowledgement.tsx",
+      "purpose": "Worker acknowledgement checkbox",
+      "status": "IMPLEMENTED",
+      "tests": "riskUi.test.tsx"
+    },
+    {
+      "component_id": "rule-pack-unavailable-state",
+      "name": "RulePackUnavailableState",
+      "category": "risk",
+      "source_path": "apps/mobile/src/features/risk/components/RulePackUnavailableState.tsx",
+      "purpose": "Fail-closed unavailable UI",
+      "status": "IMPLEMENTED",
+      "tests": "riskUi.test.tsx"
+    },
+    {
+      "component_id": "nutrition-assessment-type-card",
+      "name": "NutritionAssessmentTypeCard",
+      "category": "nutrition",
+      "source_path": "apps/mobile/src/features/nutrition/components/NutritionAssessmentTypeCard.tsx",
+      "purpose": "Selectable assessment type with development banner",
+      "status": "IMPLEMENTED",
+      "tests": "assessmentWorkflow.test.ts",
+      "stage": 12
+    },
+    {
+      "component_id": "nutrition-history-item",
+      "name": "NutritionHistoryItem",
+      "category": "nutrition",
+      "source_path": "apps/mobile/src/features/nutrition/components/NutritionHistoryItem.tsx",
+      "purpose": "Completed assessment list row",
+      "status": "IMPLEMENTED",
+      "tests": "assessmentWorkflow.test.ts",
+      "stage": 12
+    },
+    {
+      "component_id": "nutrition-draft-card",
+      "name": "NutritionDraftCard",
+      "category": "nutrition",
+      "source_path": "apps/mobile/src/features/nutrition/components/NutritionDraftCard.tsx",
+      "purpose": "In-progress draft summary with resume action",
+      "status": "IMPLEMENTED",
+      "tests": "assessmentWorkflow.test.ts",
+      "stage": 12
+    },
+    {
+      "component_id": "nutrition-guidance-card",
+      "name": "NutritionGuidanceCard",
+      "category": "nutrition",
+      "source_path": "apps/mobile/src/features/nutrition/components/NutritionGuidanceCard.tsx",
+      "purpose": "Worker and caregiver-facing guidance card display",
+      "status": "IMPLEMENTED",
+      "tests": "guidanceResolution.test.ts",
+      "stage": 12
+    },
+    {
+      "component_id": "nutrition-guidance-unavailable-state",
+      "name": "NutritionGuidanceUnavailableState",
+      "category": "nutrition",
+      "source_path": "apps/mobile/src/features/nutrition/components/NutritionGuidanceUnavailableState.tsx",
+      "purpose": "Fail-closed guidance unavailable messaging",
+      "status": "IMPLEMENTED",
+      "tests": "guidanceResolution.test.ts",
+      "stage": 12
+    },
+    {
+      "component_id": "nutrition-reference-status",
+      "name": "NutritionReferenceStatus",
+      "category": "nutrition",
+      "source_path": "apps/mobile/src/features/nutrition/components/NutritionReferenceStatus.tsx",
+      "purpose": "Reference evaluation status and interpretation display",
+      "status": "IMPLEMENTED",
+      "tests": "referenceEngine.test.ts",
+      "stage": 12
+    },
+    {
+      "component_id": "nutrition-missing-information",
+      "name": "NutritionMissingInformation",
+      "category": "nutrition",
+      "source_path": "apps/mobile/src/features/nutrition/components/NutritionMissingInformation.tsx",
+      "purpose": "Missing required answers before completion",
+      "status": "IMPLEMENTED",
+      "tests": "assessmentWorkflow.test.ts",
+      "stage": 12
+    },
+    {
+      "component_id": "nutrition-development-banner",
+      "name": "DevelopmentBanner",
+      "category": "nutrition",
+      "source_path": "apps/mobile/src/features/nutrition/components/DevelopmentBanner.tsx",
+      "purpose": "Non-clinical development content warning",
+      "status": "IMPLEMENTED",
+      "tests": "contentGovernance.test.ts",
+      "stage": 12
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-scope-card",
+      "category": "assistant",
+      "purpose": "Visible scope disclosure",
+      "status": "IMPLEMENTED",
+      "name": "AskNorthCareScopeCard",
+      "tests": "a11yLabels.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/AskNorthCareScopeCard.tsx"
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-privacy-notice",
+      "category": "assistant",
+      "purpose": "Privacy reminder",
+      "status": "IMPLEMENTED",
+      "name": "AssistantPrivacyNotice",
+      "tests": "a11yLabels.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/AssistantPrivacyNotice.tsx"
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-question-input",
+      "category": "assistant",
+      "purpose": "Multiline general question input",
+      "status": "IMPLEMENTED",
+      "name": "AssistantQuestionInput",
+      "tests": "a11yLabels.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/AssistantQuestionInput.tsx"
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-topic-card",
+      "category": "assistant",
+      "purpose": "Approved topic card",
+      "status": "IMPLEMENTED",
+      "name": "SuggestedTopicCard",
+      "tests": "contentGovernance.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/SuggestedTopicCard.tsx"
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-processing",
+      "category": "assistant",
+      "purpose": "Searching approved information wording",
+      "status": "IMPLEMENTED",
+      "name": "AssistantProcessingState",
+      "tests": "a11yLabels.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/AssistantProcessingState.tsx"
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-answer-card",
+      "category": "assistant",
+      "purpose": "Retrieval-only answer display",
+      "status": "IMPLEMENTED",
+      "name": "AssistantAnswerCard",
+      "tests": "answerComposition.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/AssistantAnswerCard.tsx"
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-source-list",
+      "category": "assistant",
+      "purpose": "Citation list",
+      "status": "IMPLEMENTED",
+      "name": "AnswerSourceList",
+      "tests": "answerComposition.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/AnswerSourceList.tsx"
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-boundary",
+      "category": "assistant",
+      "purpose": "Safety boundary states",
+      "status": "IMPLEMENTED",
+      "name": "AssistantBoundaryState",
+      "tests": "safetyRouting.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/AssistantBoundaryState.tsx"
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-unavailable",
+      "category": "assistant",
+      "purpose": "Content unavailable",
+      "status": "IMPLEMENTED",
+      "name": "AssistantUnavailableState",
+      "tests": "safetyRouting.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/AssistantUnavailableState.tsx"
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-feedback",
+      "category": "assistant",
+      "purpose": "Local feedback controls",
+      "status": "IMPLEMENTED",
+      "name": "AssistantFeedbackControls",
+      "tests": "feedback.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/AssistantFeedbackControls.tsx"
+    },
+    {
+      "stage": 13,
+      "component_id": "ask-dev-banner",
+      "category": "assistant",
+      "purpose": "Development-only content warning",
+      "status": "IMPLEMENTED",
+      "name": "DevelopmentAssistantBanner",
+      "tests": "a11yLabels.test.ts",
+      "source_path": "apps/mobile/src/features/assistant/components/DevelopmentAssistantBanner.tsx"
+    },
+    {
+      "component_id": "ReminderListItem",
+      "name": "ReminderListItem",
+      "stage": 15,
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "component_id": "NotificationPrivacyNotice",
+      "name": "NotificationPrivacyNotice",
+      "stage": 15,
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "component_id": "CommunityRequestListItem",
+      "name": "CommunityRequestListItem",
+      "stage": "R5",
+      "implementation_status": "IMPLEMENTED",
+      "source_path": "apps/mobile/src/features/community-requests/components/CommunityRequestListItem.tsx",
+      "purpose": "List card without contact number; emergency text+icon+semantic border (no flash)"
+    },
+    {
+      "component_id": "CommunityRequestPrivacyNotice",
+      "name": "CommunityRequestPrivacyNotice",
+      "stage": "R5",
+      "implementation_status": "IMPLEMENTED",
+      "source_path": "apps/mobile/src/features/community-requests/components/CommunityRequestPrivacyNotice.tsx",
+      "purpose": "Contact-use, emergency coordination reminder, and client-link privacy notices"
+    },
+    {
+      "component_id": "CommunityRequestStateViews",
+      "name": "CommunityRequestStateViews",
+      "stage": "R4",
+      "implementation_status": "IMPLEMENTED",
+      "source_path": "apps/mobile/src/features/community-requests/components/CommunityRequestStateViews.tsx",
+      "purpose": "Offline, reach-disabled, conflict and error state mapping"
+    },
+    {
+      "component_id": "EmergencyCoordinationBanner",
+      "name": "EmergencyCoordinationBanner",
+      "stage": "R5",
+      "implementation_status": "IMPLEMENTED",
+      "source_path": "apps/mobile/src/features/community-requests/components/EmergencyCoordinationBanner.tsx",
+      "purpose": "Calm emergency simulation banner with call-112 reminder; no ambulance claim"
+    },
+    {
+      "component_id": "OfflineAiDevScreen",
+      "name": "OfflineAiDevScreen",
+      "stage": "offline-ai-1",
+      "implementation_status": "IMPLEMENTED",
+      "source_path": "apps/mobile/src/features/offline-ai/screens/OfflineAiDevScreen.tsx",
+      "purpose": "Development-only offline model provisioning, load, smoke test and release controls"
+    }
+  ],
+  "version": 8,
+  "updated": "2026-08-03",
+  "notes": [
+    "Stage 18 accessibility/security hardening audit applied; see docs/accessibility and docs/security",
+    "Reach R4 Worker Community Requests components added",
+    "Reach R5 EmergencyCoordinationBanner and emergency presentation refinements",
+    "Offline AI Stage 1 development smoke-test screen added; not connected to Ask NorthCare"
+  ]
+}

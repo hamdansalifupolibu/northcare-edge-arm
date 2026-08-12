@@ -1,0 +1,82 @@
+{
+  "inventory_id": "voice-provider-inventory",
+  "stage": 11,
+  "last_updated": "2026-08-02",
+  "approved_for_production_transcription_count": 0,
+  "approved_for_production_extraction_count": 0,
+  "production_gate": "APPROVED_PRODUCTION_ONLY",
+  "transcription_providers": [
+    {
+      "provider_id": "production.unavailable.transcription.v1",
+      "version": "1",
+      "type": "transcription",
+      "status": "APPROVED_FOR_PRODUCTION_UNAVAILABLE",
+      "availability": "failedClosed",
+      "supports_offline": false,
+      "is_synthetic": false,
+      "environments": ["production", "staging"],
+      "notes": "Default when zero approved ASR providers exist."
+    },
+    {
+      "provider_id": "development.simulation.transcription.v1",
+      "version": "1",
+      "type": "transcription",
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "availability": "developmentOnly",
+      "supports_offline": true,
+      "is_synthetic": true,
+      "environments": ["development"],
+      "production_gated": true,
+      "notes": "Returns synthetic transcript text. Never active in production/staging."
+    },
+    {
+      "provider_id": "manual.worker.transcript.v1",
+      "version": "1",
+      "type": "transcription",
+      "status": "APPROVED_MANUAL_PATH",
+      "availability": "available",
+      "supports_offline": true,
+      "is_synthetic": false,
+      "environments": ["development", "staging", "production"],
+      "notes": "Worker-typed transcript; not ASR."
+    }
+  ],
+  "extraction_providers": [
+    {
+      "provider_id": "production.unavailable.extraction.v1",
+      "version": "1",
+      "type": "extraction",
+      "status": "APPROVED_FOR_PRODUCTION_UNAVAILABLE",
+      "availability": "failedClosed",
+      "supports_offline": false,
+      "is_synthetic": false,
+      "environments": ["production", "staging"],
+      "notes": "Default when zero approved extraction providers exist."
+    },
+    {
+      "provider_id": "development.simulation.extraction.v1",
+      "version": "1",
+      "type": "extraction",
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "availability": "developmentOnly",
+      "supports_offline": true,
+      "is_synthetic": true,
+      "environments": ["development"],
+      "production_gated": true,
+      "notes": "Pattern-matches synthetic dev schema fields only."
+    }
+  ],
+  "rejected_technologies": [
+    "expo-av (new code)",
+    "Whisper",
+    "cloud STT (unapproved)",
+    "llama / local LLM",
+    "ONNX runtime",
+    "TensorFlow"
+  ],
+  "notes": [
+    "Production transcription providers APPROVED: 0 — fail closed.",
+    "Production extraction providers APPROVED: 0 — fail closed.",
+    "Development simulation providers are production-gated."
+  ]
+}

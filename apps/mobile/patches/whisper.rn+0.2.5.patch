@@ -1,0 +1,206 @@
+diff --git a/node_modules/whisper.rn/android/src/main/java/com/rnwhisper/WhisperContext.java b/node_modules/whisper.rn/android/src/main/java/com/rnwhisper/WhisperContext.java
+index 4e77147..87d0565 100644
+--- a/node_modules/whisper.rn/android/src/main/java/com/rnwhisper/WhisperContext.java
++++ b/node_modules/whisper.rn/android/src/main/java/com/rnwhisper/WhisperContext.java
+@@ -12,6 +12,9 @@ import android.os.Build;
+ import android.content.res.AssetManager;
+ import android.media.AudioFormat;
+ import android.media.AudioRecord;
++import android.media.MediaCodec;
++import android.media.MediaExtractor;
++import android.media.MediaFormat;
+ import android.media.MediaRecorder.AudioSource;
+ 
+ import java.util.Random;
+@@ -281,7 +284,8 @@ public class WhisperContext {
+   public WritableMap transcribeFile(int jobId, String filePath, ReadableMap options) throws IOException, Exception {
+     this.jobId = jobId;
+     isTranscribing = true;
+-    float[] audioData = decodeWaveFile(new File(filePath));
++    float[] audioData = decodeAudioFile(new File(filePath));
++    Log.d(NAME, "Decoded " + audioData.length + " samples (" + (audioData.length / (float) SAMPLE_RATE) + "s) from: " + filePath);
+     int code = full(jobId, options, audioData, audioData.length);
+     isTranscribing = false;
+     this.jobId = -1;
+@@ -405,6 +409,181 @@ public class WhisperContext {
+     return floatArray;
+   }
+ 
++  /**
++   * Universal audio file decoder. Detects whether the file is a raw WAV (RIFF
++   * header) and falls back to Android's MediaExtractor + MediaCodec pipeline
++   * for compressed formats (M4A/AAC, MP3, OGG, etc.). Output is always 16 kHz
++   * mono float samples in [-1, 1] — exactly what whisper.cpp expects.
++   */
++  public static float[] decodeAudioFile(File file) throws IOException {
++    boolean isWav = false;
++    try (FileInputStream fis = new FileInputStream(file)) {
++      byte[] magic = new byte[4];
++      if (fis.read(magic) == 4) {
++        isWav = (magic[0] == 'R' && magic[1] == 'I' && magic[2] == 'F' && magic[3] == 'F');
++      }
++    }
++    if (isWav) {
++      Log.d(NAME, "Detected WAV file, using direct PCM decoder");
++      return decodeWaveFile(file);
++    }
++    Log.d(NAME, "Non-WAV file detected, using MediaCodec decoder for: " + file.getName());
++    return decodeCompressedAudio(file);
++  }
++
++  private static float[] decodeCompressedAudio(File file) throws IOException {
++    MediaExtractor extractor = new MediaExtractor();
++    try {
++      extractor.setDataSource(file.getAbsolutePath());
++    } catch (IOException e) {
++      throw new IOException("Cannot open audio file: " + e.getMessage());
++    }
++
++    int audioTrack = -1;
++    MediaFormat format = null;
++    for (int i = 0; i < extractor.getTrackCount(); i++) {
++      MediaFormat tf = extractor.getTrackFormat(i);
++      String mime = tf.getString(MediaFormat.KEY_MIME);
++      if (mime != null && mime.startsWith("audio/")) {
++        audioTrack = i;
++        format = tf;
++        break;
++      }
++    }
++    if (audioTrack < 0 || format == null) {
++      extractor.release();
++      throw new IOException("No audio track found in file: " + file.getName());
++    }
++
++    extractor.selectTrack(audioTrack);
++    String mime = format.getString(MediaFormat.KEY_MIME);
++    int srcRate = format.getInteger(MediaFormat.KEY_SAMPLE_RATE);
++    int srcChannels = format.getInteger(MediaFormat.KEY_CHANNEL_COUNT);
++    Log.d(NAME, "Source audio: mime=" + mime + " rate=" + srcRate + "Hz ch=" + srcChannels);
++
++    MediaCodec codec;
++    try {
++      codec = MediaCodec.createDecoderByType(mime);
++      codec.configure(format, null, null, 0);
++      codec.start();
++    } catch (Exception e) {
++      extractor.release();
++      throw new IOException("Cannot create audio decoder for " + mime + ": " + e.getMessage());
++    }
++
++    ArrayList<short[]> pcmChunks = new ArrayList<>();
++    int totalSamples = 0;
++    boolean inputDone = false;
++    boolean outputDone = false;
++    MediaCodec.BufferInfo info = new MediaCodec.BufferInfo();
++    final long TIMEOUT_US = 10_000;
++
++    try {
++      while (!outputDone) {
++        if (!inputDone) {
++          int inIdx = codec.dequeueInputBuffer(TIMEOUT_US);
++          if (inIdx >= 0) {
++            ByteBuffer inBuf = codec.getInputBuffer(inIdx);
++            int size = extractor.readSampleData(inBuf, 0);
++            if (size < 0) {
++              codec.queueInputBuffer(inIdx, 0, 0, 0, MediaCodec.BUFFER_FLAG_END_OF_STREAM);
++              inputDone = true;
++            } else {
++              codec.queueInputBuffer(inIdx, 0, size, extractor.getSampleTime(), 0);
++              extractor.advance();
++            }
++          }
++        }
++
++        int outIdx = codec.dequeueOutputBuffer(info, TIMEOUT_US);
++        if (outIdx >= 0) {
++          if (info.size > 0) {
++            ByteBuffer outBuf = codec.getOutputBuffer(outIdx);
++            outBuf.order(ByteOrder.LITTLE_ENDIAN);
++            outBuf.position(info.offset);
++            outBuf.limit(info.offset + info.size);
++            ShortBuffer sb = outBuf.asShortBuffer();
++            short[] raw = new short[sb.remaining()];
++            sb.get(raw);
++
++            if (srcChannels > 1) {
++              int monoLen = raw.length / srcChannels;
++              short[] mono = new short[monoLen];
++              for (int m = 0; m < monoLen; m++) {
++                long sum = 0;
++                for (int c = 0; c < srcChannels; c++) {
++                  sum += raw[m * srcChannels + c];
++                }
++                mono[m] = (short) (sum / srcChannels);
++              }
++              raw = mono;
++            }
++
++            pcmChunks.add(raw);
++            totalSamples += raw.length;
++          }
++          codec.releaseOutputBuffer(outIdx, false);
++          if ((info.flags & MediaCodec.BUFFER_FLAG_END_OF_STREAM) != 0) {
++            outputDone = true;
++          }
++        } else if (outIdx == MediaCodec.INFO_OUTPUT_FORMAT_CHANGED) {
++          MediaFormat outFmt = codec.getOutputFormat();
++          if (outFmt.containsKey(MediaFormat.KEY_SAMPLE_RATE)) {
++            srcRate = outFmt.getInteger(MediaFormat.KEY_SAMPLE_RATE);
++          }
++          if (outFmt.containsKey(MediaFormat.KEY_CHANNEL_COUNT)) {
++            srcChannels = outFmt.getInteger(MediaFormat.KEY_CHANNEL_COUNT);
++          }
++          Log.d(NAME, "Decoder output format changed: rate=" + srcRate + " ch=" + srcChannels);
++        }
++      }
++    } finally {
++      codec.stop();
++      codec.release();
++      extractor.release();
++    }
++
++    if (totalSamples == 0) {
++      throw new IOException("Decoded zero audio samples from: " + file.getName());
++    }
++
++    short[] allSamples = new short[totalSamples];
++    int off = 0;
++    for (short[] chunk : pcmChunks) {
++      System.arraycopy(chunk, 0, allSamples, off, chunk.length);
++      off += chunk.length;
++    }
++
++    if (srcRate != SAMPLE_RATE) {
++      Log.d(NAME, "Resampling " + allSamples.length + " samples from " + srcRate + "Hz to " + SAMPLE_RATE + "Hz");
++      allSamples = linearResample(allSamples, srcRate, SAMPLE_RATE);
++    }
++
++    float[] result = new float[allSamples.length];
++    for (int i = 0; i < allSamples.length; i++) {
++      result[i] = Math.max(-1f, Math.min(1f, allSamples[i] / 32767.0f));
++    }
++    Log.d(NAME, "decodeCompressedAudio complete: " + result.length + " float samples (" + String.format("%.1f", result.length / (float) SAMPLE_RATE) + "s)");
++    return result;
++  }
++
++  private static short[] linearResample(short[] input, int fromRate, int toRate) {
++    double ratio = (double) fromRate / toRate;
++    int outLen = (int) (input.length / ratio);
++    short[] output = new short[outLen];
++    for (int i = 0; i < outLen; i++) {
++      double srcIdx = i * ratio;
++      int idx = (int) srcIdx;
++      double frac = srcIdx - idx;
++      if (idx + 1 < input.length) {
++        output[i] = (short) (input[idx] * (1.0 - frac) + input[idx + 1] * frac);
++      } else if (idx < input.length) {
++        output[i] = input[idx];
++      }
++    }
++    return output;
++  }
++
+   static {
+     Log.d(NAME, "Primary ABI: " + Build.SUPPORTED_ABIS[0]);
+     boolean loadVfpv4 = false;

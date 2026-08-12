@@ -1,0 +1,43 @@
+{
+  "inventory_id": "nutrition-content-inventory",
+  "stage": 12,
+  "last_updated": "2026-08-02",
+  "approved_for_pilot_count": 0,
+  "approved_for_development_count": 2,
+  "production_gate": "APPROVED_FOR_PILOT_ONLY",
+  "templates": [
+    {
+      "template_id": "synthetic-dev-child-nutrition-v1",
+      "version": 1,
+      "assessment_type": "childNutrition",
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "development_only": true,
+      "clinical": false,
+      "clinical_review_status": "notReviewed",
+      "clinical_source_ref": null,
+      "applicable_client_categories": ["childUnderFive", "newborn"],
+      "reference_pack_ids": ["synthetic-dev-nutrition-reference-v1"],
+      "guidance_pack_ids": ["synthetic-dev-nutrition-guidance-v1"],
+      "source_path": "apps/mobile/src/features/nutrition/content/assessments/syntheticDevChildNutritionTemplate.ts"
+    },
+    {
+      "template_id": "synthetic-dev-maternal-nutrition-v1",
+      "version": 1,
+      "assessment_type": "maternalNutrition",
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "development_only": true,
+      "clinical": false,
+      "clinical_review_status": "notReviewed",
+      "clinical_source_ref": null,
+      "applicable_client_categories": ["pregnant", "postnatal"],
+      "reference_pack_ids": ["synthetic-dev-nutrition-reference-v1"],
+      "guidance_pack_ids": ["synthetic-dev-nutrition-guidance-v1"],
+      "source_path": "apps/mobile/src/features/nutrition/content/assessments/syntheticDevMaternalNutritionTemplate.ts"
+    }
+  ],
+  "notes": [
+    "Zero APPROVED_FOR_PILOT nutrition templates. Production fails closed.",
+    "Capture reuses Stage 8 QuestionField; answers persist to nutrition_assessment_answers.",
+    "Do not invent clinical review names or dates."
+  ]
+}

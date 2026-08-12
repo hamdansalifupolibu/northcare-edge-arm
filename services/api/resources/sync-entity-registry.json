@@ -1,0 +1,151 @@
+{
+  "protocolVersion": 1,
+  "entities": [
+    {
+      "entityType": "client",
+      "syncEnabled": true,
+      "conflictClass": "editableDemographicDraft",
+      "softDelete": true,
+      "notes": "Demographic fields may be resolved with controlled worker confirmation; clinical notes not auto-merged."
+    },
+    {
+      "entityType": "caregiver",
+      "syncEnabled": true,
+      "conflictClass": "editableDemographicDraft",
+      "softDelete": true
+    },
+    {
+      "entityType": "client_relationship",
+      "syncEnabled": true,
+      "conflictClass": "versionedRecord",
+      "softDelete": true
+    },
+    {
+      "entityType": "encounter",
+      "syncEnabled": true,
+      "conflictClass": "versionedCompletedClinical",
+      "softDelete": true,
+      "notes": "Completed clinical encounters are server-authoritative on conflict; no automatic medical merge."
+    },
+    {
+      "entityType": "screening",
+      "syncEnabled": true,
+      "conflictClass": "versionedCompletedClinical",
+      "softDelete": true
+    },
+    {
+      "entityType": "measurement",
+      "syncEnabled": true,
+      "conflictClass": "appendOnly",
+      "softDelete": true
+    },
+    {
+      "entityType": "risk_assessment",
+      "syncEnabled": true,
+      "conflictClass": "versionedCompletedClinical",
+      "softDelete": true
+    },
+    {
+      "entityType": "referral",
+      "syncEnabled": true,
+      "conflictClass": "versionedCompletedClinical",
+      "softDelete": true
+    },
+    {
+      "entityType": "referral_event",
+      "syncEnabled": true,
+      "conflictClass": "appendOnly",
+      "softDelete": true
+    },
+    {
+      "entityType": "referral_passport",
+      "syncEnabled": true,
+      "conflictClass": "serverAuthoritative",
+      "softDelete": true,
+      "notes": "Sync opaque token hash only — never raw QR token."
+    },
+    {
+      "entityType": "nutrition_assessment",
+      "syncEnabled": true,
+      "conflictClass": "versionedCompletedClinical",
+      "softDelete": true
+    },
+    {
+      "entityType": "nutrition_reference_result",
+      "syncEnabled": true,
+      "conflictClass": "appendOnly",
+      "softDelete": true
+    },
+    {
+      "entityType": "nutrition_guidance_resolution",
+      "syncEnabled": true,
+      "conflictClass": "appendOnly",
+      "softDelete": true
+    },
+    {
+      "entityType": "voice_capture_session",
+      "syncEnabled": true,
+      "conflictClass": "versionedRecord",
+      "softDelete": true,
+      "notes": "Metadata only; binary audio upload unavailable in Stage 14."
+    },
+    {
+      "entityType": "voice_transcript",
+      "syncEnabled": true,
+      "conflictClass": "versionedRecord",
+      "softDelete": true
+    },
+    {
+      "entityType": "voice_extraction_run",
+      "syncEnabled": true,
+      "conflictClass": "appendOnly",
+      "softDelete": true
+    },
+    {
+      "entityType": "attachment",
+      "syncEnabled": true,
+      "conflictClass": "serverAuthoritative",
+      "softDelete": true,
+      "notes": "Metadata/hash only; binary transfer provider unavailable in production."
+    },
+    {
+      "entityType": "assistant_feedback",
+      "syncEnabled": true,
+      "conflictClass": "appendOnly",
+      "softDelete": true
+    },
+    {
+      "entityType": "facility",
+      "syncEnabled": true,
+      "conflictClass": "serverAuthoritative",
+      "softDelete": true
+    },
+    {
+      "entityType": "follow_up_reminder",
+      "syncEnabled": true,
+      "conflictClass": "versionedRecord",
+      "softDelete": true,
+      "notes": "Competing schedule, handled-versus-active, and cancelled-versus-active changes require review. Device-native schedule identifiers and permission state are excluded."
+    }
+  ],
+  "conflictClasses": {
+    "serverAuthoritative": "Server wins; local diverging write becomes conflict for review; no silent overwrite of local unsynced work.",
+    "appendOnly": "Conflicting updates create conflict records; appends with distinct IDs do not collide.",
+    "versionedCompletedClinical": "Stale base versions conflict; no automatic clinical merge; no blind LWW.",
+    "editableDemographicDraft": "Worker-confirmable resolution allowed for demographic draft fields only.",
+    "versionedRecord": "Version check required; conflict persisted for controlled resolution."
+  },
+  "excludedFromSync": [
+    "pin_verifier",
+    "biometric_material",
+    "session_envelope",
+    "passwords",
+    "raw_qr_tokens",
+    "raw_audio_binaries",
+    "native_notification_id",
+    "native_schedule_state",
+    "notification_permission_state",
+    "android_channel_state",
+    "local_scheduling_error"
+  ]
+}

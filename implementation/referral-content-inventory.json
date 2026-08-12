@@ -1,0 +1,35 @@
+{
+  "inventory_id": "referral-content-inventory",
+  "stage": 10,
+  "last_updated": "2026-08-02",
+  "approved_for_pilot_count": 0,
+  "development_reason_count": 3,
+  "production_gate": "APPROVED_FOR_PILOT_ONLY",
+  "reasons": [
+    {
+      "reason_code": "synthetic.dev.further_assessment",
+      "version": 1,
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "development_only": true,
+      "clinical": false
+    },
+    {
+      "reason_code": "synthetic.dev.priority_follow_up",
+      "version": 1,
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "development_only": true,
+      "clinical": false
+    },
+    {
+      "reason_code": "synthetic.dev.worker_initiated",
+      "version": 1,
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "development_only": true,
+      "clinical": false
+    }
+  ],
+  "notes": [
+    "Zero APPROVED_FOR_PILOT clinical referral reasons. Engine + workflow ship with synthetic development content only.",
+    "Do not invent clinical referral indications."
+  ]
+}

@@ -1,0 +1,1534 @@
+{
+  "version": 12,
+  "updated": "2026-08-02",
+  "stage": 18,
+  "screens": [
+    {
+      "screen_id": "SPL-01",
+      "name": "Custom Splash",
+      "route": "/(entry)/splash",
+      "user_role": "any",
+      "authentication_requirement": "none",
+      "purpose": "Brand splash and launch hand-off including auth hydrate",
+      "source_Stitch_screen": "Splash / launch",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [
+        "northcare-logo-symbol-primary.png"
+      ],
+      "accessibility_status": "reduced-motion supported",
+      "tests": [
+        "launchState"
+      ],
+      "known_differences": "Simplified RN Animated motion vs Stitch CSS"
+    },
+    {
+      "screen_id": "ONB-01",
+      "name": "Care begins close to home",
+      "route": "/(entry)/onboarding/care-close-to-home",
+      "user_role": "any",
+      "authentication_requirement": "none",
+      "purpose": "Onboarding community care introduction",
+      "source_Stitch_screen": "Onboarding 1",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [
+        "onboarding-maternal-child-care.webp"
+      ],
+      "accessibility_status": "hero labelled; page indicator text",
+      "tests": [
+        "OnboardingPageIndicator"
+      ],
+      "known_differences": "Design-system spacing/type"
+    },
+    {
+      "screen_id": "ONB-02",
+      "name": "Built for frontline health workers",
+      "route": "/(entry)/onboarding/frontline-workers",
+      "user_role": "any",
+      "authentication_requirement": "none",
+      "purpose": "Onboarding frontline workflow introduction",
+      "source_Stitch_screen": "Onboarding 2",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "temporary hero labelled",
+      "tests": [
+        "FrontlineWorkerHero"
+      ],
+      "known_differences": "Code-based temporary hero; clean photo pending"
+    },
+    {
+      "screen_id": "ONB-03",
+      "name": "Reliable\u00e2\u20ac\u201deven without internet",
+      "route": "/(entry)/onboarding/reliable-offline",
+      "user_role": "any",
+      "authentication_requirement": "none",
+      "purpose": "Onboarding offline-first intent",
+      "source_Stitch_screen": "Onboarding 3",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [
+        "onboarding-offline-connectivity.webp"
+      ],
+      "accessibility_status": "artistic map caveat labelled",
+      "tests": [],
+      "known_differences": "Explicit non-operational sync footnote"
+    },
+    {
+      "screen_id": "WSP-01",
+      "name": "Choose your workspace",
+      "route": "/(entry)/workspace-selection",
+      "user_role": "any",
+      "authentication_requirement": "none",
+      "purpose": "Select worker or administrator workspace preference",
+      "source_Stitch_screen": "Workspace selection",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "pressable cards with selected state; entrance motion respects reduce-motion",
+      "tests": [
+        "preferences",
+        "routeAccess",
+        "entranceMotion"
+      ],
+      "known_differences": "Does not authenticate; Stage 17 selection emphasis + EntranceMotion"
+    },
+    {
+      "screen_id": "WRK-ENTRY-01",
+      "name": "Frontline Health Worker entry",
+      "route": "/(entry)/worker-entry",
+      "user_role": "worker",
+      "authentication_requirement": "none",
+      "purpose": "Worker auth boundary before login",
+      "source_Stitch_screen": "Worker entry",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "clear labels",
+      "tests": [
+        "routeAccess"
+      ],
+      "known_differences": "Continues to Stage 5 login"
+    },
+    {
+      "screen_id": "ADM-ENTRY-01",
+      "name": "Administrator entry",
+      "route": "/(entry)/admin-entry",
+      "user_role": "administrator",
+      "authentication_requirement": "none",
+      "purpose": "Administrator auth boundary before login",
+      "source_Stitch_screen": "Administrator entry",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "clear labels",
+      "tests": [
+        "routeAccess"
+      ],
+      "known_differences": "Continues to Stage 5 login"
+    },
+    {
+      "screen_id": "AUTH-WRK-01",
+      "stage_17_note": "PasswordField show/hide; hidden by default",
+      "name": "Worker Login",
+      "route": "/(auth)/worker-login",
+      "user_role": "worker",
+      "authentication_requirement": "public",
+      "purpose": "Remote worker sign-in with loginIdentifier + password",
+      "source_Stitch_screen": "Worker login",
+      "offline_availability": "online_required_first_login",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [
+        "northcare-logo-symbol-primary.png"
+      ],
+      "accessibility_status": "labelled fields; PasswordField show/hide; generic errors",
+      "tests": [
+        "developmentAuth",
+        "errorMapper",
+        "authSession",
+        "passwordField"
+      ],
+      "known_differences": "No clinical stats; design-system forms"
+    },
+    {
+      "screen_id": "AUTH-ADM-01",
+      "name": "Administrator Login",
+      "route": "/(auth)/admin-login",
+      "user_role": "administrator",
+      "authentication_requirement": "public",
+      "purpose": "Remote administrator sign-in",
+      "source_Stitch_screen": "Administrator login",
+      "offline_availability": "online_required_first_login",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [
+        "northcare-logo-symbol-primary.png"
+      ],
+      "accessibility_status": "shared LoginScreen PasswordField a11y",
+      "tests": [
+        "developmentAuth",
+        "authSession",
+        "passwordField"
+      ],
+      "known_differences": "Same product chrome as worker login"
+    },
+    {
+      "screen_id": "AUTH-REC-01",
+      "name": "Password Recovery",
+      "route": "/(auth)/password-recovery",
+      "user_role": "any",
+      "authentication_requirement": "public",
+      "purpose": "Non-enumerating recovery request",
+      "source_Stitch_screen": "Password recovery",
+      "offline_availability": "online_preferred",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "labelled form + generic confirmation",
+      "tests": [
+        "developmentAuth",
+        "errorMapper"
+      ],
+      "known_differences": "Always generic success copy"
+    },
+    {
+      "screen_id": "AUTH-PWD-01",
+      "name": "Password Change",
+      "route": "/(auth)/password-change",
+      "user_role": "any",
+      "authentication_requirement": "firstTimeSetupRequired",
+      "purpose": "Temporary password change on first login",
+      "source_Stitch_screen": "First-time password change",
+      "offline_availability": "online_required",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "password visibility controls; mismatch messaging",
+      "tests": [
+        "developmentAuth",
+        "authSession"
+      ],
+      "known_differences": "Provider password policy text"
+    },
+    {
+      "screen_id": "AUTH-FAC-01",
+      "name": "Facility Confirmation",
+      "route": "/(auth)/facility-confirmation",
+      "user_role": "any",
+      "authentication_requirement": "firstTimeSetupRequired",
+      "purpose": "Confirm assigned facility from remote account",
+      "source_Stitch_screen": "Facility confirmation",
+      "offline_availability": "session_memory",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "confirm/reject actions labelled",
+      "tests": [
+        "authSession"
+      ],
+      "known_differences": "No facility picker"
+    },
+    {
+      "screen_id": "AUTH-PIN-01",
+      "name": "Create PIN",
+      "route": "/(auth)/create-pin",
+      "user_role": "any",
+      "authentication_requirement": "firstTimeSetupRequired",
+      "purpose": "Create six-digit offline PIN",
+      "source_Stitch_screen": "PIN creation",
+      "offline_availability": "session_memory",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "progress without announcing digits",
+      "tests": [
+        "pinVerifier",
+        "authSession"
+      ],
+      "known_differences": "RN PinEntry vs HTML keypad"
+    },
+    {
+      "screen_id": "AUTH-PIN-02",
+      "name": "Confirm PIN",
+      "route": "/(auth)/confirm-pin",
+      "user_role": "any",
+      "authentication_requirement": "firstTimeSetupRequired",
+      "purpose": "Confirm six-digit offline PIN",
+      "source_Stitch_screen": "PIN confirmation",
+      "offline_availability": "session_memory",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "mismatch announced without digits",
+      "tests": [
+        "pinVerifier",
+        "authSession"
+      ],
+      "known_differences": "RN PinEntry"
+    },
+    {
+      "screen_id": "AUTH-BIO-01",
+      "name": "Biometric Setup",
+      "route": "/(auth)/biometric-setup",
+      "user_role": "any",
+      "authentication_requirement": "firstTimeSetupRequired",
+      "purpose": "Optional fingerprint unlock setup",
+      "source_Stitch_screen": "Fingerprint setup",
+      "offline_availability": "device_local",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "optional enable/skip labelled",
+      "tests": [
+        "biometricService",
+        "authSession"
+      ],
+      "known_differences": "Strong biometric preference; physical validation pending"
+    },
+    {
+      "screen_id": "AUTH-UNL-01",
+      "name": "Returning Unlock",
+      "route": "/(auth)/unlock",
+      "user_role": "session_role",
+      "authentication_requirement": "locked",
+      "purpose": "Offline PIN/biometric unlock",
+      "source_Stitch_screen": "Returning-user unlock",
+      "offline_availability": "full_when_entitled",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [
+        "northcare-logo-symbol-primary.png"
+      ],
+      "accessibility_status": "PIN progress; biometric action; no clinical data",
+      "tests": [
+        "authSession",
+        "secureSession"
+      ],
+      "known_differences": "No client counts or health alerts"
+    },
+    {
+      "screen_id": "AUTH-LCK-01",
+      "name": "Temporarily Locked",
+      "route": "/(auth)/temporarily-locked",
+      "user_role": "session_role",
+      "authentication_requirement": "locked",
+      "purpose": "PIN attempt lockout messaging",
+      "source_Stitch_screen": "Authentication errors / lockout",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "AppStateView error messaging",
+      "tests": [
+        "authSession"
+      ],
+      "known_differences": "Provisional 30s development lockout"
+    },
+    {
+      "screen_id": "AUTH-INA-01",
+      "name": "Account Inactive",
+      "route": "/(auth)/account-inactive",
+      "user_role": "any",
+      "authentication_requirement": "accessRevoked",
+      "purpose": "Inactive/revoked account privacy-safe message",
+      "source_Stitch_screen": "Account inactive",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "clear contact-admin guidance",
+      "tests": [
+        "developmentAuth"
+      ],
+      "known_differences": "No clinical leakage"
+    },
+    {
+      "screen_id": "AUTH-EXP-01",
+      "name": "Session Expired",
+      "route": "/(auth)/session-expired",
+      "user_role": "session_role",
+      "authentication_requirement": "sessionExpired",
+      "purpose": "Offline entitlement expired; re-authenticate",
+      "source_Stitch_screen": "Session timeout",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "re-sign-in CTA",
+      "tests": [
+        "authSession",
+        "offlinePolicy"
+      ],
+      "known_differences": "Uses provisional 14-day entitlement"
+    },
+    {
+      "screen_id": "AUTH-OUT-01",
+      "name": "Logout Confirmation",
+      "route": "/(auth)/logout-confirm",
+      "user_role": "session_role",
+      "authentication_requirement": "authenticated",
+      "purpose": "Confirm sign-out / change account",
+      "source_Stitch_screen": "Logout confirmation",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "destructive confirmation",
+      "tests": [
+        "authSession"
+      ],
+      "known_differences": "Documents that future clinical records are not deleted here"
+    },
+    {
+      "screen_id": "WRK-SHELL-01",
+      "name": "Worker home shell",
+      "route": "/(worker)",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "Protected worker shell after auth",
+      "source_Stitch_screen": "Worker dashboard shell",
+      "offline_availability": "shell_only",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "lock/sign-out labelled",
+      "tests": [
+        "routeAccess",
+        "authSession"
+      ],
+      "known_differences": "No clinical workflows yet"
+    },
+    {
+      "screen_id": "ADM-SHELL-01",
+      "name": "Administrator home shell",
+      "route": "/(admin)",
+      "user_role": "administrator",
+      "authentication_requirement": "authenticated",
+      "purpose": "Protected administrator shell after auth",
+      "source_Stitch_screen": "Administrator shell",
+      "offline_availability": "shell_only_no_org_data",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "lock/sign-out labelled",
+      "tests": [
+        "routeAccess",
+        "authSession"
+      ],
+      "known_differences": "No organisation management offline"
+    },
+    {
+      "screen_id": "DEV-DS-01",
+      "name": "Design system preview",
+      "route": "/(development)/design-system-preview",
+      "user_role": "developer",
+      "authentication_requirement": "development-only",
+      "purpose": "Development component gallery + onboarding reset",
+      "source_Stitch_screen": "n/a",
+      "offline_availability": "full",
+      "implementation_status": "DEVELOPMENT ONLY",
+      "asset_dependencies": [],
+      "accessibility_status": "labelled Development Preview",
+      "tests": [
+        "designSystem.components"
+      ],
+      "known_differences": "Not production navigation"
+    },
+    {
+      "screen_id": "DEV-DB-01",
+      "name": "Database preview",
+      "route": "/(development)/database-preview",
+      "user_role": "developer",
+      "authentication_requirement": "development-only",
+      "purpose": "SYNTHETIC database diagnostics, seed, self-check, reset",
+      "source_Stitch_screen": "n/a",
+      "offline_availability": "full",
+      "implementation_status": "DEVELOPMENT ONLY",
+      "asset_dependencies": [],
+      "accessibility_status": "confirmation before destructive reset",
+      "tests": [
+        "migrations",
+        "repositoryContracts"
+      ],
+      "known_differences": "Shows aggregate counts only \u00e2\u20ac\u201d never raw health records"
+    },
+    {
+      "screen_id": "CLI-LIST",
+      "route": "/(worker)/clients",
+      "title": "Clients",
+      "status": "IMPLEMENTED",
+      "stage": 7
+    },
+    {
+      "screen_id": "CLI-REGISTER",
+      "route": "/(worker)/clients/register",
+      "title": "Register client",
+      "status": "IMPLEMENTED",
+      "stage": 7
+    },
+    {
+      "screen_id": "CLI-PROFILE",
+      "route": "/(worker)/clients/[clientId]",
+      "title": "Client profile",
+      "status": "IMPLEMENTED",
+      "stage": 7
+    },
+    {
+      "screen_id": "CLI-EDIT",
+      "route": "/(worker)/clients/[clientId]/edit",
+      "title": "Edit client",
+      "status": "IMPLEMENTED",
+      "stage": 7
+    },
+    {
+      "screen_id": "CLI-HISTORY",
+      "route": "/(worker)/clients/[clientId]/history",
+      "title": "Client history",
+      "status": "IMPLEMENTED",
+      "stage": 7
+    },
+    {
+      "screen_id": "CLI-ARCHIVE",
+      "route": "/(worker)/clients/[clientId]/archive",
+      "title": "Archive client",
+      "status": "IMPLEMENTED",
+      "stage": 7
+    },
+    {
+      "screen_id": "VIS-START",
+      "route": "/(worker)/clients/[clientId]/visits/start",
+      "title": "Start visit",
+      "status": "IMPLEMENTED",
+      "stage": 8,
+      "notes": "Detects existing draft; resume/review/discard"
+    },
+    {
+      "screen_id": "VIS-DETAILS",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]",
+      "title": "Visit details",
+      "status": "IMPLEMENTED",
+      "stage": 8
+    },
+    {
+      "screen_id": "VIS-RESUME",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/resume",
+      "title": "Resume visit",
+      "status": "IMPLEMENTED",
+      "stage": 8
+    },
+    {
+      "screen_id": "VIS-SCREENING-SECTION",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/screening/[sectionId]",
+      "title": "Guided screening section",
+      "status": "IMPLEMENTED",
+      "stage": 8,
+      "notes": "Section-by-section; progress Section X of Y; synthetic template banner"
+    },
+    {
+      "screen_id": "VIS-REVIEW",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/review",
+      "title": "Review screening",
+      "status": "IMPLEMENTED",
+      "stage": 8,
+      "notes": "No risk display"
+    },
+    {
+      "screen_id": "VIS-COMPLETE",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/complete",
+      "title": "Complete visit",
+      "status": "IMPLEMENTED",
+      "stage": 8,
+      "notes": "Wording: Visit recorded / Screening information saved"
+    },
+    {
+      "screen_id": "DEV-SCR-PREVIEW",
+      "route": "/(development)/screening-template-preview",
+      "title": "Screening template preview",
+      "status": "DEVELOPMENT ONLY",
+      "stage": 8
+    },
+    {
+      "screen_id": "RSK-EVL-01",
+      "name": "Priority Evaluation / Result",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/risk",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Evaluate and present deterministic priority with acknowledgement",
+      "source_Stitch_screen": "screening_result",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "repository_dependencies": [
+        "RiskAssessmentRepository",
+        "EncounterRepository",
+        "ScreeningRepository"
+      ],
+      "rule_pack_dependency": "required",
+      "content_review_status": "SYNTHETIC_DEV_ONLY",
+      "accessibility_status": "icon+text priority; acknowledgement labelled",
+      "tests": [
+        "riskUi",
+        "riskPersistence",
+        "riskSecurity"
+      ],
+      "known_differences": "Unified RED/AMBER/GREEN/UNDETERMINED screen; Android visual pending"
+    },
+    {
+      "screen_id": "RSK-RED-01",
+      "name": "Red Priority Result",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/risk",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "RED priority presentation state",
+      "source_Stitch_screen": "screening_result",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "SYNTHETIC_DEV_ONLY",
+      "accessibility_status": "non-colour labels",
+      "tests": [
+        "riskUi"
+      ],
+      "known_differences": "State of RSK-EVL-01"
+    },
+    {
+      "screen_id": "RSK-AMB-01",
+      "name": "Amber Priority Result",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/risk",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "AMBER priority presentation state",
+      "source_Stitch_screen": "screening_result",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "SYNTHETIC_DEV_ONLY",
+      "accessibility_status": "non-colour labels",
+      "tests": [
+        "riskUi"
+      ],
+      "known_differences": "State of RSK-EVL-01"
+    },
+    {
+      "screen_id": "RSK-GRN-01",
+      "name": "Green Priority Result",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/risk",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "GREEN priority presentation state",
+      "source_Stitch_screen": "screening_result",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "SYNTHETIC_DEV_ONLY",
+      "accessibility_status": "non-colour labels",
+      "tests": [
+        "riskUi",
+        "missingInformation"
+      ],
+      "known_differences": "State of RSK-EVL-01; never default"
+    },
+    {
+      "screen_id": "RSK-UND-01",
+      "name": "Priority Undetermined",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/risk",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Undetermined / incomplete / unavailable presentation",
+      "source_Stitch_screen": "screening_result",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "SYNTHETIC_DEV_ONLY",
+      "accessibility_status": "distinct icon+wording",
+      "tests": [
+        "riskUi",
+        "missingInformation"
+      ],
+      "known_differences": "State of RSK-EVL-01"
+    },
+    {
+      "screen_id": "RSK-FAC-01",
+      "name": "Contributing Factors",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/risk/factors",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "List matched factors without raw expressions",
+      "source_Stitch_screen": "factors",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "SYNTHETIC_DEV_ONLY",
+      "accessibility_status": "logical factor order",
+      "tests": [
+        "riskUi"
+      ],
+      "known_differences": ""
+    },
+    {
+      "screen_id": "RSK-MIS-01",
+      "name": "Missing Information",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/risk",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Show blocking/non-blocking missing information",
+      "source_Stitch_screen": "missing information",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "SYNTHETIC_DEV_ONLY",
+      "accessibility_status": "announced labels",
+      "tests": [
+        "missingInformation",
+        "riskUi"
+      ],
+      "known_differences": "Card on result screen"
+    },
+    {
+      "screen_id": "RSK-HIS-01",
+      "name": "Priority History",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/risk/history",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Current and superseded assessments",
+      "source_Stitch_screen": "result history",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "N/A",
+      "accessibility_status": "Current/Superseded labels",
+      "tests": [
+        "riskPersistence",
+        "riskUi"
+      ],
+      "known_differences": ""
+    },
+    {
+      "screen_id": "RSK-ERR-01",
+      "name": "Evaluation Unavailable",
+      "route": "/(worker)/clients/[clientId]/visits/[visitId]/risk",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Fail-closed unavailable / failed states",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "N/A",
+      "accessibility_status": "clear unavailable wording",
+      "tests": [
+        "riskSecurity",
+        "riskUi"
+      ],
+      "known_differences": ""
+    },
+    {
+      "screen_id": "DEV-RSK-01",
+      "name": "Development Risk Preview",
+      "route": "/(development)/risk-engine-preview",
+      "user_role": "developer",
+      "authentication_requirement": "development-diagnostics",
+      "purpose": "Synthetic scenario preview",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "banner labelled",
+      "tests": [
+        "riskSecurity"
+      ],
+      "known_differences": "Production gated"
+    },
+    {
+      "screen_id": "REF-LST-01",
+      "name": "Referral List",
+      "route": "/(worker)/referrals",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "List local referrals; entry to scan/enter code",
+      "source_Stitch_screen": "referral list / passport family",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "UI_COPY_ONLY",
+      "accessibility_status": "status chip + text labels",
+      "tests": [
+        "referralServices",
+        "referralUi"
+      ],
+      "known_differences": "Stitch HTML is visual reference only"
+    },
+    {
+      "screen_id": "REF-CRT-01",
+      "name": "Create Referral",
+      "route": "/(worker)/clients/[clientId]/referrals/create",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Multi-step offline referral draft and confirm",
+      "source_Stitch_screen": "create referral flow",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "SYNTHETIC_REASONS_DEV_ONLY",
+      "accessibility_status": "48dp targets; caregiver checkbox labelled",
+      "tests": [
+        "referralServices",
+        "priorityPolicy"
+      ],
+      "known_differences": "Synthetic reason labels only"
+    },
+    {
+      "screen_id": "REF-PAS-01",
+      "name": "Referral Passport",
+      "route": "/(worker)/referrals/[referralId]/passport",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Issue/reissue opaque QR passport",
+      "source_Stitch_screen": "referral_passport",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "PRIVACY_COPY",
+      "accessibility_status": "QR labelled without announcing raw token",
+      "tests": [
+        "referralSecurity",
+        "referralUi"
+      ],
+      "known_differences": "Opaque token only; not encrypted/signed"
+    },
+    {
+      "screen_id": "REF-SCN-01",
+      "name": "Scan Referral Passport",
+      "route": "/(worker)/referrals/scan",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Local QR scan with permission states; no auto status change",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "N/A",
+      "accessibility_status": "permission and manual entry fallbacks",
+      "tests": [
+        "qrPassportParser",
+        "referralServices"
+      ],
+      "known_differences": "Physical camera validation pending"
+    },
+    {
+      "screen_id": "DEV-REF-01",
+      "name": "Development Referral Preview",
+      "route": "/(development)/referral-preview",
+      "user_role": "developer",
+      "authentication_requirement": "development-diagnostics",
+      "purpose": "List registered referral reasons and content statuses",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "banner labelled",
+      "tests": [
+        "referralSecurity"
+      ],
+      "known_differences": "Production gated"
+    },
+    {
+      "screen_id": "VCE-ENT-01",
+      "name": "Voice Entry",
+      "route": "/(worker)/clients/[clientId]/voice",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Start or resume voice capture for client",
+      "source_Stitch_screen": "voice_capture family",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "UI_COPY_ONLY",
+      "accessibility_status": "entry actions labelled",
+      "tests": [
+        "consent",
+        "providerGates",
+        "recordingStateMachine"
+      ],
+      "known_differences": "Visit-linked variant under visits/[visitId]/voice"
+    },
+    {
+      "screen_id": "VCE-CNS-01",
+      "name": "Voice Recording Consent",
+      "route": "/(worker)/clients/[clientId]/voice/consent",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Explicit recording consent; decline blocks mic",
+      "source_Stitch_screen": "voice_capture",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "PROVISIONAL_CONSENT",
+      "accessibility_status": "consent choices labelled; never defaults to recorded",
+      "tests": [
+        "consent"
+      ],
+      "known_differences": "Provisional legal wording"
+    },
+    {
+      "screen_id": "VCE-REC-01",
+      "name": "Voice Record",
+      "route": "/(worker)/clients/[clientId]/voice/record",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Record visit audio with pause/stop/cancel",
+      "source_Stitch_screen": "voice_capture",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "N/A",
+      "accessibility_status": "mic button states labelled; waveform decorative",
+      "tests": [
+        "recordingStateMachine",
+        "fileManager"
+      ],
+      "known_differences": "expo-audio; no background recording; physical mic validation pending"
+    },
+    {
+      "screen_id": "VCE-PBK-01",
+      "name": "Voice Playback",
+      "route": "/(worker)/clients/[clientId]/voice/playback",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Review recording before transcript",
+      "source_Stitch_screen": "voice_capture",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "N/A",
+      "accessibility_status": "play/pause/delete labelled",
+      "tests": [
+        "fileManager"
+      ],
+      "known_differences": "Managed app-private audio file"
+    },
+    {
+      "screen_id": "VCE-TRN-01",
+      "name": "Voice Transcript",
+      "route": "/(worker)/clients/[clientId]/voice/transcript",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Manual or dev-simulation transcript review and confirm",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "N/A",
+      "accessibility_status": "transcript field labelled",
+      "tests": [
+        "providerGates",
+        "extractionReview"
+      ],
+      "known_differences": "Production ASR unavailable (fail closed)"
+    },
+    {
+      "screen_id": "VCE-REV-01",
+      "name": "Voice Extraction Review",
+      "route": "/(worker)/clients/[clientId]/voice/review",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Per-suggestion accept/edit/reject before apply",
+      "source_Stitch_screen": "missing from Stitch finals \u00e2\u20ac\u201d built",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "SYNTHETIC_DEV_ONLY",
+      "accessibility_status": "review actions per suggestion",
+      "tests": [
+        "extractionReview",
+        "applyRollback"
+      ],
+      "known_differences": "No auto-apply; forbidden targets blocked"
+    },
+    {
+      "screen_id": "VCE-SUC-01",
+      "name": "Voice Success",
+      "route": "/(worker)/clients/[clientId]/voice/success",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated-worker",
+      "purpose": "Confirm apply complete; retention decision",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "UI_COPY_ONLY",
+      "accessibility_status": "success and retention actions labelled",
+      "tests": [
+        "applyRollback"
+      ],
+      "known_differences": "Audio retention choice"
+    },
+    {
+      "screen_id": "DEV-VCE-01",
+      "name": "Development Voice Preview",
+      "route": "/(development)/voice-to-care-preview",
+      "user_role": "developer",
+      "authentication_requirement": "development-diagnostics",
+      "purpose": "Provider and schema inventory diagnostics",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "banner labelled",
+      "tests": [
+        "providerGates",
+        "privacyLogging"
+      ],
+      "known_differences": "Production gated"
+    },
+    {
+      "screen_id": "NUT-HIS-01",
+      "name": "Nutrition history",
+      "route": "/(worker)/clients/[clientId]/nutrition",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "List completed nutrition assessments and resume drafts",
+      "source_Stitch_screen": "nutrition_planner (partial)",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "history items labelled",
+      "tests": [
+        "assessmentWorkflow"
+      ],
+      "known_differences": "No food diversity ring"
+    },
+    {
+      "screen_id": "NUT-STR-01",
+      "name": "Start nutrition assessment",
+      "route": "/(worker)/clients/[clientId]/nutrition/start",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "Select assessment type and start draft",
+      "source_Stitch_screen": "nutrition_planner (partial)",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "development banner labelled",
+      "tests": [
+        "contentGovernance",
+        "assessmentWorkflow"
+      ],
+      "known_differences": "Production fail closed \u00e2\u20ac\u201d zero pilot templates"
+    },
+    {
+      "screen_id": "NUT-SEC-01",
+      "name": "Nutrition section capture",
+      "route": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/section/[sectionId]",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "Schema-driven section answers via Stage 8 QuestionField",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "QuestionField a11y inherited",
+      "tests": [
+        "assessmentWorkflow",
+        "measurementIntegration"
+      ],
+      "known_differences": "Dedicated nutrition_assessment_answers table"
+    },
+    {
+      "screen_id": "NUT-RSM-01",
+      "name": "Resume nutrition assessment",
+      "route": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/resume",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "Continue draft from saved progress",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "section list labelled",
+      "tests": [
+        "assessmentWorkflow"
+      ],
+      "known_differences": null
+    },
+    {
+      "screen_id": "NUT-REV-01",
+      "name": "Nutrition review",
+      "route": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/review",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "Completeness check before completion",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "missing information announced",
+      "tests": [
+        "assessmentWorkflow"
+      ],
+      "known_differences": null
+    },
+    {
+      "screen_id": "NUT-SUM-01",
+      "name": "Nutrition summary",
+      "route": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/summary",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "Pre-guidance summary and reference status",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "reference status labelled",
+      "tests": [
+        "completionRollback"
+      ],
+      "known_differences": null
+    },
+    {
+      "screen_id": "NUT-GUI-01",
+      "name": "Nutrition guidance",
+      "route": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/guidance",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "Display guidance cards; worker acknowledgement",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "guidance cards and unavailable state labelled",
+      "tests": [
+        "guidanceResolution"
+      ],
+      "known_differences": "No Dagbanli; synthetic dev cards only"
+    },
+    {
+      "screen_id": "NUT-DET-01",
+      "name": "Nutrition details",
+      "route": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/details",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "View completed assessment, reference, and guidance",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "details sections labelled",
+      "tests": [
+        "assessmentWorkflow"
+      ],
+      "known_differences": null
+    },
+    {
+      "screen_id": "NUT-COR-01",
+      "name": "Correct nutrition assessment",
+      "route": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/correct",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "Start correction flow superseding prior result",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "development banner labelled",
+      "tests": [
+        "assessmentWorkflow"
+      ],
+      "known_differences": null
+    },
+    {
+      "screen_id": "DEV-NUT-01",
+      "name": "Nutrition preview",
+      "route": "/(development)/nutrition-preview",
+      "user_role": "developer",
+      "authentication_requirement": "development-diagnostics",
+      "purpose": "Template/reference/guidance inventory diagnostics",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "content_review_status": "NOT_CLINICAL",
+      "accessibility_status": "counts labelled",
+      "tests": [
+        "contentGovernance"
+      ],
+      "known_differences": "Production gated"
+    },
+    {
+      "known_differences": "Stitch visual reference only",
+      "authentication_requirement": "authenticated unlocked",
+      "accessibility_status": "scope/privacy labelled",
+      "source_Stitch_screen": "ask_northcare_assistant",
+      "screen_id": "ASK-HOM-01",
+      "name": "Ask NorthCare Home",
+      "purpose": "Scope, privacy, question input, topics",
+      "implementation_status": "IMPLEMENTED",
+      "tests": [
+        "a11yLabels",
+        "safetyRouting"
+      ],
+      "content_review_status": "DEVELOPMENT_SYNTHETIC",
+      "knowledge_pack_dependency": "approved packs only",
+      "assistant_mode": "CURATED_RETRIEVAL|UNAVAILABLE",
+      "offline_availability": "full",
+      "route": "/(worker)/ask",
+      "user_role": "worker"
+    },
+    {
+      "known_differences": null,
+      "authentication_requirement": "authenticated unlocked",
+      "accessibility_status": "topic labels",
+      "source_Stitch_screen": "suggested topics",
+      "screen_id": "ASK-TOP-01",
+      "name": "Approved Topics",
+      "purpose": "List approved topics",
+      "implementation_status": "IMPLEMENTED",
+      "tests": [
+        "contentGovernance"
+      ],
+      "content_review_status": "DEVELOPMENT_SYNTHETIC",
+      "offline_availability": "full",
+      "route": "/(worker)/ask/topics",
+      "user_role": "worker"
+    },
+    {
+      "known_differences": "answerId query only",
+      "authentication_requirement": "authenticated unlocked",
+      "accessibility_status": "answer heading labelled",
+      "source_Stitch_screen": "source-backed answer",
+      "screen_id": "ASK-ANS-01",
+      "name": "Source-Backed Answer",
+      "purpose": "Retrieval-only answer + feedback",
+      "implementation_status": "IMPLEMENTED",
+      "tests": [
+        "answerComposition",
+        "feedback"
+      ],
+      "content_review_status": "DEVELOPMENT_SYNTHETIC",
+      "offline_availability": "full",
+      "route": "/(worker)/ask/answer",
+      "user_role": "worker"
+    },
+    {
+      "known_differences": null,
+      "authentication_requirement": "authenticated unlocked",
+      "accessibility_status": "source labels",
+      "source_Stitch_screen": "source list",
+      "screen_id": "ASK-SRC-01",
+      "name": "Answer Sources",
+      "purpose": "Citation list",
+      "implementation_status": "IMPLEMENTED",
+      "tests": [
+        "answerComposition"
+      ],
+      "content_review_status": "DEVELOPMENT_SYNTHETIC",
+      "offline_availability": "full",
+      "route": "/(worker)/ask/sources",
+      "user_role": "worker"
+    },
+    {
+      "known_differences": "stable articleId only",
+      "authentication_requirement": "authenticated unlocked",
+      "accessibility_status": "retired warning",
+      "source_Stitch_screen": "knowledge article",
+      "screen_id": "ASK-ART-01",
+      "name": "Knowledge Article",
+      "purpose": "Read-only article",
+      "implementation_status": "IMPLEMENTED",
+      "tests": [
+        "contentGovernance"
+      ],
+      "content_review_status": "DEVELOPMENT_SYNTHETIC",
+      "offline_availability": "full",
+      "route": "/(worker)/ask/article/[articleId]",
+      "user_role": "worker"
+    },
+    {
+      "known_differences": null,
+      "authentication_requirement": "authenticated unlocked",
+      "accessibility_status": "announced",
+      "source_Stitch_screen": "unsupported / no content",
+      "screen_id": "ASK-UNS-01",
+      "name": "No Approved Answer / Unavailable",
+      "purpose": "Fail-closed content unavailable",
+      "implementation_status": "IMPLEMENTED",
+      "tests": [
+        "safetyRouting"
+      ],
+      "content_review_status": "N/A",
+      "offline_availability": "full",
+      "route": "/(worker)/ask/unavailable",
+      "user_role": "worker"
+    },
+    {
+      "known_differences": null,
+      "authentication_requirement": "authenticated unlocked",
+      "accessibility_status": "non-colour-only",
+      "source_Stitch_screen": "urgent-question state",
+      "screen_id": "ASK-URG-01",
+      "name": "Urgent Request Boundary",
+      "purpose": "Urgent boundary without invented numbers",
+      "implementation_status": "IMPLEMENTED",
+      "tests": [
+        "safetyRouting"
+      ],
+      "content_review_status": "N/A",
+      "offline_availability": "full",
+      "route": "/(worker)/ask/urgent",
+      "user_role": "worker"
+    },
+    {
+      "known_differences": "Production gated",
+      "authentication_requirement": "development-diagnostics",
+      "accessibility_status": "development banner",
+      "source_Stitch_screen": "development assistant preview",
+      "screen_id": "DEV-ASK-01",
+      "name": "Development Assistant Preview",
+      "purpose": "Synthetic scenario inventory",
+      "implementation_status": "IMPLEMENTED",
+      "tests": [
+        "routeSecurity",
+        "privacy"
+      ],
+      "content_review_status": "NOT_CLINICAL",
+      "offline_availability": "full",
+      "route": "/(development)/ask-northcare-preview",
+      "user_role": "developer"
+    },
+    {
+      "screen_id": "DEV-OFFLINE-AI-01",
+      "name": "Offline AI Stage 1 Smoke Test",
+      "route": "/(development)/offline-ai",
+      "user_role": "developer",
+      "authentication_requirement": "development-diagnostics",
+      "purpose": "Provision, load, and smoke-test the locked on-device GGUF model through llama.rn",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "accessibility_status": "labelled development controls",
+      "tests": [
+        "offline-ai lifecycle",
+        "offline-ai routeAccess",
+        "offline-ai manifest"
+      ],
+      "content_review_status": "NOT_CLINICAL",
+      "known_differences": "Development-only; production gated; not connected to Ask NorthCare"
+    },
+    {
+      "screen_id": "SYN-CEN-01",
+      "name": "Sync Centre",
+      "route": "/(worker)/sync-centre",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "Foreground sync status and manual synchronisation",
+      "source_Stitch_screen": null,
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "accessibility_status": "labelled status and controls",
+      "tests": [
+        "syncEngine",
+        "syncHashing"
+      ],
+      "known_differences": "Background sync intentionally disabled"
+    },
+    {
+      "screen_id": "SYN-CON-01",
+      "name": "Sync conflicts",
+      "route": "/(worker)/sync-conflicts",
+      "user_role": "worker",
+      "authentication_requirement": "authenticated",
+      "purpose": "List locally persisted sync conflicts for review",
+      "source_Stitch_screen": null,
+      "offline_availability": "local-conflicts",
+      "implementation_status": "IMPLEMENTED",
+      "accessibility_status": "conflict outcomes use explicit labels",
+      "tests": [
+        "syncConflictPersistence"
+      ],
+      "known_differences": "No automatic conflict overwrite"
+    },
+    {
+      "screen_id": "REM-CEN-01",
+      "name": "Reminder Centre",
+      "route": "/(worker)/more/reminders",
+      "user_role": "worker",
+      "authentication_requirement": "unlocked",
+      "purpose": "List upcoming/past/handled/cancelled reminders",
+      "source_Stitch_screen": "Notification Centre",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "list items labelled",
+      "tests": [
+        "reminderWorkflow"
+      ],
+      "known_differences": "Filter chips vs Stitch tabs"
+    },
+    {
+      "screen_id": "REM-NEW-01",
+      "name": "Create Reminder",
+      "route": "/(worker)/more/reminders/create",
+      "user_role": "worker",
+      "authentication_requirement": "unlocked",
+      "purpose": "Worker-selected date/time reminder creation",
+      "source_Stitch_screen": "Notification Permission",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "form labels",
+      "tests": [
+        "reminderWorkflow"
+      ],
+      "known_differences": "Combined create/permission flow"
+    },
+    {
+      "screen_id": "REM-DET-01",
+      "name": "Reminder Details",
+      "route": "/(worker)/more/reminders/[reminderId]",
+      "user_role": "worker",
+      "authentication_requirement": "unlocked",
+      "purpose": "Snooze/reschedule/cancel/handle",
+      "source_Stitch_screen": "Notification Centre",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "action labels",
+      "tests": [
+        "reminderWorkflow"
+      ],
+      "known_differences": "Inline forms"
+    },
+    {
+      "screen_id": "REACH-WRK-LIST-01",
+      "name": "Community Requests Centre",
+      "route": "/(worker)/community-requests",
+      "user_role": "worker",
+      "authentication_requirement": "unlocked",
+      "workspace": "worker",
+      "purpose": "List and filter NorthCare Reach community requests from R2 Worker APIs",
+      "source_Stitch_screen": "n/a — Reach extension",
+      "offline_availability": "online-required",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "filters labelled with selected state; emergency via text",
+      "tests": [
+        "community-requests/routeGuards",
+        "community-requests/apiClient",
+        "community-requests/servicesWorkflow"
+      ],
+      "known_differences": "No remote push; manual/focus/foreground refresh only; no mock data; R5 emergency filter simulation notice",
+      "stage": "R5"
+    },
+    {
+      "screen_id": "REACH-WRK-DET-01",
+      "name": "Community Request Detail",
+      "route": "/(worker)/community-requests/[requestId]",
+      "user_role": "worker",
+      "authentication_requirement": "unlocked",
+      "workspace": "worker",
+      "purpose": "Authorised request detail with acknowledge, escalate, contact attempt, mark handled",
+      "source_Stitch_screen": "n/a — Reach extension",
+      "offline_availability": "online-required",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "contact labelled; consent announced; status text+chip; emergency banner announced once; escalate labelled",
+      "tests": [
+        "community-requests/actionsAndLabels",
+        "community-requests/servicesWorkflow",
+        "community-requests/apiClient"
+      ],
+      "known_differences": "Escalate uses R2 acknowledged→escalated only; Call dialler omitted; Start client lookup navigates without auto-link; no ambulance claims",
+      "stage": "R5"
+    },
+    {
+      "screen_id": "DEV-REM-01",
+      "name": "Development Reminder Preview",
+      "route": "/(development)/reminder-preview",
+      "user_role": "any",
+      "authentication_requirement": "none",
+      "purpose": "Production-gated reminder preview",
+      "source_Stitch_screen": "n/a",
+      "offline_availability": "full",
+      "implementation_status": "IMPLEMENTED",
+      "asset_dependencies": [],
+      "accessibility_status": "same as centre",
+      "tests": [],
+      "known_differences": "Fail-closed in production"
+    },
+    {
+      "screen_id": "session-workspace",
+      "route": "/(entry)/session-workspace",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-home",
+      "route": "/(admin)",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-accounts",
+      "route": "/(admin)/accounts",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-register-identity",
+      "route": "/(admin)/accounts/register/identity",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-register-profession",
+      "route": "/(admin)/accounts/register/profession",
+      "stage": "R1",
+      "status": "IMPLEMENTED",
+      "notes": "Reach R1 profession and community/emergency enablement step"
+    },
+    {
+      "screen_id": "admin-register-facility",
+      "route": "/(admin)/accounts/register/facility",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-register-review",
+      "route": "/(admin)/accounts/register/review",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-register-success",
+      "route": "/(admin)/accounts/register/success",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-account-details",
+      "route": "/(admin)/accounts/[accountId]",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-account-professional-profile",
+      "route": "/(admin)/accounts/[accountId]/professional-profile",
+      "stage": "R1",
+      "status": "IMPLEMENTED",
+      "notes": "Add/edit worker professional profile (admin only)"
+    },
+    {
+      "screen_id": "admin-account-facility",
+      "route": "/(admin)/accounts/[accountId]/facility",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-account-status",
+      "route": "/(admin)/accounts/[accountId]/status",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-account-reset",
+      "route": "/(admin)/accounts/[accountId]/reset-access",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-account-devices",
+      "route": "/(admin)/accounts/[accountId]/devices",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-account-history",
+      "route": "/(admin)/accounts/[accountId]/history",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    },
+    {
+      "screen_id": "admin-activity",
+      "route": "/(admin)/activity",
+      "title": "Activity log",
+      "stage": 16,
+      "status": "IMPLEMENTED",
+      "notes": "Local SQLite audit_events list for dual-role admin review; field-name summaries only"
+    },
+    {
+      "screen_id": "administration-preview",
+      "route": "/(development)/administration-preview",
+      "stage": 16,
+      "status": "IMPLEMENTED"
+    }
+  ],
+  "notes": [
+    "Stage 18 accessibility/security hardening audit applied; see docs/accessibility and docs/security"
+  ]
+}

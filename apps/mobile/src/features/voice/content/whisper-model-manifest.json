@@ -1,0 +1,20 @@
+{
+  "modelId": "whisper-tiny-en-ggml",
+  "displayName": "Whisper Tiny English (GGML)",
+  "repository": "ggerganov/whisper.cpp",
+  "repositoryRevision": "main",
+  "filename": "ggml-tiny.en.bin",
+  "format": "GGML",
+  "quantisation": "none",
+  "actualByteSize": 77704715,
+  "sha256": "921e4cf8686fdd993dcd081a5da5b6c365bfde1162e72b08d75ac75289920b1f",
+  "licence": "MIT",
+  "intendedPurpose": "Offline speech-to-text transcription",
+  "maximumSupportedModelSize": 838860800,
+  "runtime": "whisper.rn",
+  "installationMode": "development-download-or-import",
+  "verifiedAt": "2026-08-11",
+  "promotedFromExperiment": "exp-06-smaller-whisper-conditional",
+  "evidenceRunId": "edge_msp6cf7n_d5qs",
+  "downloadUrl": "https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.en.bin"
+}

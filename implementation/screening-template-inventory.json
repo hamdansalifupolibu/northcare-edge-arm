@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "updated": "2026-08-02",
+  "stage": 8,
+  "templates": [
+    {
+      "template_id": "synthetic-dev-workflow-v1",
+      "version": 1,
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "screening_type": "antenatal",
+      "title": "Development workflow screening (synthetic)",
+      "development_banner": "DEVELOPMENT WORKFLOW TEMPLATE — NOT CLINICAL GUIDANCE. Synthetic assessment items only.",
+      "clinical_source_ref": null,
+      "sections": 3,
+      "loadable_in_production": false,
+      "code_path": "apps/mobile/src/features/screening/content/syntheticDevWorkflowTemplate.ts"
+    }
+  ],
+  "production_pilot_ready_count": 0,
+  "notes": "Production gates block DRAFT / CLINICAL_REVIEW_REQUIRED / RETIRED / unapproved content. No APPROVED_FOR_PILOT templates exist yet."
+}

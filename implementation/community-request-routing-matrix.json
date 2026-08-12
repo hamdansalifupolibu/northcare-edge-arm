@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-03",
+  "track": "northcare-reach",
+  "deterministic": true,
+  "demoOrganisationId": "org-dev-001",
+  "demoFacilityId": "fac-dev-001",
+  "eligibility": {
+    "requireActiveAccount": true,
+    "requireWorkerRole": true,
+    "requireSameOrganisation": true,
+    "requireSameFacility": true,
+    "requireCommunityRequestsEnabled": true,
+    "requireEmergencyRequestsEnabledForCategory": ["emergency"]
+  },
+  "stableOrderingWhenTied": ["professionPreferenceRank", "accountIdAscending"],
+  "matrix": {
+    "pregnancyNewborn": [
+      "midwife",
+      "communityHealthOfficer",
+      "communityHealthNurse"
+    ],
+    "childHealth": [
+      "communityHealthOfficer",
+      "communityHealthNurse",
+      "registeredGeneralNurse",
+      "physicianAssistant"
+    ],
+    "nutrition": [
+      "nutritionOfficer",
+      "communityHealthOfficer",
+      "communityHealthNurse"
+    ],
+    "generalChps": [
+      "communityHealthOfficer",
+      "communityHealthNurse",
+      "registeredGeneralNurse"
+    ],
+    "referralFollowUp": {
+      "preferPreviouslyAssignedWorker": true,
+      "fallback": [
+        "communityHealthOfficer",
+        "communityHealthNurse"
+      ]
+    },
+    "emergency": {
+      "requireEmergencyRequestsEnabled": true,
+      "preference": [
+        "emergencyMedicalTechnician",
+        "communityHealthOfficer"
+      ]
+    }
+  },
+  "assignmentBehaviour": {
+    "oneEligible": "assignAndSetStatusAssigned",
+    "multipleEligible": "firstDeterministicMatch",
+    "noneEligible": {
+      "status": "received",
+      "placeInFacilityQueue": true,
+      "discard": false,
+      "assignUnrelatedProfession": false
+    },
+    "assignmentDoesNotProve": [
+      "workerSawRequest",
+      "workerContactedUser",
+      "requestResolved",
+      "careDelivered"
+    ],
+    "acknowledgementStillRequired": true,
+    "concurrencyNote": "Prevent dual responsibility on concurrent acceptance; implement in R2/R4"
+  },
+  "excludedFromMvp": [
+    "geocoding",
+    "districtCalculation",
+    "neighbouringFacilitySearch",
+    "workloadBalancing",
+    "aiMatching",
+    "dutySchedules",
+    "catchmentPolygons"
+  ]
+}

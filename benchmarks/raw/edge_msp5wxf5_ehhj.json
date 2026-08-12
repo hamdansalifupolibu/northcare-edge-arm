@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "source": "EDGE_LAB_EVIDENCE logcat",
+  "runId": "edge_msp5wxf5_ehhj",
+  "mode": "auto",
+  "experimentId": "exp-01-whisper-threads",
+  "capturedAtIso": "2026-08-11T21:19:46Z",
+  "freezeId": "northcare-edge-baseline-2026-08-11",
+  "configHash": "cfg_53e659c2",
+  "fixtureId": "edge-lab-fixture-v1",
+  "labOverrides": {
+    "whisperMaxThreads": 6
+  },
+  "device": {
+    "model": "SM-G988B",
+    "androidVersion": "33",
+    "platformOs": "android",
+    "backend": "cpu",
+    "abiFromShell": "arm64-v8a"
+  },
+  "success": true,
+  "stages": {
+    "whisper_load_ms": 3590,
+    "whisper_inference_ms": 72816,
+    "qwen_load_ms": 1326,
+    "qwen_inference_ms": 1855,
+    "total_ms": 82022
+  },
+  "tokensPerSecond": 33.424963837646885,
+  "generatedTokenCount": 29,
+  "transcriptCharCount": 85
+}

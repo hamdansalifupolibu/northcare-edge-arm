@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <meta
+      name="description"
+      content="NorthCare Reach USSD simulation. Live telecom integration pending. Synthetic demonstration data only."
+    />
+    <title>NorthCare Reach USSD simulation</title>
+    <link rel="stylesheet" href="/reach-simulator/reach.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#ussd-input">Skip to USSD input</a>
+
+    <header class="page-header" role="banner">
+      <p class="brand-mark">NorthCare AI</p>
+      <p class="brand-tagline">Smarter care. Stronger communities.</p>
+      <div class="sim-banners" aria-live="polite">
+        <p class="sim-banner">NorthCare Reach USSD simulation</p>
+        <p class="sim-banner">Live telecom integration pending</p>
+        <p class="sim-banner">Synthetic demonstration data only</p>
+      </div>
+    </header>
+
+    <main class="page-main" id="main">
+      <aside class="info-panel" aria-labelledby="info-heading">
+        <h1 id="info-heading">About this demonstration</h1>
+        <p>
+          NorthCare Reach demonstrates how people using basic phones could request
+          support without mobile data or a smartphone.
+        </p>
+        <h2>Implemented in this prototype</h2>
+        <ul>
+          <li>Simulated USSD interaction</li>
+          <li>Real development request creation</li>
+          <li>Secure reference and status PIN</li>
+          <li>Deterministic worker routing</li>
+          <li>Generic status checking</li>
+        </ul>
+        <h2>Future integration</h2>
+        <ul>
+          <li>Live telecom shortcode</li>
+          <li>SMS</li>
+          <li>Ambulance-service integration</li>
+          <li>Approved multilingual content</li>
+          <li>Production public hosting</li>
+        </ul>
+        <p class="info-note">
+          Use synthetic demonstration numbers only. Do not enter real patient data.
+        </p>
+      </aside>
+
+      <section class="phone-shell" aria-label="NorthCare Reach USSD phone simulation">
+        <div class="phone-bezel">
+          <div class="phone-earpiece" aria-hidden="true"></div>
+          <div class="ussd-screen" role="region" aria-labelledby="ussd-title">
+            <h2 id="ussd-title" class="visually-hidden">USSD session screen</h2>
+            <pre
+              id="ussd-display"
+              class="ussd-display"
+              aria-live="polite"
+              aria-atomic="true"
+            ></pre>
+            <p id="ussd-error" class="ussd-error" role="alert" hidden></p>
+            <div class="ussd-controls">
+              <label class="ussd-label" for="ussd-input">Numeric response</label>
+              <input
+                id="ussd-input"
+                name="ussdInput"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                autocorrect="off"
+                spellcheck="false"
+                maxlength="64"
+                aria-describedby="ussd-hint ussd-error"
+              />
+              <p id="ussd-hint" class="ussd-hint">
+                Enter a numbered option or the requested value, then press Send.
+              </p>
+              <div class="ussd-actions">
+                <button type="button" id="btn-send" class="btn btn-primary">
+                  Send
+                </button>
+                <button type="button" id="btn-back" class="btn btn-secondary">
+                  Back
+                </button>
+                <button type="button" id="btn-restart" class="btn btn-secondary">
+                  Restart session
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="footer-sim" aria-live="polite">
+          NorthCare Reach USSD simulation · Live telecom integration pending ·
+          Synthetic demonstration data only
+        </p>
+      </section>
+    </main>
+
+    <div id="sr-live" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="/reach-simulator/reach.js" defer></script>
+  </body>
+</html>

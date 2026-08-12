@@ -1,0 +1,33 @@
+{
+  "inventory_id": "assistant-knowledge-pack-inventory",
+  "stage": 13,
+  "last_updated": "2026-08-02",
+  "approved_for_pilot_count": 0,
+  "approved_for_development_count": 1,
+  "production_gate": "APPROVED_FOR_PILOT_ONLY",
+  "search_index_version": 1,
+  "coverage_score_threshold": 50,
+  "storage": "bundled_typescript_knowledge_packs",
+  "sqlite_stores_knowledge_articles": false,
+  "packs": [
+    {
+      "knowledge_pack_id": "synthetic-dev-ask-northcare-v1",
+      "version": 1,
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "development_only": true,
+      "clinical": false,
+      "clinical_review_status": "notReviewed",
+      "clinical_source_ref": null,
+      "supported_languages": ["en"],
+      "family": "syntheticDevelopment",
+      "source_path": "apps/mobile/src/features/assistant/content/packs/syntheticDevAskNorthCarePack.ts",
+      "notes": "Synthetic development fixture for retrieval, safety routing, and UI tests. Not clinical guidance."
+    }
+  ],
+  "notes": [
+    "Zero APPROVED_FOR_PILOT Ask NorthCare knowledge packs. Production fails closed.",
+    "Knowledge is not stored in AsyncStorage or SQLite article tables.",
+    "SQLite migration 007 stores feedback/content-issue metadata only.",
+    "Do not invent clinical review names or dates."
+  ]
+}

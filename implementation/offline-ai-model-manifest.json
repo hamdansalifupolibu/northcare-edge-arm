@@ -1,0 +1,26 @@
+{
+  "modelId": "qwen2.5-0.5b-instruct-q4_k_m",
+  "displayName": "Qwen2.5-0.5B-Instruct Q4_K_M",
+  "repository": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+  "repositoryRevision": "9217f5db79a29953eb74d5343926648285ec7e67",
+  "filename": "qwen2.5-0.5b-instruct-q4_k_m.gguf",
+  "format": "GGUF",
+  "quantisation": "Q4_K_M",
+  "actualByteSize": 491400032,
+  "sha256": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db",
+  "licence": "Apache-2.0",
+  "intendedPurpose": "Stage 1 offline native inference smoke test only. Not connected to Ask NorthCare. Neutral technical prompts only.",
+  "maximumSupportedModelSize": 838860800,
+  "configuredContextSize": 2048,
+  "configuredMaximumOutputTokens": 120,
+  "runtime": "llama.rn",
+  "installationMode": "development-download-or-import",
+  "verifiedAt": "2026-08-03",
+  "downloadUrl": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/main/qwen2.5-0.5b-instruct-q4_k_m.gguf",
+  "checksumSource": "huggingface-lfs-oid",
+  "notes": [
+    "actualByteSize and sha256 were obtained from Hugging Face repository file metadata (LFS oid) for qwen2.5-0.5b-instruct-q4_k_m.gguf.",
+    "Device provisioning must re-verify size and sha256 against the local file before marking ready.",
+    "Model weights must never be committed to Git."
+  ]
+}

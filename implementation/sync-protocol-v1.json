@@ -1,0 +1,89 @@
+{
+  "name": "NorthCare AI Sync Protocol",
+  "protocolVersion": 1,
+  "status": "active",
+  "transport": "HTTPS JSON over /v1",
+  "authority": "server",
+  "localFirst": true,
+  "rules": {
+    "neverDiscardUnsyncedClinicalWork": true,
+    "neverSilentlyOverwriteNewerServerData": true,
+    "noBlindLastWriteWinsForClinicalRecords": true,
+    "noMarkSyncedBeforeAck": true,
+    "noAdvancePullCursorBeforeLocalApply": true,
+    "noRegenerateOperationIdsOnRetry": true,
+    "noPasswordsPinsBiometricsInSync": true,
+    "noLogFullPayloadsOrHealthData": true
+  },
+  "endpoints": {
+    "healthLive": { "method": "GET", "path": "/health/live" },
+    "healthReady": { "method": "GET", "path": "/health/ready" },
+    "developmentToken": {
+      "method": "POST",
+      "path": "/v1/development/auth/token",
+      "environments": ["development", "test"]
+    },
+    "registerDevice": { "method": "POST", "path": "/v1/devices/register" },
+    "push": { "method": "POST", "path": "/v1/sync/push" },
+    "pull": { "method": "GET", "path": "/v1/sync/changes" },
+    "listConflicts": { "method": "GET", "path": "/v1/sync/conflicts" },
+    "resolveConflict": { "method": "POST", "path": "/v1/sync/conflicts/{conflictId}/resolve" }
+  },
+  "pushRequest": {
+    "protocolVersion": 1,
+    "deviceId": "uuid",
+    "operations": [
+      {
+        "operationId": "uuid stable across retries",
+        "entityType": "string",
+        "entityId": "uuid",
+        "operation": "create|update|delete",
+        "baseServerVersion": "null|integer",
+        "clientLocalVersion": "integer >= 1",
+        "payload": "object entity snapshot without secrets",
+        "occurredAt": "ISO-8601 UTC",
+        "requestHash": "sha256 hex of canonical payload"
+      }
+    ]
+  },
+  "pushResultStatus": ["acked", "duplicate", "conflict", "rejected"],
+  "pullResponse": {
+    "protocolVersion": 1,
+    "changes": [
+      {
+        "changeId": "opaque monotonic sequence integer as string",
+        "entityType": "string",
+        "entityId": "uuid",
+        "operation": "upsert|delete",
+        "serverVersion": "integer >= 1",
+        "payload": "object|null",
+        "deleted": "boolean",
+        "changedAt": "ISO-8601 UTC"
+      }
+    ],
+    "nextCursor": "opaque signed scoped cursor or null",
+    "hasMore": "boolean"
+  },
+  "idempotency": {
+    "key": "operationId",
+    "sameHashReplay": "duplicate acked with original serverVersion",
+    "differentHashSameOperationId": "rejected"
+  },
+  "conflictTriggers": [
+    "stale baseServerVersion",
+    "update against newer serverVersion",
+    "delete against newer serverVersion",
+    "create when entity already exists with different ownership"
+  ],
+  "cursor": {
+    "type": "opaque",
+    "signed": true,
+    "scopedTo": ["accountId", "organisationId", "facilityId", "role"],
+    "advancesOnlyAfterSuccessfulLocalApply": true
+  },
+  "scopeEnforcement": {
+    "serverMapsIdentityToProvisionedAccount": true,
+    "clientRoleFacilityNotTrusted": true,
+    "rejectOwnershipEscalationViaSync": true
+  }
+}

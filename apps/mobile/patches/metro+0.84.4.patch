@@ -1,0 +1,21 @@
+diff --git a/node_modules/metro/src/Server/MultipartResponse.js b/node_modules/metro/src/Server/MultipartResponse.js
+index 777e28d..cfd39da 100644
+--- a/node_modules/metro/src/Server/MultipartResponse.js
++++ b/node_modules/metro/src/Server/MultipartResponse.js
+@@ -12,10 +12,13 @@ const CRLF = "\r\n";
+ const BOUNDARY = "3beqjf3apnqeu3h5jqorms4i";
+ class MultipartResponse {
+   static wrapIfSupported(req, res) {
+-    if ((0, _accepts.default)(req).types().includes("multipart/mixed")) {
+-      return new MultipartResponse(res);
+-    }
++    // NorthCare: Android dev client (RN 0.86) throws ProtocolException when Metro
++    // streams large multipart/chunked bundles. Serve plain JS bundles instead.
+     return res;
++    // if ((0, _accepts.default)(req).types().includes("multipart/mixed")) {
++    //   return new MultipartResponse(res);
++    // }
++    // return res;
+   }
+   static serializeHeaders(headers) {
+     return Object.keys(headers)

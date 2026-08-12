@@ -1,0 +1,261 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-04",
+  "project": "NorthCare AI",
+  "track": "northcare-reach",
+  "tagline": "Smarter care. Stronger communities.",
+  "coreStagesComplete": "1-18",
+  "stage19Status": "paused",
+  "productionReadyClaim": false,
+  "centralRule": "Build the complete story, not the complete national infrastructure.",
+  "stages": [
+    {
+      "id": "R0",
+      "name": "Scope, Safety and Design Freeze",
+      "status": "complete",
+      "implementsCode": false,
+      "deliverables": [
+        "MVP freeze docs",
+        "USSD flow freeze",
+        "Domain and routing contracts",
+        "Safety and privacy boundaries",
+        "Draft API contracts",
+        "JSON artifacts"
+      ]
+    },
+    {
+      "id": "R1",
+      "name": "Worker Profession and Admin Integration",
+      "status": "complete",
+      "dependsOn": ["R0"],
+      "implemented": [
+        "Profession field in admin registration",
+        "communityRequestsEnabled",
+        "emergencyRequestsEnabled",
+        "Professional profile persistence",
+        "GET /v1/admin/professions",
+        "PATCH /v1/admin/accounts/{accountId}/professional-profile",
+        "Development dual-role professional profile applied"
+      ]
+    },
+    {
+      "id": "R2",
+      "name": "Community Request Backend and Routing",
+      "status": "complete",
+      "dependsOn": ["R1"],
+      "implemented": [
+        "community_requests PostgreSQL table (Alembic 0005)",
+        "NORTHCARE_REACH_DEMO_ENABLED development gate",
+        "POST /v1/reach/requests",
+        "POST /v1/reach/requests/status",
+        "Reference code and Argon2id status PIN",
+        "Deterministic routing from community-request-routing-matrix.json",
+        "Worker list/detail/acknowledge/contact-attempt/escalate/handle APIs",
+        "Persistent status-lookup abuse controls"
+      ]
+    },
+    {
+      "id": "R3",
+      "name": "USSD Simulator",
+      "status": "complete",
+      "dependsOn": ["R2"],
+      "implemented": [
+        "Static FastAPI-served simulator at services/api/static/reach-simulator/",
+        "GET /reach-simulator (demo gated)",
+        "Full main-menu flows 0–6",
+        "Simulation labelling",
+        "Synthetic request submission via POST /v1/reach/requests",
+        "Status check via POST /v1/reach/requests/status",
+        "One-time status PIN shown in memory only"
+      ],
+      "technicalDecision": "services/api/static/reach-simulator/"
+    },
+    {
+      "id": "R4",
+      "name": "Worker Community Requests Centre",
+      "status": "complete",
+      "dependsOn": ["R2", "R3"],
+      "implementedScreens": [
+        "Community Requests list",
+        "Request detail"
+      ],
+      "implementedActions": [
+        "Acknowledge",
+        "Record contact attempt",
+        "Mark handled",
+        "Start client lookup (navigate only)"
+      ],
+      "deferredToR5": [
+        "Escalate UI",
+        "Emergency coordination polish"
+      ],
+      "featurePath": "apps/mobile/src/features/community-requests/",
+      "routes": [
+        "/(worker)/community-requests",
+        "/(worker)/community-requests/[requestId]"
+      ],
+      "localStorage": "in-memory only; no SQLite request repository; no offline mutation queue"
+    },
+    {
+      "id": "R5",
+      "name": "Emergency Coordination Simulation",
+      "status": "complete",
+      "dependsOn": ["R3", "R4"],
+      "implemented": [
+        "Emergency filter simulation notice",
+        "Emergency card text+icon+semantic border",
+        "Emergency coordination simulation banner with call-112 reminder",
+        "escalateCommunityRequest mobile API client (R2 endpoint)",
+        "Escalation confirmation stating no ambulance is contacted",
+        "Truthful escalated success and failure handling",
+        "Public generic escalated status verification",
+        "R5 tests and emergency walkthrough documentation"
+      ],
+      "notImplemented": [
+        "Live ambulance dispatch",
+        "Automatic escalation",
+        "Escalation timers",
+        "Remote or local Reach notifications",
+        "Dispatcher dashboard",
+        "Home emergency badge (optional; skipped)"
+      ]
+    },
+    {
+      "id": "R6",
+      "name": "Integration, Testing and Demonstration Preparation",
+      "status": "complete_awaiting_manual_validation",
+      "dependsOn": ["R5"],
+      "implemented": [
+        "Final R0–R5 implementation audit",
+        "Development-only reset_reach_demo CLI",
+        "Development-only seed_reach_demo CLI",
+        "Local demo runbook",
+        "Routine / emergency / admin / privacy / concurrency E2E tests",
+        "Judge script, short pitch, shot list, limitations, readiness checklist, presentation notes",
+        "Architecture Mermaid update",
+        "Future expansion phases",
+        "Validation matrix distinguishing browser/API/Android/physical",
+        "Inventory and documentation reconciliation"
+      ],
+      "notImplemented": [
+        "Live USSD / SMS / telecom / ambulance",
+        "Remote push / background polling",
+        "Physical Android validation (environment-dependent)",
+        "Stage 19"
+      ]
+    },
+    {
+      "id": "T0",
+      "name": "Africa's Talking USSD Design Freeze",
+      "status": "approved",
+      "approvedDate": "2026-08-04",
+      "phase": 2,
+      "implementsCode": false,
+      "dependsOn": ["R6"],
+      "partner": "Africa's Talking",
+      "deliverables": [
+        "Sandbox and Ghana-aware production onboarding path",
+        "Session model mapping to frozen Reach menus",
+        "Channel enum proposal (keep ussdSimulator; add ussdAfricasTalkingSandbox / ussdAfricasTalkingLive)",
+        "Webhook threat model",
+        "Product truthfulness rules",
+        "Non-goals freeze"
+      ],
+      "spec": "docs/development/stages/REACH_T0_AFRICAS_TALKING_DESIGN_FREEZE.md",
+      "checkpoint": "docs/development/REACH_AT_USSD_T0_T1_DOCS_CHECKPOINT.md"
+    },
+    {
+      "id": "T1",
+      "name": "Africa's Talking Webhook Adapter",
+      "status": "complete_awaiting_approval",
+      "phase": 2,
+      "implementsCode": true,
+      "dependsOn": ["T0"],
+      "implemented": [
+        "POST /v1/reach/ussd/africas-talking/{callbackSecret}",
+        "AT form POST → CON/END English menus aligned with frozen Reach USSD flow",
+        "Create/status mapped to existing Reach services with channel ussdAfricasTalkingSandbox",
+        "Sandbox-only enablement flags (live rejected)",
+        "ngrok/local tunnel developer procedure",
+        "Unit and integration tests for adapter, session, webhook"
+      ],
+      "notInScope": [
+        "ussdAfricasTalkingLive enablement",
+        "SMS",
+        "Auto client create",
+        "AI",
+        "Diagnose / prescribe / dosage"
+      ],
+      "spec": "docs/development/stages/REACH_T1_AFRICAS_TALKING_WEBHOOK_ADAPTER.md",
+      "checkpoint": "docs/development/REACH_T1_AFRICAS_TALKING_CHECKPOINT.md"
+    }
+  ],
+  "mustBuildForDemo": [
+    "Profession field in administrator registration",
+    "Community-request enablement",
+    "Emergency-request enablement",
+    "Professional profile for development account",
+    "Community request database model",
+    "Public synthetic request creation",
+    "Reference and PIN generation",
+    "Public generic status lookup",
+    "Simple deterministic assignment",
+    "USSD simulator",
+    "Community Requests Centre",
+    "Request details",
+    "Acknowledge",
+    "Contact attempt",
+    "Escalate",
+    "Mark handled",
+    "Emergency simulation",
+    "Routine demonstration journey",
+    "Emergency demonstration journey",
+    "Synthetic reset procedure",
+    "Tests and documentation"
+  ],
+  "futureExpansion": [
+    "Africa's Talking USSD sandbox adapter (T0 docs / T1 implementation — gated)",
+    "Real USSD shortcode",
+    "Telecom aggregator API",
+    "SMS",
+    "Live ambulance integration",
+    "National Ambulance Service data exchange",
+    "GPS",
+    "Telecom-assisted location",
+    "District routing",
+    "Catchment maps",
+    "Multiple-facility routing",
+    "Worker duty rosters",
+    "Workload balancing",
+    "Automatic escalation timers",
+    "Dispatcher dashboard",
+    "Real-time remote push",
+    "Profession verification",
+    "Licence verification",
+    "Real language translations",
+    "AI translation",
+    "AI request summarisation",
+    "Real clinical-content packs",
+    "Ghana Health Service production integration",
+    "National deployment",
+    "Public production hosting"
+  ],
+  "demoAccount": {
+    "email": "hamdansalifupolibu@gmail.com",
+    "roles": ["worker", "admin"],
+    "facilityId": "fac-dev-001",
+    "organisationId": "org-dev-001",
+    "profession": "communityHealthOfficer",
+    "communityRequestsEnabled": true,
+    "emergencyRequestsEnabled": true,
+    "passwordDocumented": false
+  },
+  "notificationBoundary": {
+    "remotePushActive": false,
+    "refreshOnOpen": true,
+    "refreshOnForeground": true,
+    "manualRefresh": true,
+    "badgeAfterFetchAllowed": true,
+    "genericLocalFeedbackAfterFetchOnly": true
+  }
+}

@@ -1,0 +1,1268 @@
+Have a look at the full story of the onboarding in this resource folder, and the images are all there:
+The story I would build around them
+
+The strongest sequence is:
+
+Care → Reach → Intelligence → Trust → Inclusion
+
+That gives each image a specific job instead of making onboarding feel like a feature slideshow.
+
+1. Start with the midwife, mother and baby
+
+This should be the first image.
+
+It is your most human image. Before telling users about AI, offline models, QR codes or USSD, establish what NorthCare is fundamentally about: supporting maternal, newborn and child healthcare in real communities.
+
+The image immediately communicates healthcare, trust, compassion, frontline work and rural context without requiring explanation.
+
+A good heading could be:
+
+Care Where It Matters Most
+
+With something short underneath:
+
+Support mothers, newborns and children with practical tools designed for frontline care.
+
+This becomes the emotional introduction to NorthCare.
+
+2. Then show the Northern Ghana / offline-reach image
+
+This should come second because it answers:
+
+Where is this solution designed to work?
+
+The village, Ghana/Africa visual, health facilities and network representation establish that NorthCare has been intentionally designed for communities where connectivity and access can be difficult.
+
+I would frame this slide around offline-first healthcare, rather than simply saying “connectivity.”
+
+Suggested heading
+
+Built for Offline Communities
+
+Possible supporting text:
+
+NorthCare keeps essential care tools available even where internet connectivity is limited or unavailable.
+
+This also prepares the user psychologically for the next slide. Once you tell them that NorthCare works offline, the natural question becomes:
+
+“Okay, but what can it actually do offline?”
+
+And that leads perfectly into image 3.
+
+3. Voice-to-Care + NorthCare AI
+
+This should be the third slide.
+
+This is where you reveal one of the app's strongest technical capabilities.
+
+The image communicates two things simultaneously:
+
+the health worker can speak naturally into the application, and
+the application can provide AI-supported assistance locally.
+
+The microphone waveform, AI/chat imagery and offline symbol make the concept understandable even before the user reads anything.
+
+Suggested heading
+
+Offline Intelligence for Frontline Care
+
+I like this more than explicitly putting both feature names in the heading because the title communicates the benefit.
+
+Then the description can name them:
+
+Use Voice-to-Care for speech-powered documentation and NorthCare AI for approved care guidance — even without internet.
+
+You could later visually reinforce the two features underneath with small coded chips such as:
+
+Voice-to-Care NorthCare AI
+
+Those should be React Native components rather than part of the image.
+
+4. QR verification
+
+The QR image works extremely well after the AI slide because it introduces another aspect of NorthCare:
+
+It isn't only intelligent; it also supports secure workflows between people and devices.
+
+The final version is particularly clear because one health worker visibly presents the QR while the other has a scanner interface open.
+
+The shield/check icon between them makes the intended meaning even clearer.
+
+This slide can represent both:
+
+Admin account activation
+
+and
+
+Referral passport verification
+
+without needing separate onboarding slides.
+
+Suggested heading
+
+Secure Offline Handoffs
+
+Supporting text:
+
+Activate authorized workers and verify NorthCare referrals through secure QR-based workflows, even offline.
+
+That wording is useful because it explains both implementations without going too deeply into cryptography during onboarding.
+
+I would avoid telling users about public keys, signatures, nonces or activation tokens here. Those are implementation details rather than onboarding information.
+
+5. Finish with the USSD/community image
+
+I would definitely use this as the last image.
+
+There is an important storytelling reason.
+
+Until this point, everything has been centered mainly around:
+
+Health worker + smartphone + NorthCare
+
+Then the final screen suddenly expands the vision:
+
+NorthCare is not only for people carrying smartphones.
+
+The woman using a basic feature phone with the connection leading toward a healthcare facility tells that story beautifully.
+
+The image also clearly differentiates itself from the smartphone-based screens because the physical keypad phone is immediately recognizable.
+
+Suggested heading
+
+Care Access Beyond Smartphones
+
+Supporting text:
+
+Community members can access selected NorthCare services through USSD using basic mobile phones.
+
+Then, because your current implementation is through Africa's Talking Sandbox, you can show the demonstration code elsewhere in the UI when appropriate:
+
+Demo USSD: *384*91620#
+
+with a small:
+
+Sandbox
+
+indicator.
+
+I wouldn't include that code in the introductory artwork itself.
+
+The five slides now have very distinct purposes
+Slide	What the user learns
+1 — Mother & health worker	What NorthCare exists for
+2 — Ghana / village network	Where and under what conditions it works
+3 — Voice + AI	What intelligent capabilities it provides
+4 — QR verification	How trusted offline workflows move between users/devices
+5 — USSD	How the system extends beyond smartphones and health workers
+
+So the entire story becomes:
+
+NorthCare supports mothers and children in frontline care. It is designed for underserved and low-connectivity communities. Health workers get offline voice and AI capabilities. Secure QR workflows support activation and referrals. And even people without smartphones can access selected services through USSD.
+
+That is a far stronger narrative than simply saying:
+
+“Here are five features in our application.”
+
+One visual issue I would handle in the UI
+
+Four of your images are largely warm, realistic and human-centered, while the Ghana/network image is significantly more conceptual, dark and cinematic.
+
+I wouldn't regenerate it necessarily, because conceptually it works very well. Instead, make the onboarding UI create consistency.
+
+For example, apply the same:
+
+image crop behaviour,
+corner radius if you are using cards,
+lower gradient,
+title placement,
+typography,
+progress indicators,
+margins,
+image height,
+
+to all five.
+
+That consistent UI framework will make the different photographic styles feel deliberate.
+
+I would not put text directly over the busiest parts
+
+The images already contain a lot of meaningful visual information.
+
+A better structure is approximately:
+
+┌──────────────────────────┐
+│                          │
+│                          │
+│          IMAGE           │
+│                          │
+│                          │
+│                          │
+├──────────────────────────┤
+│                          │
+│  Care Where It Matters   │
+│  Most                    │
+│                          │
+│  Short explanation...    │
+│                          │
+│      ● ○ ○ ○ ○           │
+│                          │
+│      [ Continue ]        │
+│                          │
+│          Skip            │
+└──────────────────────────┘
+
+This gives you reliable contrast, better accessibility and much more control across phones with different dimensions.
+
+Skip and progression
+
+Definitely retain Skip.
+
+I would make the interaction:
+
+Slides 1–4:
+
+Skip  Next →
+
+Slide 5:
+
+Back  Get Started
+
+And progress:
+
+● ○ ○ ○ ○
+
+● ● ○ ○ ○
+
+● ● ● ○ ○
+
+● ● ● ● ○
+
+● ● ● ● ●
+
+After Skip or Get Started, store:
+
+hasCompletedOnboarding = true
+
+locally.
+
+The user should not see all five again every time they open NorthCare.
+
+The final storyline
+
+If I were presenting NorthCare using only these five images, I could tell its entire idea:
+
+NorthCare begins with the relationship between the health worker, mother and child. It brings digital healthcare into communities where connectivity can be unreliable. Its core AI and voice capabilities can operate offline. Secure QR workflows allow trusted user activation and referral verification between devices. And NorthCare Reach extends selected services to community members using ordinary feature phones through USSD.
+
+That is a very coherent product narrative. I would lock these five images in and now focus on making the onboarding UI, transitions and wording around them extremely clean rather than adding more onboarding screens.....this is an improved version of  it:
+
+
+
+Yes. With these **five final images** and the UI reference you added, I think the onboarding can now be locked into one consistent design system. The images tell the story, while **all navigation, text, logo, gradients, indicators, and buttons are coded in React Native on top of them**. That is the right architecture because we can adjust wording, accessibility, translations, spacing, and navigation later without touching the artwork.
+
+# Final NorthCare Onboarding Story
+
+The narrative remains:
+
+**Care → Reach → Intelligence → Trust → Inclusion**
+
+Each screen should feel like the next chapter of the same story rather than a collection of feature advertisements.
+
+## 1. One shared visual structure across all five screens
+
+Every onboarding screen should use the image as a **full-screen background** using `cover`, filling the entire phone screen from edge to edge. We should not embed any UI permanently into these image files.
+
+The common structure should look approximately like this:
+
+```text
+┌─────────────────────────────────┐
+│                                 │
+│  NORTHCARE AI LOGO        Skip  │
+│                                 │
+│                                 │
+│                                 │
+│        FULL-SCREEN IMAGE        │
+│                                 │
+│                                 │
+│                                 │
+│                                 │
+│                                 │
+│  ↓ subtle green/teal gradient   │
+│  ↓ gets darker toward bottom    │
+│                                 │
+│  Small contextual label         │
+│                                 │
+│  MAIN TITLE                     │
+│                      │
+│                                 │
+│  Short supporting explanation  │
+│                                 │
+│  Optional slide-specific item   │
+│                                 │
+│  1 / 5        ● ○ ○ ○ ○        │
+│                                 │
+│  Back                   Next →  │
+└─────────────────────────────────┘
+```
+
+The **photograph remains visible behind everything**, but from around the middle/lower portion downward we introduce the subtle deep green/teal gradient shown in your UI reference. It should start almost transparent and become sufficiently dark near the bottom so white text always remains readable.
+
+That visual treatment should remain identical on every screen.
+
+---
+
+# Shared elements that should exist throughout onboarding
+
+The **white NorthCare AI PNG logo** stays at the upper-left in the exact same position across all five screens.
+
+The **Skip** control stays upper-right. I would show it on screens 1–4. Technically we can show it on screen 5 too, but by that point the user has reached the end, so **Get Started** already performs essentially the same action. Removing Skip only on the final slide is cleaner.
+
+The **page number** appears near the bottom, for example:
+
+**1 / 5**
+
+then:
+
+**2 / 5**
+
+through:
+
+**5 / 5**
+
+The **five progress dots** stay in exactly the same position. Only their state changes:
+
+```text
+1  ● ○ ○ ○ ○
+2  ● ● ○ ○ ○
+3  ● ● ● ○ ○
+4  ● ● ● ● ○
+5  ● ● ● ● ●
+```
+
+I prefer this filled-progress representation over moving a single dot because it visually communicates both **where I am** and **how much I have completed**.
+
+The primary yellow/orange button from your mockup should remain consistent as well.
+
+Screens 1–4:
+
+**Next →**
+
+Screen 5:
+
+**Get Started →**
+
+From screen 2 onward, the user should have a **Back** control so the navigation works naturally in both directions.
+
+---
+
+# Exact five-screen plan
+
+| Screen    | Story            | Main title                                  | Supporting copy                                                                                                         | Optional contextual UI                                |
+| --------- | ---------------- | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| **1 / 5** | **CARE**         | **Care Where It Matters Most**              | Support mothers, newborns and children with practical tools designed for frontline care.                                | Location pin + **Designed for Northern Ghana**        |
+| **2 / 5** | **REACH**        | **Built for Offline Communities**           | NorthCare keeps essential care tools available even where internet connectivity is limited or unavailable.              | Airplane/offline icon + **Offline-first care**        |
+| **3 / 5** | **INTELLIGENCE** | **Offline Intelligence for Frontline Care** | Use Voice-to-Care for speech-powered documentation and NorthCare AI for approved care guidance — even without internet. | `Voice-to-Care` and `NorthCare AI` chips              |
+| **4 / 5** | **TRUST**        | **Secure Offline Handoffs**                 | Activate authorized workers and verify NorthCare referrals through secure QR-based workflows, even offline.             | QR/Shield icon + **Secure verification**              |
+| **5 / 5** | **INCLUSION**    | **Care Access Beyond Smartphones**          | Community members can access selected NorthCare services through USSD using basic mobile phones.                        | Basic-phone icon + **NorthCare Reach · USSD Sandbox** |
+
+I especially like having the small contextual UI differ by screen. It means the overall structure remains predictable, but every page has one small piece of interface that reinforces what its photograph means.
+
+---
+
+# Screen 1 — CARE
+
+Use the **midwife + mother + baby** photograph.
+
+This is correctly your opening scene because it answers the most important question first:
+
+> What is NorthCare actually about?
+
+Not AI.
+
+Not QR codes.
+
+Not technology.
+
+**Care.**
+
+The lower overlay can resemble your reference quite closely.
+
+Something like:
+
+**Welcome to NorthCare AI**
+
+# Care Where It Matters Most
+
+> Support mothers, newborns and children with practical tools designed for frontline care.
+
+Then the location marker:
+
+📍 **Designed for Northern Ghana**
+
+Then:
+
+**1 / 5**  `● ○ ○ ○ ○`  **Next →**
+
+There is **no Back button** here because there is nowhere to return to.
+
+---
+
+# Screen 2 — REACH
+
+Use the new **Northern Ghana + health worker + Ghana map + airplane-mode** image.
+
+This is far better for the overall visual language than the earlier globe image because it remains grounded in an actual community while the Ghana map acts only as additional context.
+
+The title:
+
+# Built for Offline Communities
+
+Description:
+
+> NorthCare keeps essential care tools available even where internet connectivity is limited or unavailable.
+
+A small contextual badge could say:
+
+✈ **Offline-first care**
+
+Importantly, we should **not add another large offline icon in code**, because the artwork already contains one. The badge could therefore simply use small text or perhaps no icon at all.
+
+Navigation:
+
+**2 / 5**  `● ● ○ ○ ○`
+
+`← Back`     **Next →**
+
+---
+
+# Screen 3 — INTELLIGENCE
+
+Use the **Voice-to-Care + NorthCare AI** health-worker image.
+
+This is probably where slide-specific coded UI becomes most useful.
+
+# Offline Intelligence for Frontline Care
+
+> Use Voice-to-Care for speech-powered documentation and NorthCare AI for approved care guidance — even without internet.
+
+Then beneath the description, two small translucent chips:
+
+```text
+[ 🎙 Voice-to-Care ]    [ ✦ NorthCare AI ]
+```
+
+These are **real UI**, not part of the artwork.
+
+They help people immediately connect the visual symbols in the image with the names of the actual features.
+
+Navigation:
+
+**3 / 5**  `● ● ● ○ ○`
+
+`← Back`     **Next →**
+
+---
+
+# Screen 4 — TRUST
+
+Use the **QR scanning image**.
+
+# Secure Offline Handoffs
+
+> Activate authorized workers and verify NorthCare referrals through secure QR-based workflows, even offline.
+
+A small contextual line could say:
+
+🛡 **Secure verification**
+
+Or slightly more informative:
+
+**Staff activation · Referral verification**
+
+I actually prefer the second because it immediately answers:
+
+> “What are the QR codes used for?”
+
+without making the paragraph longer.
+
+Navigation:
+
+**4 / 5**  `● ● ● ● ○`
+
+`← Back`     **Next →**
+
+---
+
+# Screen 5 — INCLUSION
+
+Use the **woman with the feature phone / USSD** image.
+
+This should absolutely remain last because it gives the NorthCare story its widest meaning.
+
+We move from:
+
+**health workers using NorthCare**
+
+to:
+
+**communities accessing the NorthCare ecosystem.**
+
+# Care Access Beyond Smartphones
+
+> Community members can access selected NorthCare services through USSD using basic mobile phones.
+
+Then a restrained contextual element:
+
+```text
+📱 NorthCare Reach
+USSD Sandbox
+```
+
+I would **not put `*384*91620#` on this onboarding page**.
+
+The code belongs inside the NorthCare Reach/USSD information page or your demonstration workflow. The onboarding should communicate the capability rather than teach the sandbox procedure.
+
+The **Sandbox** designation is worth retaining anywhere we explicitly identify the current USSD implementation, because it keeps the presentation accurate.
+
+Navigation:
+
+**5 / 5**  `● ● ● ● ●`
+
+`← Back`     **Get Started →**
+
+---
+
+# The gradient is very important
+
+The gradient from your example is one of the things I would deliberately carry into the final design.
+
+But it should not simply be:
+
+> “place a giant green box over the bottom.”
+
+It should blend naturally into the photograph.
+
+Approximately:
+
+```text
+Top
+│
+│  0% opacity
+│
+│  ~5–15% dark teal
+│
+│  ~40%
+│
+│  ~75%
+│
+│  ~90–95%
+▼
+Bottom
+```
+
+So visually:
+
+```text
+IMAGE
+IMAGE
+IMAGE
+IMAGE
+IMAGE
+IMAGE + slight teal
+IMAGE + teal
+IMAGE + darker teal
+DEEP TEAL
+DEEP TEAL
+```
+
+The photograph remains perceptible behind it, but the title and paragraph have reliable contrast.
+
+That should also help solve the fact that your images have somewhat different lighting conditions.
+
+The QR image is warm.
+
+The Voice/AI image is indoor and slightly darker.
+
+The USSD image is bright daylight.
+
+The Ghana/offline image has a pale sky.
+
+The gradient **normalizes all five visually** and makes them feel like one deliberate collection.
+
+---
+
+# Full-screen image behaviour
+
+This is another thing we should lock before implementation.
+
+All five should use something equivalent to:
+
+```tsx
+<ImageBackground
+  source={...}
+  resizeMode="cover"
+  style={styles.background}
+/>
+```
+
+Not:
+
+```text
+contain
+```
+
+because `contain` can produce blank space.
+
+The image should always cover:
+
+```text
+100% screen width
+100% screen height
+```
+
+and the UI sits above it.
+
+However, we need to define **focal positioning per image** because `cover` inevitably crops slightly on different screen ratios.
+
+For example, the important faces in slide 1 need to remain visible.
+
+The Ghana map in slide 2 must not disappear above the screen.
+
+The Voice-to-Care microphone visuals need to remain visible.
+
+Both QR phones must survive cropping.
+
+The basic feature phone must survive cropping.
+
+So we should not use one blindly identical crop position. We can give each asset a slightly different focal alignment while keeping the overall component reusable.
+
+---
+
+# Navigation behaviour
+
+I would support **both buttons and horizontal swiping**.
+
+So a user can:
+
+```text
+Swipe left  → Next
+Swipe right → Back
+```
+
+or:
+
+```text
+Next →
+← Back
+```
+
+This is a very natural onboarding interaction.
+
+But the buttons remain important for discoverability and accessibility.
+
+If the user reaches:
+
+```text
+Screen 3
+```
+
+and presses Back:
+
+```text
+3 → 2
+```
+
+then:
+
+```text
+2 → 1
+```
+
+Similarly:
+
+```text
+1 → 2 → 3 → 4 → 5
+```
+
+Everything should animate using a subtle horizontal slide/fade rather than flashy transitions.
+
+---
+
+# Skip behaviour
+
+When the user presses **Skip** on any of slides 1–4:
+
+```text
+Skip
+  ↓
+hasCompletedOnboarding = true
+  ↓
+Authentication / Account Activation screen
+```
+
+When they press **Get Started**:
+
+```text
+Get Started
+  ↓
+hasCompletedOnboarding = true
+  ↓
+Authentication / Account Activation
+```
+
+So both ultimately complete onboarding.
+
+Then on later app launches:
+
+```text
+NorthCare launches
+        ↓
+Check onboarding status
+        ↓
+Completed?
+   ↓ YES
+Do not show onboarding
+        ↓
+Sign-in / Activation
+```
+
+We should also eventually let users revisit it through something like:
+
+**Settings → About NorthCare → Explore NorthCare**
+
+---
+
+# Logo positioning
+
+Your clean **white NorthCare AI PNG** should remain fixed in the upper-left on all five screens.
+
+I'd preserve a safe-area margin rather than placing it right against the status bar.
+
+Something approximately like:
+
+```text
+Status bar
+─────────────
+
+  [NorthCare AI]                         Skip
+
+```
+
+The logo should not resize from screen to screen.
+
+The visual consistency matters more than making it larger on particular backgrounds.
+
+Where the image behind it is very bright, we can use a **very subtle dark scrim behind the entire top area**, rather than putting the logo in a box.
+
+---
+
+# Status bar
+
+I would keep the mobile status bar visible, as in your reference.
+
+But use:
+
+```text
+light-content
+```
+
+so:
+
+* clock,
+* battery,
+* signal,
+
+are white.
+
+The top of each image should therefore get a very slight dark transparent overlay so those remain legible.
+
+That same upper scrim helps the white logo and Skip control.
+
+---
+
+# Typography hierarchy
+
+I really like what your reference is doing.
+
+Keep the hierarchy approximately:
+
+**Small accent line**
+
+> Welcome to NorthCare AI
+
+**Large bold title**
+
+> Care Where It Matters Most
+
+**Smaller supporting description**
+
+> Support mothers, newborns and children...
+
+**Small contextual information**
+
+> 📍 Designed for Northern Ghana
+
+Then navigation.
+
+We should not put more than this on each page. The image should still breathe.
+
+---
+
+# Colour language
+
+Your reference already gives us the core palette:
+
+**Deep teal/green**
+for the overlay and NorthCare identity.
+
+**Warm gold/orange**
+for:
+
+* primary button,
+* active progress indicators,
+* small accent lines,
+* important labels.
+
+**White**
+for primary text and logo.
+
+This connects beautifully to the images because several of them already contain:
+
+* green nursing accents,
+* warm earth tones,
+* cream clothing,
+* golden sunlight.
+
+So it doesn't feel like the UI was pasted onto unrelated photographs.
+
+---
+
+# One improvement to the reference UI
+
+The example currently says:
+
+**1 / 3**
+
+and has three dots.
+
+Obviously ours becomes:
+
+**1 / 5**
+
+and five dots.
+
+But I would also slightly reduce the large title size compared with the reference if needed.
+
+With titles like:
+
+> Offline Intelligence for Frontline Care
+
+we need to avoid occupying four or five lines on smaller phones.
+
+The title should ideally remain **2–3 lines maximum**.
+
+Responsive typography should handle that.
+
+---
+
+# Final component architecture
+
+From the implementation side, I would make **one onboarding screen component**, not five manually coded screens.
+
+Conceptually:
+
+```tsx
+const onboardingSlides = [
+  {
+    image: careImage,
+    eyebrow: "Welcome to NorthCare AI",
+    title: "Care Where It Matters Most",
+    description: "...",
+    context: "Designed for Northern Ghana",
+  },
+
+  {
+    image: offlineImage,
+    eyebrow: "Offline-first healthcare",
+    title: "Built for Offline Communities",
+    description: "...",
+    context: "Works without reliable internet",
+  },
+
+  {
+    image: intelligenceImage,
+    eyebrow: "Voice + AI",
+    title: "Offline Intelligence for Frontline Care",
+    description: "...",
+    chips: ["Voice-to-Care", "NorthCare AI"],
+  },
+
+  {
+    image: qrImage,
+    eyebrow: "Secure workflows",
+    title: "Secure Offline Handoffs",
+    description: "...",
+    context: "Staff activation · Referral verification",
+  },
+
+  {
+    image: ussdImage,
+    eyebrow: "NorthCare Reach",
+    title: "Care Access Beyond Smartphones",
+    description: "...",
+    context: "USSD Sandbox",
+  },
+];
+```
+
+Then **the exact same UI component** renders the current slide.
+
+That means one change to:
+
+* button,
+* dots,
+* gradient,
+* logo,
+* typography,
+* spacing,
+
+automatically applies to all five.
+
+That's the cleanest implementation.
+
+---
+
+# What I would now lock
+
+I would consider the onboarding **design direction complete**.
+
+The five screens are:
+
+**1 — CARE**
+Mother + baby + health worker
+
+**2 — REACH**
+Northern Ghana + offline/community image
+
+**3 — INTELLIGENCE**
+Voice-to-Care + NorthCare AI
+
+**4 — TRUST**
+QR activation + referral verification
+
+**5 — INCLUSION**
+NorthCare Reach + feature-phone USSD
+
+And the permanent visual system is:
+
+> **Full-screen photograph + subtle teal gradient + white NorthCare logo + Skip + small accent label + large title + concise description + optional contextual feature + 1/5 indicator + five dots + Back/Next/Get Started controls.**
+
+That is what I would carry into development now. I would **not add more onboarding screens or more information**. Five is already enough to explain the platform while still being reasonable to swipe through, and each one now has a clear purpose....not there is an image called:(UI design Elements Reference for every onboarding image), u can use it as a reference
+...I almost forget something important, we can add a last image  on the UN SDG's that our work covers, maybe 3 or 4 them as last image for the app's last onboarding stage...what do u think.....SDG selection (recommend 3, 10, optional 5)
+
+Yes — adding an SDG alignment screen as the final onboarding stage can work very well, especially because NorthCare is being positioned not just as a mobile app, but as a solution for maternal/child health, nutrition, rural access and inclusion.
+
+I would make one adjustment though: rather than treating it like a formal “UN SDG compliance” page, make it feel like the closing statement of the NorthCare story.
+
+Your sequence would then become:
+
+Care → Reach → Intelligence → Trust → Inclusion → Impact
+
+That last word, Impact, is exactly where the SDGs fit.
+
+Which SDGs fit NorthCare best?
+
+I would actually recommend SDG 3, SDG 2 and SDG 10 as the three strongest, with SDG 5 as an optional fourth.
+
+SDG 3 — Good Health and Well-Being — definitely include
+
+This is unquestionably NorthCare's primary SDG.
+
+Your project directly supports areas such as maternal care, newborn and child health, nutrition-related health assessment, referrals, health-worker decision support and access to care.
+
+NorthCare's whole purpose sits naturally under:
+
+SDG 3 — Good Health and Well-Being
+
+So this should be visually dominant on the slide.
+
+SDG 2 — Zero Hunger — I think this is stronger than SDG 5
+
+This might not be immediately obvious because people hear “Zero Hunger” and think only about food availability.
+
+But SDG 2 also explicitly covers nutrition and malnutrition.
+
+NorthCare has:
+
+maternal nutrition assessment,
+child nutrition assessment,
+infant feeding support,
+MUAC,
+SAM classification,
+MAM classification,
+nutritional guidance.
+
+That makes SDG 2 a very direct connection, not something we're stretching to fit.
+
+So I would strongly recommend:
+
+SDG 2 — Zero Hunger
+
+because it reflects one of the major functional areas you actually built.
+
+SDG 10 — Reduced Inequalities — definitely defensible
+
+This is also a strong one because of what you've deliberately done with NorthCare.
+
+You aren't designing only for:
+
+Smartphone + stable internet + urban hospital.
+
+You've deliberately included:
+
+offline operation,
+rural/community settings,
+Northern Ghana,
+basic-phone USSD,
+low-connectivity use,
+community access,
+local-language support,
+offline AI.
+
+The point is essentially:
+
+People should not lose access to useful healthcare tools simply because of where they live, the phone they own or the quality of their internet connection.
+
+That aligns very naturally with:
+
+SDG 10 — Reduced Inequalities
+
+So I would definitely keep that.
+
+What about SDG 5 — Gender Equality?
+
+It is relevant, but I would be more careful with how strongly we claim it.
+
+Your platform supports:
+
+pregnant women,
+mothers,
+maternal health,
+postnatal care,
+women in rural communities.
+
+But serving women is not automatically the same thing as advancing gender equality.
+
+For SDG 5 to be a very strong primary claim, NorthCare would ideally also directly tackle something like:
+
+women's control over health decisions,
+gender barriers to healthcare,
+discrimination,
+violence against women,
+reproductive autonomy,
+unequal access to services.
+
+NorthCare may indirectly contribute to women's empowerment through improved access to maternal healthcare, but its connection is currently less direct than SDG 2.
+
+Therefore my ranking would be:
+
+Core SDGs
+
+SDG 3 — Good Health and Well-Being
+
+SDG 2 — Zero Hunger
+
+SDG 10 — Reduced Inequalities
+
+Supporting SDG
+
+SDG 5 — Gender Equality
+
+That is a much stronger and more defensible SDG story.
+
+So I would use either 3 or 4 SDGs
+Cleaner version — my preference
+
+Use only:
+
+2 · 3 · 10
+
+This is extremely focused.
+
+SDG 2
+Zero Hunger
+     ↓
+Nutrition & malnutrition
+
+
+SDG 3
+Good Health and Well-Being
+     ↓
+Maternal, newborn & child health
+
+
+SDG 10
+Reduced Inequalities
+     ↓
+Offline and inclusive access
+
+Every one directly corresponds to something users can actually see inside NorthCare.
+
+Extended version
+
+If you want the stronger social-development framing:
+
+2 · 3 · 5 · 10
+
+Then SDG 5 represents the platform's emphasis on improving access to maternal and women's health services.
+
+I'd keep it secondary rather than presenting all four as equally central.
+
+The last onboarding image should NOT look like a poster
+
+This is important.
+
+I don't want us to suddenly have:
+
+SDG 2
+SDG 3
+SDG 5
+SDG 10
+
+United Nations Sustainable
+Development Goals
+
+on a plain white background.
+
+That would break the beautiful visual storytelling of the previous five screens.
+
+Instead, I would create one final photorealistic community image.
+
+Perhaps something like:
+
+A health worker standing with a mother and child in a Northern Ghana community, with several ordinary community members subtly visible.
+
+The scene communicates:
+
+healthy mother + healthy child + accessible healthcare + community inclusion
+
+Then in the upper-middle/background area, we introduce the SDG symbols in an elegant way.
+
+Something like:
+
+       ┌────┐ ┌────┐ ┌────┐
+       │  2 │ │  3 │ │ 10 │
+       └────┘ └────┘ └────┘
+
+          subtle visual
+           connection
+
+     HEALTHY COMMUNITY
+
+Not holographic.
+
+Not futuristic.
+
+Not giant floating boxes.
+
+Just enough to communicate that these are the development goals NorthCare contributes toward.
+
+Then let the actual UI explain it
+
+The image itself should remain clean.
+
+The coded overlay could say:
+
+Small label
+
+Our Impact
+
+Main title
+Built for Healthier, Fairer Communities
+
+Then:
+
+NorthCare contributes to global goals for better health, improved nutrition and more equitable access to essential care.
+
+Then possibly three small coded SDG chips/cards:
+
+SDG 2
+Nutrition
+
+SDG 3
+Health & Well-being
+
+SDG 10
+Reduced Inequalities
+
+And maybe a smaller fourth:
+
+SDG 5 · Supporting women's health
+
+if we decide to include it.
+
+It now makes your onboarding six screens
+
+And I think the six-screen narrative is actually very strong:
+
+1 / 6 — CARE
+
+Care Where It Matters Most
+
+Mother + baby + health worker.
+
+2 / 6 — REACH
+
+Built for Offline Communities
+
+Northern Ghana + offline operation.
+
+3 / 6 — INTELLIGENCE
+
+Offline Intelligence for Frontline Care
+
+Voice-to-Care + NorthCare AI.
+
+4 / 6 — TRUST
+
+Secure Offline Handoffs
+
+QR referrals + worker activation.
+
+5 / 6 — INCLUSION
+
+Care Access Beyond Smartphones
+
+USSD + feature phones.
+
+6 / 6 — IMPACT
+
+Built for Healthier, Fairer Communities
+
+SDGs 2 · 3 · 10, optionally 5.
+
+Then:
+
+6 / 6 ● ● ● ● ● ●
+
+← Back    Get Started →
+
+That gives the onboarding an actual ending rather than simply stopping after USSD.
+
+There is also a presentation advantage
+
+If you're demonstrating this to judges, the last screen naturally leaves them with:
+
+This isn't technology for technology's sake.
+
+You've just shown them:
+
+AI, voice models, offline inference, QR cryptography, USSD, rural deployment.
+
+Then the final screen reframes all that technology as:
+
+Health impact + nutrition + equitable access.
+
+That is exactly the type of ending I would want for NorthCare.
+
+So yes, I would add the sixth SDG image. But I would lock the primary SDGs as 2, 3 and 10, and treat 5 as an optional supporting goal, rather than making 3, 10 and 5 the primary set...

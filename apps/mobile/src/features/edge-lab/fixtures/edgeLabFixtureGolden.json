@@ -1,0 +1,15 @@
+{
+  "fixtureId": "edge-lab-fixture-v1",
+  "status": "ready",
+  "capturedFromRunId": "edge_mspax7qr_g2cn",
+  "capturedModel": "ggml-base.en.bin",
+  "mustContainPhrases": [
+    "2 years",
+    "diarrhea",
+    "yesterday",
+    "feeding"
+  ],
+  "referenceTranscriptNormalized": "the child is 2 years old has had diarrhea since yesterday and it s not feeding well",
+  "requiredExtractionKeys": ["symptomSummary", "urgencyLevel"],
+  "notes": "Synthetic English field note only. Reference from S20 Ultra base.en capture 2026-08-11. No real patient data."
+}

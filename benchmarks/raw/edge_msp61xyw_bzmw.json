@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "source": "EDGE_LAB_EVIDENCE logcat",
+  "runId": "edge_msp61xyw_bzmw",
+  "experimentId": "exp-02-whisper-prompt-length",
+  "capturedAtIso": "2026-08-11T21:23:09Z",
+  "labOverrides": { "whisperPrompt": "" },
+  "stages": {
+    "whisper_load_ms": 3316,
+    "whisper_inference_ms": 42062,
+    "qwen_load_ms": 1376,
+    "qwen_inference_ms": 1775,
+    "total_ms": 50990
+  },
+  "transcriptCharCount": 85,
+  "tokensPerSecond": 34.396766703929835,
+  "success": true
+}

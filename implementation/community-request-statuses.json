@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-03",
+  "track": "northcare-reach",
+  "statuses": [
+    "received",
+    "assigned",
+    "acknowledged",
+    "contactAttempted",
+    "escalated",
+    "handled",
+    "cancelled"
+  ],
+  "terminalStatuses": ["handled", "cancelled"],
+  "cancellableFrom": ["received", "assigned", "acknowledged"],
+  "forbiddenStatuses": [
+    "ambulanceDispatched",
+    "clinicallyVerified",
+    "diagnosed",
+    "treatmentStarted",
+    "careCompleted"
+  ],
+  "transitions": [
+    { "from": "received", "to": "assigned" },
+    { "from": "received", "to": "cancelled" },
+    { "from": "assigned", "to": "acknowledged" },
+    { "from": "assigned", "to": "cancelled" },
+    { "from": "acknowledged", "to": "contactAttempted" },
+    { "from": "acknowledged", "to": "escalated" },
+    { "from": "acknowledged", "to": "cancelled" },
+    { "from": "escalated", "to": "contactAttempted" },
+    { "from": "contactAttempted", "to": "handled" }
+  ],
+  "primaryPath": [
+    "received",
+    "assigned",
+    "acknowledged",
+    "contactAttempted",
+    "handled"
+  ],
+  "alternativePath": [
+    "acknowledged",
+    "escalated",
+    "contactAttempted",
+    "handled"
+  ],
+  "publicStatusLabels": {
+    "received": "Request received",
+    "assigned": "Waiting for review",
+    "acknowledged": "Health worker acknowledged",
+    "contactAttempted": "Contact attempt recorded",
+    "escalated": "Escalated for further support",
+    "handled": "Request handled",
+    "cancelled": "Request cancelled"
+  },
+  "notes": [
+    "handled does not mean clinical care was completed",
+    "Public responses must use generic labels only",
+    "Do not expose category, contact, community, worker, facility, or clinical details publicly"
+  ]
+}

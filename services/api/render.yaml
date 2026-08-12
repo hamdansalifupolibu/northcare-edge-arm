@@ -1,0 +1,62 @@
+# NorthCare AI API — Render Blueprint (hackathon / AT USSD sandbox only)
+#
+# Honesty: this hosts a development-gated API for Africa's Talking **sandbox**
+# callbacks. It is NOT a live Ghana shortcode / production telecom claim.
+# Keep NORTHCARE_ENV=development so AT USSD + Reach demo gates may enable.
+# Do NOT set NORTHCARE_REACH_AT_USSD_MODE=live (rejected by the app).
+#
+# Blueprint Path in the Render dashboard (depends on Git repo root):
+#   - Repo root is "NorthCare AI Project" →
+#       services/api/render.yaml
+#       (rootDir below is correct as-is)
+#   - Repo root is parent "Hon. Salifu Dandaawa" →
+#       NorthCare AI Project/services/api/render.yaml
+#       and change rootDir to: NorthCare AI Project/services/api
+#
+# Click-path deploy (no CLI required) is documented in:
+#   docs/development/REACH_AT_USSD_SANDBOX_RUNBOOK.md
+
+databases:
+  - name: northcare-api-db
+    plan: free
+    databaseName: northcare
+    user: northcare
+
+services:
+  - type: web
+    name: northcare-api
+    runtime: docker
+    plan: free
+    # Relative to the Git repository root (see header comments if monorepo parent).
+    rootDir: services/api
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health/live
+    envVars:
+      - key: NORTHCARE_ENV
+        value: development
+      - key: DATABASE_URL
+        fromDatabase:
+          name: northcare-api-db
+          property: connectionString
+      - key: DEV_AUTH_SECRET
+        generateValue: true
+      - key: CURSOR_SIGNING_SECRET
+        generateValue: true
+      - key: SYNC_PROTOCOL_VERSION
+        value: "1"
+      - key: NORTHCARE_REACH_DEMO_ENABLED
+        value: "true"
+      - key: NORTHCARE_REACH_AT_USSD_ENABLED
+        value: "true"
+      - key: NORTHCARE_REACH_AT_USSD_MODE
+        value: sandbox
+      - key: NORTHCARE_REACH_AT_USSD_CALLBACK_SECRET
+        generateValue: true
+      # Exact sandbox service code from Africa's Talking (demo channel).
+      - key: NORTHCARE_REACH_AT_USSD_SERVICE_CODES
+        value: "*384*91620#"
+      - key: NORTHCARE_REACH_DEMO_ORGANISATION_ID
+        value: org-dev-001
+      - key: NORTHCARE_REACH_DEMO_FACILITY_ID
+        value: fac-dev-001

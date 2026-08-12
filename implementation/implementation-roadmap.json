@@ -1,0 +1,555 @@
+{
+  "project": {
+    "name": "NorthCare AI",
+    "tagline": "Smarter care. Stronger communities.",
+    "stitchProjectId": "749026157623860355",
+    "stitchTitle": "NorthCare AI Design System & Product Architecture",
+    "platform": "android",
+    "framework": "react-native",
+    "toolchain": "expo",
+    "expoSdkObserved": "57",
+    "language": "typescript",
+    "competition": "UNICEF StartUp Lab \u2014 AI for Nurturing Care Hackathon",
+    "roadmapUpdatedAt": "2026-08-03"
+  },
+  "priorities": {
+    "P0": "Required for competition demonstration",
+    "P1": "Important for convincing prototype",
+    "P2": "Valuable extension after core MVP",
+    "P3": "Post-hackathon or pilot"
+  },
+  "dependencyNotes": [
+    "S11 after S8 so guided fallback exists before voice",
+    "S14 after offline clinical path S5\u2013S10",
+    "S13 is P1 and must not block P0",
+    "S16 after S14 for org-wide sync health"
+  ],
+  "stages": [
+    {
+      "id": "S0",
+      "name": "Project Audit and Source of Truth",
+      "priority": "P0",
+      "status": "in_progress",
+      "complexity": "medium",
+      "dependencies": [],
+      "deliverables": [
+        "Repository audit",
+        "Source-of-truth list",
+        "Open-decision register",
+        "Roadmap documents"
+      ],
+      "acceptanceCriteria": [
+        "Authoritative materials identified",
+        "Contradictions documented",
+        "Blocking decisions listed"
+      ]
+    },
+    {
+      "id": "S1",
+      "name": "Repository Foundation and Development Standards",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "medium",
+      "dependencies": [
+        "S0"
+      ],
+      "deliverables": [
+        "Root README.md",
+        "Root AGENTS.md",
+        "PROJECT_STATUS.md",
+        "Secrets and git policy",
+        "Lint/format/TS standards",
+        "Cursor rules proposal applied if approved"
+      ],
+      "acceptanceCriteria": [
+        "AGENTS and README exist",
+        ".env remains untracked",
+        "Definition of Done referenced",
+        "No feature screens added"
+      ]
+    },
+    {
+      "id": "S2",
+      "name": "Expo TypeScript Foundation and Android Environment",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "medium",
+      "dependencies": [
+        "S1"
+      ],
+      "deliverables": [
+        "Hardened northcare-app Expo 57 foundation",
+        "Emulator smoke test",
+        "Error boundary and logging policy",
+        "Dev scripts documented"
+      ],
+      "acceptanceCriteria": [
+        "App launches on Android emulator",
+        "Typecheck passes",
+        "No secrets in app config"
+      ]
+    },
+    {
+      "id": "S3",
+      "name": "Design System and Reusable Component Foundation",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "large",
+      "dependencies": [
+        "S2"
+      ],
+      "deliverables": [
+        "theme tokens",
+        "Button Text Card RiskCard StatusChip OfflineBanner SyncIndicator",
+        "Approved logo component"
+      ],
+      "acceptanceCriteria": [
+        "No forged logo",
+        "No new hardcoded brand hex in components",
+        "48dp touch target defaults"
+      ]
+    },
+    {
+      "id": "S4",
+      "name": "Navigation Splash Onboarding and Application Shell",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "large",
+      "dependencies": [
+        "S2",
+        "S3"
+      ],
+      "deliverables": [
+        "Root navigation",
+        "Splash and onboarding",
+        "Workspace selection",
+        "Worker tab shell"
+      ],
+      "acceptanceCriteria": [
+        "First-time and returning entry routes work",
+        "No clinical data before auth",
+        "Android back behaviour defined"
+      ]
+    },
+    {
+      "id": "S5",
+      "name": "Domain Models Local Database and Repository Layer",
+      "priority": "P0",
+      "status": "complete",
+      "deliveryStageNote": "Delivered as Stage 6 (auth was delivered as Stage 5)",
+      "complexity": "very_large",
+      "dependencies": [
+        "S2"
+      ],
+      "deliverables": [
+        "SQLite schema and migrations",
+        "Repositories",
+        "Synthetic seed data",
+        "Sync queue schema"
+      ],
+      "acceptanceCriteria": [
+        "Fresh install migrates",
+        "UI does not access SQLite directly",
+        "Seed data loads"
+      ]
+    },
+    {
+      "id": "S6",
+      "name": "Authentication Local Session and Secure Access",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "large",
+      "dependencies": [
+        "S4",
+        "S5"
+      ],
+      "deliverables": [
+        "Worker login",
+        "PIN create and unlock",
+        "SecureStore session",
+        "Route guards"
+      ],
+      "acceptanceCriteria": [
+        "Offline PIN unlock works",
+        "No patient data pre-auth",
+        "Logout works"
+      ]
+    },
+    {
+      "id": "S7",
+      "name": "Client Management Vertical Slice",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "large",
+      "dependencies": [
+        "S5",
+        "S6"
+      ],
+      "deliverables": [
+        "Client list search filter",
+        "Registration minimal multi-step",
+        "Client profile",
+        "Offline save"
+      ],
+      "acceptanceCriteria": [
+        "Register list profile works offline",
+        "Synthetic data only"
+      ]
+    },
+    {
+      "id": "S8",
+      "name": "Visits and Guided Screening",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "large",
+      "dependencies": [
+        "S7"
+      ],
+      "deliverables": [
+        "Start new visit",
+        "One complete guided screening",
+        "Draft save and resume"
+      ],
+      "acceptanceCriteria": [
+        "One screening completes offline",
+        "Draft resume works",
+        "Content provenance recorded"
+      ]
+    },
+    {
+      "id": "S9",
+      "name": "Deterministic Risk Engine and Explainable Results",
+      "priority": "P0",
+      "status": "complete",
+      "complexity": "large",
+      "dependencies": [
+        "S8"
+      ],
+      "deliverables": [
+        "Rule engine",
+        "Red Amber Green results",
+        "Explanations",
+        "Unit test golden fixtures"
+      ],
+      "acceptanceCriteria": [
+        "No LLM as risk engine",
+        "No diagnose or prescribe language",
+        "Missing data handled"
+      ]
+    },
+    {
+      "id": "S10",
+      "name": "Referral Management and QR Referral Passport",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "large",
+      "dependencies": [
+        "S9"
+      ],
+      "deliverables": [
+        "Referral creation",
+        "Local timeline",
+        "Offline QR passport"
+      ],
+      "acceptanceCriteria": [
+        "Referral and QR work offline",
+        "Minimal QR payload",
+        "Overdue state representable"
+      ]
+    },
+    {
+      "id": "S11",
+      "name": "Voice-to-Care Capture and Extraction Review",
+      "priority": "P0",
+      "status": "complete",
+      "complexity": "very_large",
+      "dependencies": [
+        "S8"
+      ],
+      "deliverables": [
+        "Voice capture UI",
+        "Mock or controlled extraction",
+        "Mandatory review confirmation",
+        "Guided fallback"
+      ],
+      "acceptanceCriteria": [
+        "No official save without worker confirm",
+        "Guided fallback available",
+        "Honest offline AI claims"
+      ]
+    },
+    {
+      "id": "S12",
+      "name": "Nutrition Assessment and Local Guidance",
+      "priority": "P0",
+      "status": "complete",
+      "complexity": "large",
+      "dependencies": [
+        "S7",
+        "S8"
+      ],
+      "deliverables": [
+        "Nutrition assessment lite",
+        "Food diversity visualisation",
+        "Dagbanli-ready guidance UI",
+        "Content provenance labels"
+      ],
+      "acceptanceCriteria": [
+        "Works offline with bundled content",
+        "Placeholder versus reviewed content labelled",
+        "No fabricated final medical nutrition claims"
+      ]
+    },
+    {
+      "id": "S13",
+      "name": "Ask NorthCare Constrained Assistant",
+      "priority": "P1",
+      "status": "pending",
+      "complexity": "large",
+      "dependencies": [
+        "S3",
+        "S5"
+      ],
+      "deliverables": [
+        "Constrained assistant",
+        "Lite Answers",
+        "Emergency override",
+        "Source display"
+      ],
+      "acceptanceCriteria": [
+        "No diagnose prescribe dosage",
+        "Emergency rules override chat",
+        "Unsupported questions handled"
+      ]
+    },
+    {
+      "id": "S14",
+      "name": "Backend Synchronisation and Conflict Handling",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "very_large",
+      "dependencies": [
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10"
+      ],
+      "deliverables": [
+        "Sync Centre",
+        "Queue worker",
+        "Mock or FastAPI sync",
+        "Conflict strategy"
+      ],
+      "acceptanceCriteria": [
+        "Local-first writes never block on network",
+        "Status transitions visible",
+        "Idempotent sync behaviour tested"
+      ]
+    },
+    {
+      "id": "S15",
+      "name": "Notifications and Follow-up Scheduling",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "large",
+      "dependencies": [
+        "S5",
+        "S7",
+        "S10"
+      ],
+      "deliverables": [
+        "In-app notification centre",
+        "Local notifications",
+        "Lock-screen-safe copy",
+        "Deep links"
+      ],
+      "acceptanceCriteria": [
+        "No clinical detail on lock screen",
+        "Follow-up or overdue referral alert demonstrable"
+      ]
+    },
+    {
+      "id": "S16",
+      "name": "Administrator Workspace",
+      "priority": "P1",
+      "status": "pending",
+      "complexity": "large",
+      "dependencies": [
+        "S6",
+        "S14"
+      ],
+      "deliverables": [
+        "Admin dashboard",
+        "Worker management lite",
+        "Referral and sync health overview"
+      ],
+      "acceptanceCriteria": [
+        "RBAC enforced",
+        "No unrestricted patient chart access by default",
+        "Offline limits honest"
+      ]
+    },
+    {
+      "id": "S17",
+      "name": "Full Stitch Visual Integration and Motion Refinement",
+      "priority": "P0",
+      "status": "pending",
+      "complexity": "large",
+      "dependencies": [
+        "S10",
+        "S11",
+        "S12",
+        "S14",
+        "S15"
+      ],
+      "deliverables": [
+        "Demo-path Stitch alignment",
+        "Motion refinement",
+        "Reduced-motion alternatives"
+      ],
+      "acceptanceCriteria": [
+        "No screenshot UIs",
+        "Demo screens calm and consistent",
+        "Performance acceptable on target class device"
+      ]
+    },
+    {
+      "id": "S18",
+      "name": "Accessibility Security Privacy and Quality Hardening",
+      "priority": "P0",
+      "status": "complete_awaiting_approval",
+      "complexity": "large",
+      "dependencies": [
+        "S17"
+      ],
+      "deliverables": [
+        "A11y pass",
+        "Secret scan",
+        "Log scrub review",
+        "Offline and sync stress checks"
+      ],
+      "acceptanceCriteria": [
+        "Definition of Done met for demo path",
+        "No secrets committed",
+        "Residual risks documented"
+      ]
+    },
+    {
+      "id": "S19",
+      "name": "Testing Demonstration and Release Preparation",
+      "priority": "P0",
+      "status": "paused",
+      "complexity": "large",
+      "dependencies": [
+        "S18"
+      ],
+      "deliverables": [
+        "Demo script and backup path",
+        "Seed reset",
+        "README setup",
+        "demo-freeze tag",
+        "Submission package"
+      ],
+      "acceptanceCriteria": [
+        "P0 journey reproducible by second person",
+        "Emulator and device checklist complete",
+        "Repository secret-free and documented"
+      ],
+      "pauseNote": "Intentionally paused while NorthCare Reach R0\u2013R6 extension track proceeds. Resume only after Reach R6 and manual validation."
+    },
+    {
+      "id": "OFFLINE-AI-1",
+      "name": "Offline AI Stage 1 — Native Runtime and Real Offline Inference",
+      "priority": "P1",
+      "status": "in_progress",
+      "complexity": "large",
+      "dependencies": [
+        "S13",
+        "S18"
+      ],
+      "deliverables": [
+        "llama.rn pinned native runtime",
+        "Locked Qwen2.5-0.5B-Instruct Q4_K_M provisioning",
+        "Development smoke-test route",
+        "Device offline inference evidence"
+      ],
+      "acceptanceCriteria": [
+        "Real OFFLINE_MODEL_READY completion on Samsung Galaxy S20 Ultra while offline",
+        "Ask NorthCare remains disconnected from the generative runtime",
+        "Stage 19 remains paused; Offline AI Stage 2 not started"
+      ]
+    }
+  ],
+  "p0CriticalPath": [
+    "S0",
+    "S1",
+    "S2",
+    "S3",
+    "S4",
+    "S5",
+    "S6",
+    "S7",
+    "S8",
+    "S9",
+    "S10",
+    "S11",
+    "S12",
+    "S14",
+    "S15",
+    "S17",
+    "S18",
+    "S19"
+  ],
+  "reachExtension": {
+    "name": "NorthCare Reach",
+    "artifact": "reach-roadmap.json",
+    "currentStage": "R6",
+    "nextStage": "manual_validation_then_stage19_decision",
+    "r0Status": "complete",
+    "stage19Status": "paused",
+    "stages": [
+      "R0",
+      "R1",
+      "R2",
+      "R3",
+      "R4",
+      "R5",
+      "R6"
+    ],
+    "implementsCodeInR0": false,
+    "productionReadyClaim": false,
+    "r1Status": "complete",
+    "r2Status": "complete",
+    "r3Status": "complete",
+    "r4Status": "complete",
+    "r5Status": "complete",
+    "r6Status": "complete_awaiting_manual_validation",
+    "simulator": {
+      "path": "services/api/static/reach-simulator/",
+      "route": "/reach-simulator",
+      "expoScreen": false
+    },
+    "workerCommunityRequests": {
+      "featurePath": "apps/mobile/src/features/community-requests/",
+      "routes": [
+        "/(worker)/community-requests",
+        "/(worker)/community-requests/[requestId]"
+      ],
+      "escalateUi": true
+    }
+  },
+  "recommendedFirstCodingStage": "S1",
+  "openDecisionsBlockingOrHighImpact": [
+    "D02 Navigation library",
+    "D05 Primary teal freeze",
+    "D06 Official logo asset",
+    "D07 Expo Go vs dev build",
+    "D09 Mock sync vs FastAPI for submission",
+    "D12 Danger-sign rules source"
+  ],
+  "current_stage": "reach-R6",
+  "next_stage": "reach-R6-pending-approval",
+  "updated": "2026-08-03"
+}

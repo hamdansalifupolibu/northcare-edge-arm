@@ -1,0 +1,26 @@
+{
+  "inventory_id": "voice-extraction-schema-inventory",
+  "stage": 11,
+  "last_updated": "2026-08-02",
+  "approved_for_pilot_count": 0,
+  "approved_for_development_count": 1,
+  "production_gate": "APPROVED_FOR_PILOT_ONLY",
+  "schemas": [
+    {
+      "schema_id": "synthetic.dev.voice.encounter-notes.v1",
+      "version": 1,
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "development_only": true,
+      "clinical": false,
+      "clinical_review_status": "notReviewed",
+      "allowed_target_count": 4,
+      "provider_compatibility": ["development.simulation.extraction.v1"],
+      "development_banner": "SYNTHETIC development schema only. Not for pilot clinical use."
+    }
+  ],
+  "notes": [
+    "Zero APPROVED_FOR_PILOT extraction schemas. Production fails closed.",
+    "Do not invent clinical extraction fields without health review.",
+    "Missing speech must not become No."
+  ]
+}

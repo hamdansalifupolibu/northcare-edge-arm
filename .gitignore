@@ -1,0 +1,151 @@
+# NorthCare AI — Stage 1 foundation gitignore
+# Do NOT ignore: assets/, docs/, implementation manifests, .env.example, .cursor/rules
+
+# --- Secrets & environment ---
+.env
+.env.*
+!.env.example
+!.env.hosted.sandbox.example
+*.pem
+*.p12
+*serviceAccount*.json
+*service-account*.json
+google-services.json
+GoogleService-Info.plist
+credentials.json
+secrets/
+**/secrets/
+
+# --- Node / Expo / React Native ---
+node_modules/
+.npm/
+.yarn/
+.pnp.*
+.expo/
+.expo-shared/
+dist/
+web-build/
+expo-env.d.ts
+*.jks
+*.keystore
+*.mobileprovision
+*.orig.*
+
+# Metro / bundlers
+.metro-health-check*
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# TypeScript
+*.tsbuildinfo
+
+# Tests / coverage
+coverage/
+.nyc_output/
+jest-cache/
+playwright-report/
+test-results/
+
+# --- Android ---
+**/android/**/build/
+**/android/**/.gradle/
+**/android/local.properties
+**/android/.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# --- iOS (future; still ignore build artefacts) ---
+**/ios/Pods/
+**/ios/build/
+**/ios/DerivedData/
+*.xcuserstate
+
+# --- Python / FastAPI ---
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+.Python
+pip-wheel-metadata/
+
+# --- Local runtime data (never commit patient-like runtime DBs) ---
+*.sqlite
+*.sqlite3
+*.db
+local-data/
+.tmp/
+tmp/
+temp/
+temporary/
+
+# User-generated / device artefacts
+**/recordings/
+**/captured-audio/
+**/generated-qr/
+**/uploads/
+
+# Offline AI model weights (never commit GGUF / partial downloads)
+**/*.gguf
+**/*.gguf.partial
+**/offline-ai-models/
+**/offline-ai-temp/
+**/models/*.gguf
+**/models/*.bin
+**/assets/models/*.bin
+# Local Edge Lab capture dump (synthetic transcript; keep out of public trees)
+**/edge-lab-golden-capture.txt
+# Raw screenshot dump folder (curated copies live under benchmarks/reports/)
+NorthCare Edge screenshots/
+# UNICEF hackathon-only application writeup (not Arm public face)
+application.md
+.cache/huggingface/
+.tmp/offline-ai/
+
+# --- OS / IDE ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+*.swp
+*.swo
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json.example
+
+# --- Logs / dumps ---
+logs/
+*.log
+*.crash
+crashpad/
+
+# --- Stitch bulk exports (regenerable; keep on disk; do not force into git by default) ---
+# Design docs and assets/ remain tracked. Re-fetch via scripts if needed.
+stitch-exports/
+
+# Tooling caches
+.cache/
+.turbo/
+.parcel-cache/
+
+# Local portable tooling (PostgreSQL binaries, etc.)
+.tools/
+
+# Gradle local cache (never commit)
+.gradle/
+local.properties
+
+# Demo packs that may contain credentials
+docs/development/HACKATHON_DEMO_PACK.md
+

@@ -1,0 +1,78 @@
+{
+  "inventory_id": "assistant-provider-inventory",
+  "stage": 13,
+  "last_updated": "2026-08-02",
+  "assistant_provider_policy_version": 1,
+  "stage_13_modes_in_use": ["CURATED_RETRIEVAL", "UNAVAILABLE", "DEVELOPMENT_SIMULATION"],
+  "constrained_generation_active": false,
+  "providers": [
+    {
+      "provider_id": "retrieval-only-v1",
+      "type": "retrievalOnly",
+      "mode": "CURATED_RETRIEVAL",
+      "status": "IMPLEMENTED",
+      "availability": "availableWhenPacksLoad",
+      "supports_offline": true,
+      "is_synthetic": false,
+      "environments": ["development", "staging", "production"],
+      "notes": "Primary Stage 13 path. Production still fails closed with zero pilot packs."
+    },
+    {
+      "provider_id": "development-simulation-assistant-v1",
+      "type": "developmentSimulation",
+      "mode": "DEVELOPMENT_SIMULATION",
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "availability": "developmentOnly",
+      "supports_offline": true,
+      "is_synthetic": true,
+      "environments": ["development"],
+      "production_gated": true,
+      "notes": "Dev-only path over synthetic knowledge pack. Never active in production/staging."
+    },
+    {
+      "provider_id": "future-constrained-generative-v1",
+      "type": "futureGenerative",
+      "mode": "CONSTRAINED_GENERATION",
+      "status": "INTERFACE_ONLY",
+      "availability": "unavailable",
+      "supports_offline": false,
+      "is_synthetic": false,
+      "environments": [],
+      "notes": "Interface stub only. available=false. Not approved for Stage 13 use."
+    },
+    {
+      "provider_id": "future-on-device-model-v1",
+      "type": "futureOnDevice",
+      "mode": "CONSTRAINED_GENERATION",
+      "status": "UNAVAILABLE",
+      "availability": "unavailable",
+      "supports_offline": false,
+      "is_synthetic": false,
+      "environments": [],
+      "notes": "MODEL INTEGRATION DEFERRED — DEVICE AND SAFETY BENCHMARK REQUIRED. No LLM packages installed."
+    },
+    {
+      "provider_id": "future-remote-assistant-v1",
+      "type": "futureRemote",
+      "mode": "CONSTRAINED_GENERATION",
+      "status": "UNAVAILABLE",
+      "availability": "unavailable",
+      "supports_offline": false,
+      "is_synthetic": false,
+      "environments": [],
+      "notes": "Remote generative assistant not approved. No cloud LLM SDK installed."
+    }
+  ],
+  "rejected_or_deferred_technologies": [
+    "llama / ggml / gguf",
+    "ONNX generative runtime",
+    "TensorFlow generative",
+    "unapproved cloud LLM SDKs",
+    "SQLite FTS5 as assumed Ask NorthCare backend (not used/verified)"
+  ],
+  "notes": [
+    "Stage 13 uses curated retrieval or unavailable.",
+    "Zero new npm packages for generative capability.",
+    "Development simulation is production-gated."
+  ]
+}

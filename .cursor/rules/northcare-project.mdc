@@ -1,0 +1,29 @@
+---
+description: Permanent NorthCare AI project rules for Cursor agents
+alwaysApply: true
+---
+
+# NorthCare AI — Cursor project rules
+
+Before editing, read:
+
+1. `AGENTS.md`
+2. `PROJECT_STATUS.md`
+3. The current stage file in `docs/development/stages/`
+
+## Hard constraints
+
+- Product is **NorthCare AI** — Android-first React Native + Expo + TypeScript.
+- **Not** a web app (no Next.js / React web / Tailwind website as the product).
+- Implement **only** the approved stage. Stop when done. Do not auto-start the next stage.
+- Follow repository layout: `apps/`, `services/`, `packages/`, `assets/`, `docs/`, `implementation/`.
+- Protect brand assets; do not forge logos. Canonical logo (interim): `assets/brand/logos/northcare-logo-symbol-primary.png`.
+- Stitch HTML is visual reference only — never convert to a website or screenshot UI.
+- No diagnose / prescribe / dosage / invented medical or Dagbanli content.
+- No AI extraction saved without worker confirmation; no LLM as primary danger-sign engine.
+- No real patient data; synthetic fixtures only.
+- Never commit or print secrets. Never log health data, tokens, PINs, or full QR payloads.
+- UI must not access SQLite directly (repositories only, when data layer exists).
+- Preserve offline-first behaviour for clinical flows.
+- Update tests and docs with the stage. No unrelated refactors.
+- Report files changed and produce a stage checkpoint; await approval.

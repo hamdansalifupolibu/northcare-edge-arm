@@ -1,0 +1,30 @@
+{
+  "fixtureId": "edge-lab-fixture-v1",
+  "status": "ready",
+  "note": "Synthetic content only — no real patient data. Twin of apps/mobile edgeLabFixtureGolden.json.",
+  "audioFilename": "edge-lab-fixture-v1.m4a",
+  "capturedFromRunId": "edge_mspax7qr_g2cn",
+  "expectedTranscript": {
+    "mustContainPhrases": [
+      "2 years",
+      "diarrhea",
+      "yesterday",
+      "feeding"
+    ],
+    "referenceTranscript": "The child is 2 years old, has had diarrhea since yesterday and it's not feeding well.",
+    "language": "en",
+    "notes": "Reference transcript from Whisper base.en on S20 Ultra (synthetic fixture)."
+  },
+  "expectedExtraction": {
+    "requiredKeys": ["symptomSummary", "urgencyLevel"],
+    "golden": null,
+    "notes": "Lab scores key presence in Qwen JSON only — not clinical correctness of values."
+  },
+  "qualityScoring": {
+    "scale": "0-100",
+    "transcriptionWeight": 0.7,
+    "extractionWeight": 0.3,
+    "method": "fixture_combined_v1",
+    "implementedInApp": true
+  }
+}

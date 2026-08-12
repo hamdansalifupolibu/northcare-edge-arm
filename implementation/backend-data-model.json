@@ -1,0 +1,161 @@
+{
+  "name": "NorthCare AI server data model",
+  "stage": "R2",
+  "database": "PostgreSQL",
+  "orm": "SQLAlchemy async",
+  "migrations": "Alembic",
+  "tables": [
+    {
+      "name": "server_accounts",
+      "purpose": "Provisioned NorthCare identities mapped from verified tokens",
+      "keyColumns": [
+        "id",
+        "remote_subject",
+        "role",
+        "organisation_id",
+        "facility_id",
+        "is_active"
+      ]
+    },
+    {
+      "name": "server_facilities",
+      "purpose": "Facility directory for scope enforcement",
+      "keyColumns": [
+        "id",
+        "organisation_id",
+        "name",
+        "is_active"
+      ]
+    },
+    {
+      "name": "registered_devices",
+      "purpose": "Installation UUID registration per account",
+      "keyColumns": [
+        "id",
+        "account_id",
+        "created_at",
+        "last_seen_at"
+      ]
+    },
+    {
+      "name": "sync_records",
+      "purpose": "Server-authoritative entity snapshots",
+      "keyColumns": [
+        "entity_type",
+        "entity_id",
+        "organisation_id",
+        "facility_id",
+        "server_version",
+        "payload",
+        "is_deleted"
+      ]
+    },
+    {
+      "name": "sync_operations",
+      "purpose": "Idempotency log keyed by operation_id",
+      "keyColumns": [
+        "operation_id",
+        "request_hash",
+        "server_version",
+        "status"
+      ]
+    },
+    {
+      "name": "sync_changes",
+      "purpose": "Monotonic change log for cursor-based pull",
+      "keyColumns": [
+        "id",
+        "entity_type",
+        "entity_id",
+        "server_version",
+        "organisation_id",
+        "facility_id"
+      ]
+    },
+    {
+      "name": "sync_conflicts",
+      "purpose": "Persisted conflicts awaiting controlled resolution",
+      "keyColumns": [
+        "id",
+        "entity_type",
+        "entity_id",
+        "conflict_class",
+        "status",
+        "client_payload",
+        "server_payload"
+      ]
+    },
+    {
+      "name": "server_account_roles",
+      "stage": 16
+    },
+    {
+      "name": "administration_audit_events",
+      "stage": 16
+    },
+    {
+      "name": "admin_idempotency_keys",
+      "stage": 16
+    },
+    {
+      "name": "worker_professional_profiles",
+      "stage": "R1",
+      "primary_key": "account_id",
+      "columns": [
+        "account_id",
+        "profession",
+        "other_profession_description",
+        "community_requests_enabled",
+        "emergency_requests_enabled",
+        "version",
+        "created_at",
+        "updated_at"
+      ],
+      "notes": "Profession is not a system role; one profile per worker account"
+    },
+    {
+      "name": "community_requests",
+      "stage": "R2",
+      "primary_key": "id",
+      "columns": [
+        "id",
+        "reference_code",
+        "status_pin_hash",
+        "channel",
+        "category",
+        "request_type",
+        "contact_number",
+        "community_or_landmark",
+        "preferred_language",
+        "consent_to_contact",
+        "consent_to_share_location",
+        "organisation_id",
+        "facility_id",
+        "assigned_worker_id",
+        "status",
+        "version",
+        "failed_status_lookup_count",
+        "status_lookup_locked_until",
+        "created_at",
+        "updated_at"
+      ],
+      "notes": "Synthetic Reach requests; no raw PIN column; demo org/facility server-controlled; lookup security fields internal only; R6 development CLI may delete ussdSimulator rows for demo org/facility only"
+    }
+  ],
+  "reachDemoOperations": {
+    "stage": "R6",
+    "publicHttpResetEndpoint": false,
+    "cli": [
+      "python -m northcare_api.cli.reset_reach_demo",
+      "python -m northcare_api.cli.seed_reach_demo"
+    ],
+    "environment": "development_only"
+  },
+  "nonGoals": [
+    "Firestore as sync database",
+    "In-memory production store",
+    "Automatic clinical merge",
+    "Blind last-write-wins for clinical records"
+  ],
+  "alembic_head": "0005"
+}

@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "stitch": {
+      "command": "node",
+      "args": [
+        "scripts/stitch-mcp-stdio.mjs"
+      ],
+      "cwd": "C:\\Users\\Gebruiker\\OneDrive\\Desktop\\Hon. Salifu Dandaawa\\NorthCare AI Project",
+      "env": {
+        "STITCH_PROJECT_ID": "749026157623860355"
+      }
+    }
+  }
+}

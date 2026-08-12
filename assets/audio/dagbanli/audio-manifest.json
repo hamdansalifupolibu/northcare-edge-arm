@@ -1,0 +1,17 @@
+{
+  "manifest_version": 1,
+  "language": "dag",
+  "language_label": "Dagbanli",
+  "updated_at": "2026-08-02",
+  "policy": {
+    "no_fabricated_translations": true,
+    "no_synthetic_final_speech": true,
+    "placeholder_must_not_be_presented_as_approved": true
+  },
+  "default_statuses": {
+    "health_review_status": "REQUIRES HEALTH-PROFESSIONAL REVIEW",
+    "language_review_status": "REQUIRES FLUENT DAGBANLI-SPEAKER REVIEW",
+    "recording_status": "RECORDING NOT YET AVAILABLE"
+  },
+  "messages": []
+}

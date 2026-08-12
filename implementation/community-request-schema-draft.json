@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-03",
+  "track": "northcare-reach",
+  "entityType": "communityRequest",
+  "status": "draft_r0_freeze",
+  "note": "Conceptual R0 freeze model only. Implemented schema: implementation/community-request-schema.json (Reach R2).",
+  "categories": [
+    "pregnancyNewborn",
+    "childHealth",
+    "nutrition",
+    "generalChps",
+    "referralFollowUp",
+    "emergency"
+  ],
+  "requestTypes": [
+    "routine",
+    "urgentContact",
+    "emergencyAssistance"
+  ],
+  "channels": ["ussdSimulator"],
+  "fields": {
+    "id": { "type": "uuid", "required": true },
+    "referenceCode": {
+      "type": "string",
+      "required": true,
+      "public": true,
+      "rules": [
+        "humanReadable",
+        "notDerivedFromPhoneNumber",
+        "notDerivedFromClientId",
+        "notDerivedFromDateOfBirth",
+        "notSequentialWhereEnumerationIsEasy"
+      ]
+    },
+    "statusPinHash": {
+      "type": "string",
+      "required": true,
+      "public": false,
+      "rules": [
+        "storeHashOrVerifierOnly",
+        "neverLog",
+        "neverReturnAfterCreation",
+        "neverIncludeInWorkerResponses"
+      ]
+    },
+    "channel": { "type": "enum", "valuesRef": "channels", "required": true },
+    "category": { "type": "enum", "valuesRef": "categories", "required": true },
+    "requestType": { "type": "enum", "valuesRef": "requestTypes", "required": true },
+    "contactNumber": { "type": "string", "required": true, "sensitive": true },
+    "communityOrLandmark": { "type": "string", "required": true, "maxLength": 200 },
+    "preferredLanguage": { "type": "string", "required": true, "mvpDefault": "en" },
+    "consentToContact": { "type": "boolean", "required": true },
+    "consentToShareLocation": { "type": "boolean", "required": true },
+    "facilityId": { "type": "string", "required": true, "mvpDemoValue": "fac-dev-001" },
+    "assignedWorkerId": { "type": "string", "nullable": true },
+    "status": {
+      "type": "enum",
+      "valuesFromArtifact": "community-request-statuses.json",
+      "required": true
+    },
+    "createdAt": { "type": "isoUtc", "required": true },
+    "updatedAt": { "type": "isoUtc", "required": true },
+    "version": { "type": "integer", "required": true, "minimum": 1 }
+  },
+  "excludedFields": [
+    "detailedSymptoms",
+    "diagnosis",
+    "medication",
+    "nationalId",
+    "dateOfBirth",
+    "fullResidentialAddress",
+    "clinicalAssessment",
+    "riskScore",
+    "audio",
+    "transcript",
+    "gpsCoordinates",
+    "telecomMetadata",
+    "deviceFingerprint"
+  ],
+  "clientLinkage": {
+    "automaticCreate": false,
+    "automaticLink": false,
+    "workerMaySearchOrRegisterAfterConsent": true
+  },
+  "statusPin": {
+    "digits": 6,
+    "shownOnceAtCreation": true,
+    "requiredWithReferenceForPublicLookup": true
+  }
+}

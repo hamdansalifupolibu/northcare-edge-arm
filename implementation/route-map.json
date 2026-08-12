@@ -1,0 +1,2209 @@
+{
+  "version": 14,
+  "scheme": "northcare",
+  "updated": "2026-08-03",
+  "stage": "offline-ai-stage-1",
+  "routes": [
+    {
+      "route_id": "ROOT",
+      "path": "/",
+      "route_group": "root",
+      "access_level": "public",
+      "required_auth_state": "any",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "app_launch"
+      ],
+      "exit_points": [
+        "/(entry)/splash",
+        "/(entry)/launch-error"
+      ],
+      "back_destination": null,
+      "deep_link": "northcare://",
+      "deep_link_policy": "public",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "SPL-01",
+      "path": "/(entry)/splash",
+      "route_group": "entry",
+      "access_level": "public",
+      "required_auth_state": "any",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "/"
+      ],
+      "exit_points": [
+        "/(entry)/onboarding",
+        "/(entry)/workspace-selection",
+        "/(entry)/worker-entry",
+        "/(entry)/admin-entry",
+        "/(auth)/unlock",
+        "/(auth)/session-expired"
+      ],
+      "back_destination": "exit_app",
+      "deep_link": "northcare://splash",
+      "deep_link_policy": "public",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "ONB-01",
+      "path": "/(entry)/onboarding/care-close-to-home",
+      "route_group": "entry",
+      "access_level": "public",
+      "required_auth_state": "signedOut",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "/(entry)/onboarding",
+        "/(entry)/splash"
+      ],
+      "exit_points": [
+        "/(entry)/onboarding/frontline-workers",
+        "/(entry)/workspace-selection"
+      ],
+      "back_destination": "exit_or_splash_boundary",
+      "deep_link": "northcare://onboarding/care-close-to-home",
+      "deep_link_policy": "public",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "ONB-02",
+      "path": "/(entry)/onboarding/frontline-workers",
+      "route_group": "entry",
+      "access_level": "public",
+      "required_auth_state": "signedOut",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "/(entry)/onboarding/care-close-to-home"
+      ],
+      "exit_points": [
+        "/(entry)/onboarding/reliable-offline",
+        "/(entry)/workspace-selection"
+      ],
+      "back_destination": "/(entry)/onboarding/care-close-to-home",
+      "deep_link": "northcare://onboarding/frontline-workers",
+      "deep_link_policy": "public",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "ONB-03",
+      "path": "/(entry)/onboarding/reliable-offline",
+      "route_group": "entry",
+      "access_level": "public",
+      "required_auth_state": "signedOut",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "/(entry)/onboarding/frontline-workers"
+      ],
+      "exit_points": [
+        "/(entry)/workspace-selection"
+      ],
+      "back_destination": "/(entry)/onboarding/frontline-workers",
+      "deep_link": "northcare://onboarding/reliable-offline",
+      "deep_link_policy": "public",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "WSP-01",
+      "path": "/(entry)/workspace-selection",
+      "route_group": "entry",
+      "access_level": "public",
+      "required_auth_state": "signedOut",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "onboarding_complete",
+        "returning_user_no_workspace",
+        "change_account"
+      ],
+      "exit_points": [
+        "/(entry)/worker-entry",
+        "/(entry)/admin-entry"
+      ],
+      "back_destination": "stack_history_if_from_onboarding",
+      "deep_link": "northcare://workspace",
+      "deep_link_policy": "public",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "WRK-ENTRY-01",
+      "path": "/(entry)/worker-entry",
+      "route_group": "entry",
+      "access_level": "public",
+      "required_auth_state": "signedOut",
+      "required_role": "worker",
+      "parameters": [],
+      "entry_points": [
+        "workspace_worker"
+      ],
+      "exit_points": [
+        "/(entry)/workspace-selection",
+        "/(auth)/worker-login"
+      ],
+      "back_destination": "/(entry)/workspace-selection",
+      "deep_link": "northcare://worker",
+      "deep_link_policy": "public_auth_boundary",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "ADM-ENTRY-01",
+      "path": "/(entry)/admin-entry",
+      "route_group": "entry",
+      "access_level": "public",
+      "required_auth_state": "signedOut",
+      "required_role": "administrator",
+      "parameters": [],
+      "entry_points": [
+        "workspace_administrator"
+      ],
+      "exit_points": [
+        "/(entry)/workspace-selection",
+        "/(auth)/admin-login"
+      ],
+      "back_destination": "/(entry)/workspace-selection",
+      "deep_link": "northcare://admin",
+      "deep_link_policy": "public_auth_boundary",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-WRK-01",
+      "path": "/(auth)/worker-login",
+      "route_group": "auth",
+      "access_level": "public",
+      "required_auth_state": "signedOut",
+      "required_role": "worker",
+      "parameters": [],
+      "entry_points": [
+        "/(entry)/worker-entry"
+      ],
+      "exit_points": [
+        "/(auth)/password-change",
+        "/(auth)/facility-confirmation",
+        "/(auth)/password-recovery",
+        "/(auth)/account-inactive",
+        "/(entry)/workspace-selection"
+      ],
+      "back_destination": "/(entry)/worker-entry",
+      "deep_link": "northcare://auth/worker-login",
+      "deep_link_policy": "public",
+      "offline_availability": "online_required_first_login",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-ADM-01",
+      "path": "/(auth)/admin-login",
+      "route_group": "auth",
+      "access_level": "public",
+      "required_auth_state": "signedOut",
+      "required_role": "administrator",
+      "parameters": [],
+      "entry_points": [
+        "/(entry)/admin-entry"
+      ],
+      "exit_points": [
+        "/(auth)/password-change",
+        "/(auth)/facility-confirmation",
+        "/(auth)/password-recovery",
+        "/(entry)/workspace-selection"
+      ],
+      "back_destination": "/(entry)/admin-entry",
+      "deep_link": "northcare://auth/admin-login",
+      "deep_link_policy": "public",
+      "offline_availability": "online_required_first_login",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-REC-01",
+      "path": "/(auth)/password-recovery",
+      "route_group": "auth",
+      "access_level": "public",
+      "required_auth_state": "signedOut",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "/(auth)/worker-login",
+        "/(auth)/admin-login"
+      ],
+      "exit_points": [
+        "/(auth)/worker-login",
+        "/(auth)/admin-login"
+      ],
+      "back_destination": "previous_login",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "online_preferred",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-PWD-01",
+      "path": "/(auth)/password-change",
+      "route_group": "auth",
+      "access_level": "auth-setup",
+      "required_auth_state": "firstTimeSetupRequired",
+      "required_role": "any_authenticated_setup",
+      "parameters": [],
+      "entry_points": [
+        "remote_sign_in_password_change_required"
+      ],
+      "exit_points": [
+        "/(auth)/facility-confirmation"
+      ],
+      "back_destination": "blocked_until_complete",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "online_required",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-FAC-01",
+      "path": "/(auth)/facility-confirmation",
+      "route_group": "auth",
+      "access_level": "auth-setup",
+      "required_auth_state": "firstTimeSetupRequired",
+      "required_role": "any_authenticated_setup",
+      "parameters": [],
+      "entry_points": [
+        "remote_sign_in_success",
+        "/(auth)/password-change"
+      ],
+      "exit_points": [
+        "/(auth)/create-pin",
+        "/(auth)/worker-login"
+      ],
+      "back_destination": "blocked_or_reject_to_sign_in",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "session_memory",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-PIN-01",
+      "path": "/(auth)/create-pin",
+      "route_group": "auth",
+      "access_level": "auth-setup",
+      "required_auth_state": "firstTimeSetupRequired",
+      "required_role": "any_authenticated_setup",
+      "parameters": [],
+      "entry_points": [
+        "/(auth)/facility-confirmation"
+      ],
+      "exit_points": [
+        "/(auth)/confirm-pin"
+      ],
+      "back_destination": "blocked_until_complete",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "session_memory",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-PIN-02",
+      "path": "/(auth)/confirm-pin",
+      "route_group": "auth",
+      "access_level": "auth-setup",
+      "required_auth_state": "firstTimeSetupRequired",
+      "required_role": "any_authenticated_setup",
+      "parameters": [],
+      "entry_points": [
+        "/(auth)/create-pin"
+      ],
+      "exit_points": [
+        "/(auth)/biometric-setup",
+        "/(auth)/setup-complete"
+      ],
+      "back_destination": "/(auth)/create-pin",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "session_memory",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-BIO-01",
+      "path": "/(auth)/biometric-setup",
+      "route_group": "auth",
+      "access_level": "auth-setup",
+      "required_auth_state": "firstTimeSetupRequired",
+      "required_role": "any_authenticated_setup",
+      "parameters": [],
+      "entry_points": [
+        "/(auth)/confirm-pin"
+      ],
+      "exit_points": [
+        "/(auth)/setup-complete"
+      ],
+      "back_destination": "skip_allowed",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "device_local",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-SETUP-COMPLETE",
+      "path": "/(auth)/setup-complete",
+      "route_group": "auth",
+      "access_level": "auth-setup",
+      "required_auth_state": "firstTimeSetupRequired",
+      "required_role": "any_authenticated_setup",
+      "parameters": [],
+      "entry_points": [
+        "/(auth)/confirm-pin",
+        "/(auth)/biometric-setup"
+      ],
+      "exit_points": [
+        "/(worker)",
+        "/(admin)"
+      ],
+      "back_destination": "blocked",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "device_local",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-UNL-01",
+      "path": "/(auth)/unlock",
+      "route_group": "auth",
+      "access_level": "auth-locked",
+      "required_auth_state": "locked",
+      "required_role": "session_role",
+      "parameters": [],
+      "entry_points": [
+        "cold_start_with_session",
+        "manual_lock",
+        "inactivity_lock"
+      ],
+      "exit_points": [
+        "/(worker)",
+        "/(admin)",
+        "/(auth)/temporarily-locked",
+        "/(entry)/workspace-selection"
+      ],
+      "back_destination": "blocked",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "full_when_entitled",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-LCK-01",
+      "path": "/(auth)/temporarily-locked",
+      "route_group": "auth",
+      "access_level": "auth-locked",
+      "required_auth_state": "locked",
+      "required_role": "session_role",
+      "parameters": [],
+      "entry_points": [
+        "pin_lockout"
+      ],
+      "exit_points": [
+        "/(auth)/unlock",
+        "/(entry)/workspace-selection"
+      ],
+      "back_destination": "blocked",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-INA-01",
+      "path": "/(auth)/account-inactive",
+      "route_group": "auth",
+      "access_level": "public",
+      "required_auth_state": "accessRevoked",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "inactive_or_revoked_sign_in"
+      ],
+      "exit_points": [
+        "/(entry)/workspace-selection"
+      ],
+      "back_destination": "/(entry)/workspace-selection",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-EXP-01",
+      "path": "/(auth)/session-expired",
+      "route_group": "auth",
+      "access_level": "auth-locked",
+      "required_auth_state": "sessionExpired",
+      "required_role": "session_role",
+      "parameters": [],
+      "entry_points": [
+        "offline_entitlement_expired"
+      ],
+      "exit_points": [
+        "/(auth)/worker-login",
+        "/(auth)/admin-login"
+      ],
+      "back_destination": "blocked",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "AUTH-OUT-01",
+      "path": "/(auth)/logout-confirm",
+      "route_group": "auth",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "session_role",
+      "parameters": [],
+      "entry_points": [
+        "/(worker)",
+        "/(admin)"
+      ],
+      "exit_points": [
+        "/(entry)/workspace-selection",
+        "previous"
+      ],
+      "back_destination": "previous",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "WRK-SHELL-01",
+      "path": "/(worker)",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [],
+      "entry_points": [
+        "setup_complete",
+        "unlock"
+      ],
+      "exit_points": [
+        "/(auth)/unlock",
+        "/(auth)/logout-confirm"
+      ],
+      "back_destination": "blocked_when_locked",
+      "deep_link": null,
+      "deep_link_policy": "redirect_to_auth_boundary",
+      "offline_availability": "shell_only",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "ADM-SHELL-01",
+      "path": "/(admin)",
+      "route_group": "admin",
+      "access_level": "protected-admin",
+      "required_auth_state": "authenticated",
+      "required_role": "administrator",
+      "parameters": [],
+      "entry_points": [
+        "setup_complete",
+        "unlock"
+      ],
+      "exit_points": [
+        "/(auth)/unlock",
+        "/(auth)/logout-confirm"
+      ],
+      "back_destination": "blocked_when_locked",
+      "deep_link": null,
+      "deep_link_policy": "redirect_to_auth_boundary",
+      "offline_availability": "shell_only_no_org_data",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "DEV-DS-01",
+      "path": "/(development)/design-system-preview",
+      "route_group": "development",
+      "access_level": "development-only",
+      "required_auth_state": "any",
+      "required_role": "developer",
+      "parameters": [],
+      "entry_points": [
+        "workspace_dev_link"
+      ],
+      "exit_points": [
+        "back"
+      ],
+      "back_destination": "previous",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "full",
+      "production_status": "development-only",
+      "implementation_status": "DEVELOPMENT ONLY"
+    },
+    {
+      "route_id": "DEV-DB-01",
+      "path": "/(development)/database-preview",
+      "route_group": "development",
+      "access_level": "development-only",
+      "required_auth_state": "any",
+      "required_role": "developer",
+      "parameters": [],
+      "entry_points": [
+        "dev_navigation"
+      ],
+      "exit_points": [
+        "back"
+      ],
+      "back_destination": "previous",
+      "deep_link": null,
+      "deep_link_policy": "blocked",
+      "offline_availability": "full",
+      "production_status": "development-only",
+      "implementation_status": "DEVELOPMENT ONLY"
+    },
+    {
+      "route_id": "CLI-01",
+      "path": "/(worker)/clients",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [],
+      "entry_points": [
+        "/(worker)"
+      ],
+      "exit_points": [
+        "/(worker)/clients/register",
+        "/(worker)/clients/[clientId]"
+      ],
+      "back_destination": "/(worker)",
+      "deep_link": "northcare://clients",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "CLI-02",
+      "path": "/(worker)/clients/register",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [],
+      "entry_points": [
+        "/(worker)/clients"
+      ],
+      "exit_points": [
+        "/(worker)/clients",
+        "/(worker)/clients/[clientId]"
+      ],
+      "back_destination": "/(worker)/clients",
+      "deep_link": "northcare://clients/register",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "CLI-03",
+      "path": "/(worker)/clients/[clientId]",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "/(worker)/clients",
+        "/(worker)/clients/register"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]/visits/start",
+        "/(worker)/clients/[clientId]/visits/[visitId]",
+        "/(worker)/clients/[clientId]/edit",
+        "/(worker)/clients/[clientId]/history",
+        "/(worker)/clients/[clientId]/archive"
+      ],
+      "back_destination": "/(worker)/clients",
+      "deep_link": "northcare://clients/{clientId}",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "CLI-04",
+      "path": "/(worker)/clients/[clientId]/edit",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "/(worker)/clients/[clientId]"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]",
+      "deep_link": "northcare://clients/{clientId}/edit",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "CLI-05",
+      "path": "/(worker)/clients/[clientId]/history",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "/(worker)/clients/[clientId]"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]",
+      "deep_link": "northcare://clients/{clientId}/history",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "CLI-06",
+      "path": "/(worker)/clients/[clientId]/archive",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "/(worker)/clients/[clientId]"
+      ],
+      "exit_points": [
+        "/(worker)/clients"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]",
+      "deep_link": "northcare://clients/{clientId}/archive",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VIS-01",
+      "path": "/(worker)/clients/[clientId]/visits/start",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "/(worker)/clients/[clientId]"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]/visits/[visitId]/screening/[sectionId]",
+        "/(worker)/clients/[clientId]/visits/[visitId]/resume",
+        "/(worker)/clients/[clientId]/visits/[visitId]"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]",
+      "deep_link": "northcare://clients/{clientId}/visits/start",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VIS-02",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "/(worker)/clients/[clientId]",
+        "/(worker)/clients/[clientId]/visits/start"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]/visits/[visitId]/resume",
+        "/(worker)/clients/[clientId]/visits/[visitId]/review",
+        "/(worker)/clients/[clientId]"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]",
+      "deep_link": "northcare://clients/{clientId}/visits/{visitId}",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "UUID path params only \u00e2\u20ac\u201d never names, symptoms, phones, or answers"
+    },
+    {
+      "route_id": "VIS-03",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/resume",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "/(worker)/clients/[clientId]/visits/start",
+        "/(worker)/clients/[clientId]/visits/[visitId]"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]/visits/[visitId]/screening/[sectionId]"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]",
+      "deep_link": "northcare://clients/{clientId}/visits/{visitId}/resume",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VIS-04",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/screening/[sectionId]",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId",
+        "sectionId"
+      ],
+      "entry_points": [
+        "/(worker)/clients/[clientId]/visits/[visitId]/resume",
+        "/(worker)/clients/[clientId]/visits/start"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]/visits/[visitId]/screening/[sectionId]",
+        "/(worker)/clients/[clientId]/visits/[visitId]/review",
+        "/(worker)/clients/[clientId]"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]",
+      "deep_link": "northcare://clients/{clientId}/visits/{visitId}/screening/{sectionId}",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Section-level routing only \u00e2\u20ac\u201d no route per question"
+    },
+    {
+      "route_id": "VIS-05",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/review",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "/(worker)/clients/[clientId]/visits/[visitId]/screening/[sectionId]",
+        "/(worker)/clients/[clientId]/visits/[visitId]"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]/visits/[visitId]/complete",
+        "/(worker)/clients/[clientId]/visits/[visitId]/resume"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]",
+      "deep_link": "northcare://clients/{clientId}/visits/{visitId}/review",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VIS-06",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/complete",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "/(worker)/clients/[clientId]/visits/[visitId]/review"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]/review",
+      "deep_link": "northcare://clients/{clientId}/visits/{visitId}/complete",
+      "deep_link_policy": "authenticated-worker",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "DEV-SCR-01",
+      "path": "/(development)/screening-template-preview",
+      "route_group": "development",
+      "access_level": "development-only",
+      "required_auth_state": "any",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "development tools"
+      ],
+      "exit_points": [
+        "/"
+      ],
+      "back_destination": "/",
+      "deep_link": "northcare://development/screening-template-preview",
+      "deep_link_policy": "development-only",
+      "offline_availability": "full",
+      "production_status": "development-only",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "RSK-EVL-01",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/risk",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "visit complete",
+        "visit details"
+      ],
+      "exit_points": [
+        "factors",
+        "history",
+        "visit details"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "UUIDs only; priority not in URL"
+    },
+    {
+      "route_id": "RSK-FAC-01",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/risk/factors",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "RSK-EVL-01"
+      ],
+      "exit_points": [
+        "RSK-EVL-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]/risk",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "RSK-HIS-01",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/risk/history",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "RSK-EVL-01",
+        "visit details"
+      ],
+      "exit_points": [
+        "RSK-EVL-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]/risk",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "DEV-RSK-01",
+      "path": "/(development)/risk-engine-preview",
+      "route_group": "development",
+      "access_level": "development-only",
+      "required_auth_state": "any",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "development navigation"
+      ],
+      "exit_points": [
+        "/"
+      ],
+      "back_destination": "/",
+      "deep_link": null,
+      "deep_link_policy": "development-only",
+      "offline_availability": "full",
+      "production_status": "development-only",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "REF-LST-01",
+      "path": "/(worker)/referrals",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [],
+      "entry_points": [
+        "worker home"
+      ],
+      "exit_points": [
+        "REF-SCN-01",
+        "REF-DET-01"
+      ],
+      "back_destination": "/(worker)",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "REF-DET-01",
+      "path": "/(worker)/referrals/[referralId]",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "referralId"
+      ],
+      "entry_points": [
+        "REF-LST-01",
+        "REF-SCN-01"
+      ],
+      "exit_points": [
+        "REF-PAS-01",
+        "REF-TIM-01"
+      ],
+      "back_destination": "/(worker)/referrals",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "REF-PAS-DL",
+      "path": "northcare://referral-passport/v1/{opaqueToken}",
+      "route_group": "deep-link",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [],
+      "entry_points": [
+        "external QR / OS deep link"
+      ],
+      "exit_points": [
+        "REF-SCN-01 / enter-code receipt"
+      ],
+      "back_destination": null,
+      "deep_link": "northcare://referral-passport/v1/{opaqueToken}",
+      "deep_link_policy": "auth-gated-opaque-token-transient",
+      "offline_availability": "local-hash-lookup-only",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "DEV-REF-01",
+      "path": "/(development)/referral-preview",
+      "route_group": "development",
+      "access_level": "development-only",
+      "required_auth_state": "any",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "development navigation"
+      ],
+      "exit_points": [
+        "/"
+      ],
+      "back_destination": "/",
+      "deep_link": null,
+      "deep_link_policy": "development-only",
+      "offline_availability": "full",
+      "production_status": "development-only",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VCE-ENT-01",
+      "path": "/(worker)/clients/[clientId]/voice",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "client profile"
+      ],
+      "exit_points": [
+        "VCE-CNS-01",
+        "VCE-TRN-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VCE-CNS-01",
+      "path": "/(worker)/clients/[clientId]/voice/consent",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "VCE-ENT-01"
+      ],
+      "exit_points": [
+        "VCE-REC-01",
+        "VCE-TRN-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/voice",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Decline routes to manual transcript; never defaults consent to recorded"
+    },
+    {
+      "route_id": "VCE-REC-01",
+      "path": "/(worker)/clients/[clientId]/voice/record",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "VCE-CNS-01"
+      ],
+      "exit_points": [
+        "VCE-PBK-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/voice/consent",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Consent recorded required; background recording disabled"
+    },
+    {
+      "route_id": "VCE-PBK-01",
+      "path": "/(worker)/clients/[clientId]/voice/playback",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "VCE-REC-01"
+      ],
+      "exit_points": [
+        "VCE-TRN-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/voice/record",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VCE-TRN-01",
+      "path": "/(worker)/clients/[clientId]/voice/transcript",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "VCE-ENT-01",
+        "VCE-CNS-01",
+        "VCE-PBK-01"
+      ],
+      "exit_points": [
+        "VCE-REV-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/voice",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Manual transcript path always available"
+    },
+    {
+      "route_id": "VCE-REV-01",
+      "path": "/(worker)/clients/[clientId]/voice/review",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "VCE-TRN-01"
+      ],
+      "exit_points": [
+        "VCE-SUC-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/voice/transcript",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Per-suggestion accept/edit/reject; no auto-apply"
+    },
+    {
+      "route_id": "VCE-SUC-01",
+      "path": "/(worker)/clients/[clientId]/voice/success",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "VCE-REV-01"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VCE-VIS-ENT-01",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/voice",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "visit details"
+      ],
+      "exit_points": [
+        "VCE-VIS-CNS-01",
+        "VCE-VIS-TRN-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Visit-linked voice session"
+    },
+    {
+      "route_id": "VCE-VIS-CNS-01",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/voice/consent",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "VCE-VIS-ENT-01"
+      ],
+      "exit_points": [
+        "VCE-VIS-REC-01",
+        "VCE-VIS-TRN-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]/voice",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VCE-VIS-REC-01",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/voice/record",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "VCE-VIS-CNS-01"
+      ],
+      "exit_points": [
+        "VCE-VIS-TRN-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]/voice/consent",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VCE-VIS-TRN-01",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/voice/transcript",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "VCE-VIS-ENT-01",
+        "VCE-VIS-CNS-01",
+        "VCE-VIS-REC-01"
+      ],
+      "exit_points": [
+        "VCE-VIS-REV-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]/voice",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "VCE-VIS-REV-01",
+      "path": "/(worker)/clients/[clientId]/visits/[visitId]/voice/review",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId"
+      ],
+      "entry_points": [
+        "VCE-VIS-TRN-01"
+      ],
+      "exit_points": [
+        "/(worker)/clients/[clientId]/visits/[visitId]"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/visits/[visitId]/voice/transcript",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "DEV-VCE-01",
+      "path": "/(development)/voice-to-care-preview",
+      "route_group": "development",
+      "access_level": "development-only",
+      "required_auth_state": "any",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "development navigation"
+      ],
+      "exit_points": [
+        "/"
+      ],
+      "back_destination": "/",
+      "deep_link": null,
+      "deep_link_policy": "development-only",
+      "offline_availability": "full",
+      "production_status": "development-only",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "NUT-HIS-01",
+      "path": "/(worker)/clients/[clientId]/nutrition",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "client profile",
+        "visit details"
+      ],
+      "exit_points": [
+        "NUT-STR-01",
+        "NUT-DET-01",
+        "NUT-RSM-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "History and draft resume entry"
+    },
+    {
+      "route_id": "NUT-STR-01",
+      "path": "/(worker)/clients/[clientId]/nutrition/start",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId"
+      ],
+      "entry_points": [
+        "NUT-HIS-01",
+        "client profile"
+      ],
+      "exit_points": [
+        "NUT-SEC-01",
+        "NUT-RSM-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/nutrition",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Fail closed when zero APPROVED_FOR_PILOT templates"
+    },
+    {
+      "route_id": "NUT-IDX-01",
+      "path": "/(worker)/clients/[clientId]/nutrition/[assessmentId]",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "assessmentId"
+      ],
+      "entry_points": [
+        "NUT-HIS-01"
+      ],
+      "exit_points": [
+        "NUT-RSM-01",
+        "NUT-SEC-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/nutrition",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "NUT-RSM-01",
+      "path": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/resume",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "assessmentId"
+      ],
+      "entry_points": [
+        "NUT-HIS-01",
+        "NUT-STR-01",
+        "NUT-IDX-01"
+      ],
+      "exit_points": [
+        "NUT-SEC-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/nutrition",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "NUT-SEC-01",
+      "path": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/section/[sectionId]",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "assessmentId",
+        "sectionId"
+      ],
+      "entry_points": [
+        "NUT-RSM-01",
+        "NUT-STR-01"
+      ],
+      "exit_points": [
+        "NUT-SEC-01",
+        "NUT-REV-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/resume",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Section-level routing; Stage 8 QuestionField reuse"
+    },
+    {
+      "route_id": "NUT-REV-01",
+      "path": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/review",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "assessmentId"
+      ],
+      "entry_points": [
+        "NUT-SEC-01"
+      ],
+      "exit_points": [
+        "NUT-SUM-01",
+        "NUT-SEC-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/resume",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "NUT-SUM-01",
+      "path": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/summary",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "assessmentId"
+      ],
+      "entry_points": [
+        "NUT-REV-01"
+      ],
+      "exit_points": [
+        "NUT-GUI-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/review",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "NUT-GUI-01",
+      "path": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/guidance",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "assessmentId"
+      ],
+      "entry_points": [
+        "NUT-SUM-01",
+        "NUT-DET-01"
+      ],
+      "exit_points": [
+        "NUT-DET-01",
+        "/(worker)/clients/[clientId]/nutrition"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/summary",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Does not auto-trigger risk or referral"
+    },
+    {
+      "route_id": "NUT-DET-01",
+      "path": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/details",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "assessmentId"
+      ],
+      "entry_points": [
+        "NUT-HIS-01",
+        "NUT-GUI-01"
+      ],
+      "exit_points": [
+        "NUT-GUI-01",
+        "NUT-COR-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/nutrition",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "NUT-COR-01",
+      "path": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/correct",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "authenticated",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "assessmentId"
+      ],
+      "entry_points": [
+        "NUT-DET-01"
+      ],
+      "exit_points": [
+        "NUT-SEC-01"
+      ],
+      "back_destination": "/(worker)/clients/[clientId]/nutrition/[assessmentId]/details",
+      "deep_link": null,
+      "deep_link_policy": "authenticated-uuid-only",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Supersedes prior completed assessment"
+    },
+    {
+      "route_id": "DEV-NUT-01",
+      "path": "/(development)/nutrition-preview",
+      "route_group": "development",
+      "access_level": "development-only",
+      "required_auth_state": "any",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "development navigation"
+      ],
+      "exit_points": [
+        "/"
+      ],
+      "back_destination": "/",
+      "deep_link": null,
+      "deep_link_policy": "development-only",
+      "offline_availability": "full",
+      "production_status": "development-only",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "ASK-HOM-01",
+      "back_destination": "/(worker)",
+      "parameters": [],
+      "deep_link_policy": "none",
+      "required_role": "worker",
+      "exit_points": [
+        "ASK-TOP-01",
+        "ASK-ANS-01",
+        "ASK-UNA-01"
+      ],
+      "entry_points": [
+        "worker home"
+      ],
+      "required_auth_state": "authenticated",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "full",
+      "route_group": "worker",
+      "path": "/(worker)/ask",
+      "production_status": "ready-fail-closed",
+      "access_level": "protected-worker"
+    },
+    {
+      "route_id": "ASK-TOP-01",
+      "back_destination": "/(worker)/ask",
+      "parameters": [],
+      "deep_link_policy": "none",
+      "required_role": "worker",
+      "exit_points": [
+        "ASK-HOM-01"
+      ],
+      "entry_points": [
+        "ASK-HOM-01"
+      ],
+      "required_auth_state": "authenticated",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "full",
+      "route_group": "worker",
+      "path": "/(worker)/ask/topics",
+      "production_status": "ready-fail-closed",
+      "access_level": "protected-worker"
+    },
+    {
+      "route_id": "ASK-ANS-01",
+      "back_destination": "/(worker)/ask",
+      "parameters": [
+        "answerId"
+      ],
+      "deep_link_policy": "stable-id-only",
+      "required_role": "worker",
+      "exit_points": [
+        "ASK-SRC-01",
+        "ASK-ART-01",
+        "ASK-HOM-01"
+      ],
+      "entry_points": [
+        "ASK-HOM-01"
+      ],
+      "required_auth_state": "authenticated",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "full",
+      "route_group": "worker",
+      "path": "/(worker)/ask/answer",
+      "production_status": "ready-fail-closed",
+      "access_level": "protected-worker"
+    },
+    {
+      "route_id": "ASK-SRC-01",
+      "back_destination": "/(worker)/ask/answer",
+      "parameters": [
+        "answerId"
+      ],
+      "deep_link_policy": "stable-id-only",
+      "required_role": "worker",
+      "exit_points": [
+        "ASK-ANS-01"
+      ],
+      "entry_points": [
+        "ASK-ANS-01"
+      ],
+      "required_auth_state": "authenticated",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "full",
+      "route_group": "worker",
+      "path": "/(worker)/ask/sources",
+      "production_status": "ready-fail-closed",
+      "access_level": "protected-worker"
+    },
+    {
+      "route_id": "ASK-ART-01",
+      "back_destination": "/(worker)/ask/answer",
+      "parameters": [
+        "articleId"
+      ],
+      "deep_link_policy": "stable-id-only",
+      "required_role": "worker",
+      "exit_points": [
+        "ASK-ANS-01"
+      ],
+      "entry_points": [
+        "ASK-ANS-01"
+      ],
+      "required_auth_state": "authenticated",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "full",
+      "route_group": "worker",
+      "path": "/(worker)/ask/article/[articleId]",
+      "production_status": "ready-fail-closed",
+      "access_level": "protected-worker"
+    },
+    {
+      "route_id": "ASK-UNA-01",
+      "back_destination": "/(worker)/ask",
+      "parameters": [
+        "answerId"
+      ],
+      "deep_link_policy": "stable-id-only",
+      "required_role": "worker",
+      "exit_points": [
+        "ASK-HOM-01",
+        "ASK-TOP-01"
+      ],
+      "entry_points": [
+        "ASK-HOM-01"
+      ],
+      "required_auth_state": "authenticated",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "full",
+      "route_group": "worker",
+      "path": "/(worker)/ask/unavailable",
+      "production_status": "ready-fail-closed",
+      "access_level": "protected-worker"
+    },
+    {
+      "route_id": "ASK-URG-01",
+      "back_destination": "/(worker)/ask",
+      "parameters": [
+        "answerId"
+      ],
+      "deep_link_policy": "stable-id-only",
+      "required_role": "worker",
+      "exit_points": [
+        "ASK-HOM-01"
+      ],
+      "entry_points": [
+        "ASK-HOM-01"
+      ],
+      "required_auth_state": "authenticated",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "full",
+      "route_group": "worker",
+      "path": "/(worker)/ask/urgent",
+      "production_status": "ready-fail-closed",
+      "access_level": "protected-worker"
+    },
+    {
+      "route_id": "DEV-ASK-01",
+      "back_destination": "/",
+      "parameters": [],
+      "deep_link_policy": "development-only",
+      "required_role": "any",
+      "exit_points": [
+        "/"
+      ],
+      "entry_points": [
+        "development navigation"
+      ],
+      "required_auth_state": "any",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "full",
+      "route_group": "development",
+      "path": "/(development)/ask-northcare-preview",
+      "production_status": "development-only",
+      "access_level": "development-only"
+    },
+    {
+      "route_id": "DEV-OFFLINE-AI-01",
+      "path": "/(development)/offline-ai",
+      "route_group": "development",
+      "access_level": "development-only",
+      "required_auth_state": "any",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "workspace-selection development tools",
+        "development navigation"
+      ],
+      "exit_points": [
+        "/"
+      ],
+      "back_destination": "/",
+      "deep_link": null,
+      "deep_link_policy": "development-only",
+      "offline_availability": "full",
+      "production_status": "development-only",
+      "implementation_status": "IMPLEMENTED",
+      "notes": "Offline AI Stage 1 smoke test only; not connected to Ask NorthCare"
+    },
+    {
+      "route_id": "SYN-CEN-01",
+      "back_destination": "/(worker)",
+      "parameters": [],
+      "deep_link_policy": "none",
+      "required_role": "worker",
+      "exit_points": [
+        "SYN-CON-01"
+      ],
+      "entry_points": [
+        "WRK-SHELL-01"
+      ],
+      "required_auth_state": "authenticated",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "full",
+      "route_group": "worker",
+      "path": "/(worker)/sync-centre",
+      "production_status": "ready-fail-closed",
+      "access_level": "protected-worker"
+    },
+    {
+      "route_id": "SYN-CON-01",
+      "back_destination": "SYN-CEN-01",
+      "parameters": [],
+      "deep_link_policy": "none",
+      "required_role": "worker",
+      "exit_points": [
+        "SYN-CEN-01",
+        "SYN-CON-DET-01"
+      ],
+      "entry_points": [
+        "SYN-CEN-01"
+      ],
+      "required_auth_state": "authenticated",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "local-conflicts",
+      "route_group": "worker",
+      "path": "/(worker)/sync-conflicts",
+      "production_status": "ready-fail-closed",
+      "access_level": "protected-worker"
+    },
+    {
+      "route_id": "SYN-CON-DET-01",
+      "back_destination": "SYN-CON-01",
+      "parameters": [
+        "conflictId"
+      ],
+      "deep_link_policy": "stable-id-only",
+      "required_role": "worker",
+      "exit_points": [
+        "SYN-CON-01"
+      ],
+      "entry_points": [
+        "SYN-CON-01"
+      ],
+      "required_auth_state": "authenticated",
+      "deep_link": null,
+      "implementation_status": "IMPLEMENTED",
+      "offline_availability": "local-conflicts",
+      "route_group": "worker",
+      "path": "/(worker)/sync-conflicts/[conflictId]",
+      "production_status": "ready-fail-closed",
+      "access_level": "protected-worker"
+    },
+    {
+      "route_id": "REM-CEN-01",
+      "path": "/(worker)/more/reminders",
+      "route_group": "worker",
+      "access_level": "authenticated",
+      "required_auth_state": "unlocked",
+      "required_role": "worker",
+      "parameters": [],
+      "entry_points": [
+        "worker_home"
+      ],
+      "exit_points": [
+        "/(worker)/more/reminders/create"
+      ],
+      "back_destination": "/(worker)",
+      "deep_link": "northcare://worker/more/reminders",
+      "deep_link_policy": "authenticated_unlock_required",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "REM-NEW-01",
+      "path": "/(worker)/more/reminders/create",
+      "route_group": "worker",
+      "access_level": "authenticated",
+      "required_auth_state": "unlocked",
+      "required_role": "worker",
+      "parameters": [
+        "clientId",
+        "visitId",
+        "nutritionId",
+        "referralId"
+      ],
+      "entry_points": [
+        "reminder_centre"
+      ],
+      "exit_points": [],
+      "back_destination": "/(worker)/more/reminders",
+      "deep_link": null,
+      "deep_link_policy": "authenticated_unlock_required",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "REM-DET-01",
+      "path": "/(worker)/more/reminders/[reminderId]",
+      "route_group": "worker",
+      "access_level": "authenticated",
+      "required_auth_state": "unlocked",
+      "required_role": "worker",
+      "parameters": [
+        "reminderId"
+      ],
+      "entry_points": [
+        "reminder_centre",
+        "notification_tap"
+      ],
+      "exit_points": [],
+      "back_destination": "/(worker)/more/reminders",
+      "deep_link": "northcare://worker/more/reminders/:reminderId",
+      "deep_link_policy": "authenticated_unlock_required",
+      "offline_availability": "full",
+      "production_status": "production",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route_id": "REACH-WRK-LIST-01",
+      "path": "/(worker)/community-requests",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "unlocked",
+      "required_role": "worker",
+      "required_workspace": "worker",
+      "parameters": [],
+      "entry_points": [
+        "worker_home"
+      ],
+      "exit_points": [
+        "/(worker)/community-requests/[requestId]"
+      ],
+      "back_destination": "/(worker)",
+      "deep_link": "northcare://worker/community-requests",
+      "deep_link_policy": "authenticated_unlock_required_worker_workspace",
+      "offline_availability": "online-required",
+      "production_status": "development-demo-gated",
+      "implementation_status": "IMPLEMENTED",
+      "stage": "R4",
+      "notes": "Consumes R2 Worker Community Request APIs; emergency filter notice refined in R5; no offline mutation queue"
+    },
+    {
+      "route_id": "REACH-WRK-DET-01",
+      "path": "/(worker)/community-requests/[requestId]",
+      "route_group": "worker",
+      "access_level": "protected-worker",
+      "required_auth_state": "unlocked",
+      "required_role": "worker",
+      "required_workspace": "worker",
+      "parameters": [
+        "requestId"
+      ],
+      "entry_points": [
+        "/(worker)/community-requests"
+      ],
+      "exit_points": [
+        "/(worker)/clients"
+      ],
+      "back_destination": "/(worker)/community-requests",
+      "deep_link": "northcare://worker/community-requests/:requestId",
+      "deep_link_policy": "authenticated_unlock_required_worker_workspace",
+      "offline_availability": "online-required",
+      "production_status": "development-demo-gated",
+      "implementation_status": "IMPLEMENTED",
+      "stage": "R5",
+      "notes": "Contact number only on authorised detail; no status PIN; R5 escalate via R2 POST .../escalate with expectedVersion; emergency coordination simulation banner"
+    },
+    {
+      "route_id": "DEV-REM-01",
+      "path": "/(development)/reminder-preview",
+      "route_group": "development",
+      "access_level": "development",
+      "required_auth_state": "any",
+      "required_role": "any",
+      "parameters": [],
+      "entry_points": [
+        "development_menu"
+      ],
+      "exit_points": [],
+      "back_destination": "/",
+      "deep_link": null,
+      "deep_link_policy": "development_only",
+      "offline_availability": "full",
+      "production_status": "development_only",
+      "implementation_status": "IMPLEMENTED"
+    },
+    {
+      "route": "/(entry)/session-workspace",
+      "access": "auth-workspace-selection",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/activity",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts/register/identity",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts/register/profession",
+      "access": "protected-admin",
+      "stage": "R1"
+    },
+    {
+      "route": "/(admin)/accounts/register/facility",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts/register/review",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts/register/success",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts/[accountId]",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts/[accountId]/professional-profile",
+      "access": "protected-admin",
+      "stage": "R1"
+    },
+    {
+      "route": "/(admin)/accounts/[accountId]/facility",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts/[accountId]/status",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts/[accountId]/reset-access",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts/[accountId]/devices",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(admin)/accounts/[accountId]/history",
+      "access": "protected-admin",
+      "stage": 16
+    },
+    {
+      "route": "/(development)/administration-preview",
+      "access": "development-only",
+      "stage": 16
+    },
+    {
+      "route": "/reach-simulator",
+      "access": "development-only",
+      "stage": "R3",
+      "surface": "api-static",
+      "reachDemoGated": true,
+      "productionAvailable": false,
+      "stagingAvailable": false,
+      "notes": "NorthCare Reach USSD simulator HTML/CSS/JS served by FastAPI when NORTHCARE_REACH_DEMO_ENABLED is true"
+    },
+    {
+      "route": "/reach-simulator/{asset_name}",
+      "access": "development-only",
+      "stage": "R3",
+      "surface": "api-static",
+      "reachDemoGated": true,
+      "productionAvailable": false,
+      "stagingAvailable": false,
+      "allowedAssets": ["index.html", "reach.css", "reach.js"]
+    }
+  ],
+  "notes": [
+    "Stage 18 accessibility/security hardening audit applied; see docs/accessibility and docs/security",
+    "Reach R3 USSD simulator is API-hosted static UI, not an Expo Router screen",
+    "Reach R4 Worker Community Requests Centre is Expo Router under (worker)/community-requests"
+  ]
+}

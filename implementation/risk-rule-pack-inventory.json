@@ -1,0 +1,62 @@
+{
+  "version": 1,
+  "updated": "2026-08-02",
+  "stage": 9,
+  "packs": [
+    {
+      "rule_pack_id": "synthetic-dev-priority-v1",
+      "title": "Development priority rules (synthetic)",
+      "version": 1,
+      "status": "APPROVED_FOR_DEVELOPMENT",
+      "applicable_template_ids": [
+        "synthetic-dev-workflow-v1"
+      ],
+      "applicable_template_versions": [
+        1
+      ],
+      "applicable_client_categories": [
+        "pregnant",
+        "postnatal",
+        "newborn",
+        "childUnderFive"
+      ],
+      "applicable_visit_types": [
+        "antenatalVisit",
+        "postnatalVisit",
+        "newbornVisit",
+        "childVisit",
+        "followUp",
+        "other"
+      ],
+      "source_ids": [
+        "synthetic-dev-priority"
+      ],
+      "rule_count": 5,
+      "supported_priorities": [
+        "red",
+        "amber",
+        "green",
+        "undetermined"
+      ],
+      "aggregation_strategy": "highestApprovedPriorityWins",
+      "completeness_policy": "greenRequiresExplicitMatchedRule",
+      "clinical_review_required": true,
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "effective_date": null,
+      "retired_date": null,
+      "implementation_path": "apps/mobile/src/features/risk/content/development/syntheticDevPriorityRulePack.ts",
+      "tests": [
+        "rulePackValidation",
+        "aggregation",
+        "missingInformation",
+        "riskPersistence"
+      ],
+      "known_limitations": "Synthetic non-clinical pack only. Not for production."
+    }
+  ],
+  "approved_for_pilot_count": 0,
+  "gaps": [
+    "No APPROVED_FOR_PILOT clinical danger-sign rule pack exists."
+  ]
+}

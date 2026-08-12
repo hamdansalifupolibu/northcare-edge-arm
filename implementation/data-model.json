@@ -1,0 +1,477 @@
+{
+  "manifest_version": 1,
+  "project": "NorthCare AI",
+  "updated_at": "2026-08-02",
+  "stage": 12,
+  "schema_version": 7,
+  "authoritative_migration": "apps/mobile/src/data/database/migrations/006_nutrition_assessment_engine.ts",
+  "schema_export": "implementation/sqlite-schema.sql",
+  "entities": [
+    {
+      "entity_id": "facility",
+      "name": "Facility",
+      "purpose": "Local facility reference for account and referrals",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "facilities",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "INTERNAL",
+      "repository": "FacilityRepository",
+      "migration_version": 1,
+      "status": "REPOSITORY READY",
+      "future_screens": [
+        "client registration",
+        "referral"
+      ]
+    },
+    {
+      "entity_id": "local_account_reference",
+      "name": "LocalAccountReference",
+      "purpose": "Associate records with authenticated account without storing secrets",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "local_account_references",
+      "primary_key": "account_id",
+      "soft_delete": false,
+      "sync_enabled": false,
+      "sensitive_data_level": "SENSITIVE ACCOUNT DATA",
+      "repository": "LocalAccountReferenceRepository",
+      "migration_version": 1,
+      "status": "REPOSITORY READY",
+      "future_screens": [
+        "auth-linked clinical writes"
+      ]
+    },
+    {
+      "entity_id": "client",
+      "name": "Client",
+      "purpose": "Pregnant/postnatal/newborn/child client record",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "clients",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "ClientRepository",
+      "migration_version": 1,
+      "status": "REPOSITORY READY",
+      "future_screens": [
+        "Stage 7 client management"
+      ]
+    },
+    {
+      "entity_id": "caregiver",
+      "name": "Caregiver",
+      "purpose": "Caregiver identity separate from biological assumptions",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "caregivers",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "CaregiverRepository",
+      "migration_version": 1,
+      "status": "REPOSITORY READY",
+      "future_screens": [
+        "client registration"
+      ]
+    },
+    {
+      "entity_id": "client_relationship",
+      "name": "ClientRelationship",
+      "purpose": "Client\u00e2\u20ac\u201ccaregiver relationship with primary constraint",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "client_relationships",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "CaregiverRepository",
+      "migration_version": 1,
+      "status": "REPOSITORY READY",
+      "future_screens": [
+        "client registration"
+      ]
+    },
+    {
+      "entity_id": "encounter",
+      "name": "Encounter",
+      "purpose": "Visit/contact event including drafts",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "encounters",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "EncounterRepository",
+      "migration_version": 1,
+      "status": "APPLICATION READY",
+      "future_screens": [
+        "visit workflow"
+      ]
+    },
+    {
+      "entity_id": "screening",
+      "name": "Screening",
+      "purpose": "Screening header with schema version",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "screenings",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "ScreeningRepository",
+      "migration_version": 1,
+      "status": "APPLICATION READY",
+      "future_screens": [
+        "screening UI"
+      ]
+    },
+    {
+      "entity_id": "screening_answer",
+      "name": "ScreeningAnswer",
+      "purpose": "Typed screening answers",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "screening_answers",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "ScreeningRepository",
+      "migration_version": 1,
+      "status": "APPLICATION READY",
+      "future_screens": [
+        "screening UI"
+      ]
+    },
+    {
+      "entity_id": "measurement",
+      "name": "Measurement",
+      "purpose": "Numeric measurements with required units",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "measurements",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "MeasurementRepository",
+      "migration_version": 1,
+      "status": "APPLICATION READY",
+      "future_screens": [
+        "visit/measurement UI"
+      ]
+    },
+    {
+      "entity_id": "risk_assessment",
+      "name": "RiskAssessment",
+      "purpose": "Persisted deterministic priority assessment with factors, acknowledgement, and supersession",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "risk_assessments",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "RiskAssessmentRepository",
+      "migration_version": 3,
+      "status": "APPLICATION READY",
+      "future_screens": [
+        "RSK-EVL-01",
+        "RSK-FAC-01",
+        "RSK-HIS-01"
+      ]
+    },
+    {
+      "entity_id": "referral",
+      "name": "Referral",
+      "purpose": "Offline referral workflow with status timeline",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "referrals",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "ReferralRepository",
+      "migration_version": 4,
+      "status": "STAGE 10 READY",
+      "screens": [
+        "referral list",
+        "create referral",
+        "referral details",
+        "timeline",
+        "update status",
+        "cancel"
+      ]
+    },
+    {
+      "entity_id": "referral_passport",
+      "name": "ReferralPassport",
+      "purpose": "Opaque QR passport token hash storage (never raw token)",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "referral_passports",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "ReferralPassportRepository",
+      "migration_version": 4,
+      "status": "STAGE 10 READY",
+      "screens": [
+        "referral passport",
+        "scan passport",
+        "enter code"
+      ]
+    },
+    {
+      "entity_id": "nutrition_assessment",
+      "name": "NutritionAssessment",
+      "purpose": "Nutrition assessment header with template versioning, draft lifecycle, and supersession",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "nutrition_assessments",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "NutritionAssessmentRepository",
+      "migration_version": 6,
+      "status": "STAGE 12 READY",
+      "screens": [
+        "NUT-HIS-01",
+        "NUT-STR-01",
+        "NUT-SEC-01",
+        "NUT-REV-01",
+        "NUT-GUI-01",
+        "NUT-DET-01"
+      ]
+    },
+    {
+      "entity_id": "nutrition_assessment_answer",
+      "name": "NutritionAssessmentAnswer",
+      "purpose": "Typed nutrition assessment answers (Stage 8 codec semantics, dedicated table)",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "nutrition_assessment_answers",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "NutritionAssessmentRepository",
+      "migration_version": 6,
+      "status": "STAGE 12 READY",
+      "screens": [
+        "NUT-SEC-01"
+      ]
+    },
+    {
+      "entity_id": "nutrition_measurement_link",
+      "name": "NutritionMeasurementLink",
+      "purpose": "Associates nutrition assessments with measurements rows",
+      "domain_source_path": "apps/mobile/src/data/repositories/contracts/nutritionTypes.ts",
+      "table_name": "nutrition_measurement_links",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "NutritionAssessmentRepository",
+      "migration_version": 6,
+      "status": "STAGE 12 READY",
+      "screens": [
+        "NUT-SEC-01"
+      ]
+    },
+    {
+      "entity_id": "nutrition_reference_result",
+      "name": "NutritionReferenceResult",
+      "purpose": "Persisted deterministic reference evaluation",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "nutrition_reference_results",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "NutritionAssessmentRepository",
+      "migration_version": 6,
+      "status": "STAGE 12 READY",
+      "screens": [
+        "NUT-SUM-01",
+        "NUT-DET-01"
+      ]
+    },
+    {
+      "entity_id": "nutrition_guidance_resolution",
+      "name": "NutritionGuidanceResolution",
+      "purpose": "Persisted guidance resolution and worker acknowledgement",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "nutrition_guidance_resolutions",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "NutritionAssessmentRepository",
+      "migration_version": 6,
+      "status": "STAGE 12 READY",
+      "screens": [
+        "NUT-GUI-01"
+      ]
+    },
+    {
+      "entity_id": "attachment",
+      "name": "Attachment",
+      "purpose": "File metadata for voice and future media; blobs on filesystem via FileSystem",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "attachments",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "AttachmentRepository",
+      "migration_version": 5,
+      "status": "STAGE 11 READY",
+      "screens": [
+        "voice playback",
+        "voice record"
+      ]
+    },
+    {
+      "entity_id": "voice_capture_session",
+      "name": "VoiceCaptureSession",
+      "purpose": "Voice capture session lifecycle, consent, provider IDs, retention",
+      "domain_source_path": "apps/mobile/src/features/voice/domain/types.ts",
+      "table_name": "voice_capture_sessions",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "VoiceCaptureSessionRepository",
+      "migration_version": 5,
+      "status": "STAGE 11 READY",
+      "screens": [
+        "voice entry",
+        "voice consent",
+        "voice record",
+        "voice review",
+        "voice success"
+      ]
+    },
+    {
+      "entity_id": "voice_transcript",
+      "name": "VoiceTranscript",
+      "purpose": "Transcript text with provider or manual source",
+      "domain_source_path": "apps/mobile/src/features/voice/domain/types.ts",
+      "table_name": "voice_transcripts",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "VoiceTranscriptRepository",
+      "migration_version": 5,
+      "status": "STAGE 11 READY",
+      "screens": [
+        "voice transcript"
+      ]
+    },
+    {
+      "entity_id": "voice_extraction_run",
+      "name": "VoiceExtractionRun",
+      "purpose": "Structured extraction attempt with schema version",
+      "domain_source_path": "apps/mobile/src/features/voice/domain/types.ts",
+      "table_name": "voice_extraction_runs",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "VoiceExtractionRunRepository",
+      "migration_version": 5,
+      "status": "STAGE 11 READY",
+      "screens": [
+        "voice review"
+      ]
+    },
+    {
+      "entity_id": "voice_extraction_suggestion",
+      "name": "VoiceExtractionSuggestion",
+      "purpose": "Typed extraction suggestion with per-item review status",
+      "domain_source_path": "apps/mobile/src/features/voice/domain/types.ts",
+      "table_name": "voice_extraction_suggestions",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "VoiceExtractionSuggestionRepository",
+      "migration_version": 5,
+      "status": "STAGE 11 READY",
+      "screens": [
+        "voice review"
+      ]
+    },
+    {
+      "entity_id": "sync_queue_item",
+      "name": "SyncQueueItem",
+      "purpose": "Offline sync queue foundation without networking",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "sync_queue_items",
+      "primary_key": "id",
+      "soft_delete": false,
+      "sync_enabled": false,
+      "sensitive_data_level": "INTERNAL",
+      "repository": "SyncQueueRepository",
+      "migration_version": 1,
+      "status": "FOUNDATION READY",
+      "future_screens": [
+        "sync status"
+      ]
+    },
+    {
+      "entity_id": "audit_event",
+      "name": "AuditEvent",
+      "purpose": "Sanitised audit events",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "audit_events",
+      "primary_key": "id",
+      "soft_delete": false,
+      "sync_enabled": false,
+      "sensitive_data_level": "INTERNAL",
+      "repository": "AuditEventRepository",
+      "migration_version": 1,
+      "status": "FOUNDATION READY",
+      "future_screens": [
+        "admin audit later"
+      ]
+    },
+    {
+      "entity_id": "risk_factor",
+      "name": "RiskFactor",
+      "purpose": "Matched contributing factors for a risk assessment",
+      "domain_source_path": "apps/mobile/src/data/domain/entities/entities.ts",
+      "table_name": "risk_factors",
+      "primary_key": "id",
+      "soft_delete": true,
+      "sync_enabled": true,
+      "sensitive_data_level": "SENSITIVE HEALTH DATA",
+      "repository": "RiskAssessmentRepository.listFactors",
+      "migration_version": 3,
+      "status": "APPLICATION READY",
+      "future_screens": [
+        "RSK-FAC-01"
+      ]
+    }
+  ],
+  "deferred_entities": [
+    {
+      "entity_id": "knowledge_article",
+      "status": "DEFERRED",
+      "reason": "Content packaging not required for Stage 6"
+    },
+    {
+      "entity_id": "language_asset",
+      "status": "DEFERRED",
+      "reason": "Translation pipeline later"
+    },
+    {
+      "entity_id": "notification",
+      "status": "PARTIAL",
+      "reason": "Stage 15 local follow-up reminders implemented; remote push deferred"
+    }
+  ],
+  "version": 5,
+  "updated": "2026-08-02",
+  "notes": "Stage 12: nutrition assessment engine \u00e2\u20ac\u201d answers, measurement links, reference results, guidance resolutions (schema v6). Stage 8 capture reuse via dedicated nutrition_assessment_answers. Zero APPROVED_FOR_PILOT nutrition content."
+}

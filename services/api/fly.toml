@@ -1,0 +1,37 @@
+# NorthCare API — Fly.io hosted sandbox (hackathon demo backend).
+# Honesty: NORTHCARE_ENV=development + AT sandbox only — not live telecom / production.
+#
+# Prerequisites (once):
+#   flyctl auth login
+#   cd services/api
+#   flyctl apps create northcare-api-sandbox   # or accept a generated name
+#   flyctl postgres create --name northcare-api-db --vm-size shared-cpu-1x --volume-size 1
+#   flyctl postgres attach northcare-api-db -a northcare-api-sandbox
+#   # Then set secrets (see docs/development/REACH_HOSTED_SANDBOX_DEPLOY.md)
+#   flyctl deploy -a northcare-api-sandbox
+
+app = 'northcare-api-sandbox'
+primary_region = 'lhr'
+
+[build]
+  dockerfile = 'Dockerfile'
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ['app']
+
+  [[http_service.checks]]
+    interval = '15s'
+    timeout = '5s'
+    grace_period = '60s'
+    method = 'GET'
+    path = '/health/live'
+
+[[vm]]
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1

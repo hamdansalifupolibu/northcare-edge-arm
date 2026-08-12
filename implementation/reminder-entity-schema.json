@@ -1,0 +1,63 @@
+{
+  "entityType": "follow_up_reminder",
+  "schemaVersion": 1,
+  "syncEnabled": true,
+  "conflictClass": "versionedRecord",
+  "fields": {
+    "id": { "type": "uuid", "sync": true },
+    "accountId": { "type": "string", "sync": true },
+    "organisationId": { "type": "string", "sync": true },
+    "facilityId": { "type": "string", "sync": true },
+    "clientId": { "type": "string", "nullable": true, "sync": true },
+    "encounterId": { "type": "string", "nullable": true, "sync": true },
+    "sourceType": {
+      "type": "enum",
+      "values": [
+        "workerCreated",
+        "clientProfile",
+        "visit",
+        "nutritionAssessment",
+        "referral",
+        "approvedGuidance",
+        "remoteAuthorisedReminder"
+      ],
+      "sync": true
+    },
+    "sourceEntityId": { "type": "string", "nullable": true, "sync": true },
+    "reminderType": {
+      "type": "enum",
+      "values": [
+        "generalFollowUp",
+        "visitFollowUp",
+        "nutritionFollowUp",
+        "referralFollowUp",
+        "recordReview"
+      ],
+      "sync": true
+    },
+    "status": {
+      "type": "enum",
+      "values": [
+        "draft",
+        "active",
+        "snoozed",
+        "handled",
+        "cancelled",
+        "expired",
+        "needsReview",
+        "scheduleFailed"
+      ],
+      "sync": true
+    },
+    "scheduledForUtc": { "type": "isoUtc", "sync": true },
+    "originalTimeZone": { "type": "string", "sync": true },
+    "originalLocalDate": { "type": "date", "sync": true },
+    "originalLocalTime": { "type": "time", "sync": true },
+    "note": { "type": "string", "nullable": true, "maxLength": 1000, "sync": true, "sensitive": true },
+    "localVersion": { "type": "integer", "sync": true },
+    "serverVersion": { "type": "integer", "nullable": true, "sync": true },
+    "nativeNotificationId": { "type": "string", "sync": false, "deviceLocal": true },
+    "nativeScheduleState": { "type": "string", "sync": false, "deviceLocal": true },
+    "permissionState": { "type": "string", "sync": false, "deviceLocal": true }
+  }
+}

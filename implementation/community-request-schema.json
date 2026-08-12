@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-08-04",
+  "track": "northcare-reach",
+  "entityType": "communityRequest",
+  "status": "implemented_r2_t1_channels",
+  "note": "Implemented by Reach R2. Draft retained at community-request-schema-draft.json for R0 freeze history. Internal security fields failedStatusLookupCount and statusLookupLockedUntil are persistence-only and never returned publicly.",
+  "categories": [
+    "pregnancyNewborn",
+    "childHealth",
+    "nutrition",
+    "generalChps",
+    "referralFollowUp",
+    "emergency"
+  ],
+  "requestTypes": [
+    "routine",
+    "urgentContact",
+    "emergencyAssistance"
+  ],
+  "channels": [
+    "ussdSimulator",
+    "ussdAfricasTalkingSandbox"
+  ],
+  "channelsReservedNotEnabled": ["ussdAfricasTalkingLive"],
+  "channelNotes": "T1 accepts ussdAfricasTalkingSandbox via AT webhook; ussdAfricasTalkingLive is rejected until a later stage.",
+  "table": "community_requests",
+  "alembicRevision": "0006",
+  "fields": {
+    "id": { "type": "string", "required": true },
+    "referenceCode": {
+      "type": "string",
+      "required": true,
+      "public": true,
+      "format": "NCR-########",
+      "rules": [
+        "humanReadable",
+        "secureRandom",
+        "notDerivedFromPhoneNumber",
+        "notSequential",
+        "unique"
+      ]
+    },
+    "statusPinHash": {
+      "type": "string",
+      "required": true,
+      "public": false,
+      "algorithm": "argon2id",
+      "rules": [
+        "storeHashOrVerifierOnly",
+        "neverLog",
+        "neverReturnAfterCreation",
+        "neverIncludeInWorkerResponses"
+      ]
+    },
+    "channel": { "type": "enum", "valuesRef": "channels", "required": true },
+    "category": { "type": "enum", "valuesRef": "categories", "required": true },
+    "requestType": { "type": "enum", "valuesRef": "requestTypes", "required": true },
+    "contactNumber": { "type": "string", "required": true, "sensitive": true, "maxLength": 20 },
+    "communityOrLandmark": { "type": "string", "required": true, "maxLength": 200 },
+    "preferredLanguage": { "type": "string", "required": true, "mvpDefault": "en" },
+    "consentToContact": { "type": "boolean", "required": true },
+    "consentToShareLocation": { "type": "boolean", "required": true },
+    "organisationId": { "type": "string", "required": true, "mvpDemoValue": "org-dev-001", "serverControlled": true },
+    "facilityId": { "type": "string", "required": true, "mvpDemoValue": "fac-dev-001", "serverControlled": true },
+    "assignedWorkerId": { "type": "string", "nullable": true },
+    "status": {
+      "type": "enum",
+      "valuesFromArtifact": "community-request-statuses.json",
+      "required": true
+    },
+    "createdAt": { "type": "isoUtc", "required": true },
+    "updatedAt": { "type": "isoUtc", "required": true },
+    "version": { "type": "integer", "required": true, "minimum": 1 },
+    "failedStatusLookupCount": {
+      "type": "integer",
+      "required": true,
+      "public": false,
+      "securityControl": true
+    },
+    "statusLookupLockedUntil": {
+      "type": "isoUtc",
+      "nullable": true,
+      "public": false,
+      "securityControl": true
+    }
+  },
+  "excludedFields": [
+    "detailedSymptoms",
+    "diagnosis",
+    "medication",
+    "nationalId",
+    "dateOfBirth",
+    "fullResidentialAddress",
+    "clinicalAssessment",
+    "riskScore",
+    "audio",
+    "transcript",
+    "gpsCoordinates",
+    "telecomMetadata",
+    "deviceFingerprint"
+  ],
+  "clientLinkage": {
+    "automaticCreate": false,
+    "automaticLink": false,
+    "workerMaySearchOrRegisterAfterConsent": true
+  },
+  "statusPin": {
+    "digits": 6,
+    "shownOnceAtCreation": true,
+    "requiredWithReferenceForPublicLookup": true,
+    "entropyNote": "Limited entropy; depends on lookup throttling and development-only Reach gate"
+  },
+  "referenceCodeFormat": {
+    "example": "NCR-7K4M9Q2D",
+    "prefix": "NCR-",
+    "bodyLength": 8,
+    "alphabet": "23456789ABCDEFGHJKMNPQRSTUVWXYZ"
+  },
+  "developmentGate": "NORTHCARE_REACH_DEMO_ENABLED"
+}
