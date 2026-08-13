@@ -108,14 +108,16 @@ Please be patient while a live benchmark runs (~**20–55 seconds** on-device de
 
 In the app: **More → Edge Lab** (development / diagnostics build).
 
+> Gallery images use a CDN mirror of this repo so they stay visible if GitHub’s raw image proxy is busy. Files also live under [`benchmarks/reports/`](benchmarks/reports/).
+
 | Published win on device | Before → After |
 |:---:|:---:|
-| ![Results — live optimized run](benchmarks/reports/edge-lab/01-results-live-optimized.jpg) | ![Compare — published evidence](benchmarks/reports/edge-lab/04-compare-published-before-after.jpg) |
+| <img src="https://cdn.jsdelivr.net/gh/hamdansalifupolibu/northcare-edge-arm@main/benchmarks/reports/edge-lab/01-results-live-optimized.jpg" alt="Results — live optimized run" width="360" /> | <img src="https://cdn.jsdelivr.net/gh/hamdansalifupolibu/northcare-edge-arm@main/benchmarks/reports/edge-lab/04-compare-published-before-after.jpg" alt="Compare — published evidence" width="360" /> |
 | −53.8% Whisper transcription · live bars · fixture 100/100 | base.en → tiny.en shipped · quality held |
 
 | Honest experiments | Engineering story |
 |:---:|:---:|
-| ![Experiments — rejected knobs](benchmarks/reports/edge-lab/06-experiments-rejected-honest.jpg) | ![Story — phases](benchmarks/reports/edge-lab/08-story-phases.jpg) |
+| <img src="https://cdn.jsdelivr.net/gh/hamdansalifupolibu/northcare-edge-arm@main/benchmarks/reports/edge-lab/06-experiments-rejected-honest.jpg" alt="Experiments — rejected knobs" width="360" /> | <img src="https://cdn.jsdelivr.net/gh/hamdansalifupolibu/northcare-edge-arm@main/benchmarks/reports/edge-lab/08-story-phases.jpg" alt="Story — phases" width="360" /> |
 | Failed knobs stay visible — no cherry-picking | Freeze → measure → reject → accept → ship |
 
 **Why “REJECTED” is good:** config knobs were tried first and failed the ≥5% gate (or made things worse). Only `tiny.en` cleared latency **and** fixture quality, then shipped into production Voice-to-Care.  
@@ -175,12 +177,12 @@ Browse the full still packs on GitHub (open any image full-size):
 
 | Voice-to-Care (worker confirms) | Offline referral QR passport |
 |:---:|:---:|
-| ![Voice-to-Care confirm](benchmarks/reports/product/11-voice-to-care-confirm.jpg) | ![Offline QR](benchmarks/reports/product/12-offline-referral-qr.jpg) |
+| <img src="https://cdn.jsdelivr.net/gh/hamdansalifupolibu/northcare-edge-arm@main/benchmarks/reports/product/11-voice-to-care-confirm.jpg" alt="Voice-to-Care confirm" width="360" /> | <img src="https://cdn.jsdelivr.net/gh/hamdansalifupolibu/northcare-edge-arm@main/benchmarks/reports/product/12-offline-referral-qr.jpg" alt="Offline QR" width="360" /> |
 | On-device Whisper + Qwen · human-in-the-loop | Signed minimal summary · offline verify |
 
 | Ask NorthCare (on-device) | Worker home |
 |:---:|:---:|
-| ![Ask NorthCare](benchmarks/reports/product/13-ask-northcare-on-device.jpg) | ![Worker home](benchmarks/reports/product/15-worker-home.jpg) |
+| <img src="https://cdn.jsdelivr.net/gh/hamdansalifupolibu/northcare-edge-arm@main/benchmarks/reports/product/13-ask-northcare-on-device.jpg" alt="Ask NorthCare" width="360" /> | <img src="https://cdn.jsdelivr.net/gh/hamdansalifupolibu/northcare-edge-arm@main/benchmarks/reports/product/15-worker-home.jpg" alt="Worker home" width="360" /> |
 | Visible **On-device** badge | Offline-first field workspace |
 
 **Offline QR:** when a caregiver moves between facilities without network, a signed QR passport carries a minimal handoff the receiving NorthCare phone can check offline — continuity without waiting for sync.
